@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mohammed Tawheed — Cybersecurity Portfolio
+
+A single-page, dark-themed portfolio built with Next.js 16 (App Router) and Tailwind CSS 4.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customizing content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All copy (bio, experience, projects, skills, socials) lives in one place:
+[`src/data/portfolio.ts`](src/data/portfolio.ts). Edit that file to update content
+without touching any component.
 
-## Learn More
+Before deploying:
 
-To learn more about Next.js, take a look at the following resources:
+- Replace the placeholder GitHub/LinkedIn/Twitter URLs in `src/data/portfolio.ts` with your real profiles.
+- Add a real `resume.pdf` file to the `public/` folder (the "Download Resume" buttons link to `/resume.pdf`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/layout.tsx` — root layout, fonts, SEO metadata
+- `src/app/page.tsx` — assembles all sections
+- `src/components/` — one component per section (Hero, About, Experience, Certifications, Projects, Skills, Contact) plus a shared Navbar/Footer
+- `src/data/portfolio.ts` — all content data
+- `src/app/globals.css` — dark theme color tokens (Tailwind v4 `@theme`)
 
-## Deploy on Vercel
+## Deploying to Vercel (free tier)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push this repo to GitHub.
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repository.
+3. Vercel auto-detects Next.js — no config needed. Click **Deploy**.
+4. Every push to `main` redeploys automatically.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Alternatively, from the CLI:
+
+```bash
+npm i -g vercel
+vercel
+```
