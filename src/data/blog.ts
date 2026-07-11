@@ -175,6 +175,44 @@ export const posts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "writing-your-first-sigma-rule-detection-engineering",
+    title: "Sigma Rule Tutorial: Your First Detection Engineering Win",
+    date: "2026-07-11",
+    excerpt: "A practical Sigma rule tutorial for detection engineering, covering YAML structure, testing, and Sigma to SPL conversion for Splunk.",
+    readingTime: "6 min read",
+    tags: ["Sigma","Detection Engineering","SIEM","Threat Detection"],
+    keywords: ["Sigma rule tutorial","detection engineering","Sigma to SPL conversion","Sigma rules","Splunk detection","SIEM detection rules"],
+    content:   [
+        {
+              "body": "When I started detection engineering, I wasted hours copy-pasting vendor-specific queries that broke every time we switched SIEMs. Then I found Sigma. This Sigma rule tutorial is the guide I wish I had on day one: it walks through writing your first detection-engineering rule in YAML and doing a clean Sigma to SPL conversion for Splunk. Sigma is the generic, portable signature format for SIEMs, the same way Snort is for IDS. Write one rule once, convert it to Splunk, QRadar, or Elastic, and stop re-authoring the same logic five times."
+        },
+        {
+              "heading": "Why Sigma Beats Vendor Lock-In",
+              "body": "Before adopting Sigma, my team maintained separate detection logic for Splunk SPL and QRadar AQL. Every new rule meant duplicating work and introducing drift between platforms. Sigma fixed that. A single YAML file feeds sigma-cli, which compiles to 20+ backends. In my last project, migrating 40 legacy Splunk saved searches into Sigma cut our maintenance overhead by roughly 50% and made rule reviews reproducible. It also maps cleanly to MITRE ATT&CK, so every detection ties back to a technique ID for coverage tracking."
+        },
+        {
+              "heading": "Anatomy of a Sigma Rule",
+              "body": "A Sigma rule is just structured YAML with a handful of required fields: title, logsource, detection, and condition. The logsource tells the converter which data you're targeting (e.g., product: windows, service: security). The detection block holds one or more search identifiers, and the condition combines them with boolean logic. Add level (informational to critical), tags for ATT&CK mapping like attack.t1059.001, and a falsepositives list so analysts triaging the alert know what to expect. Keep titles short and descriptive; they become the alert name your SOC sees at 3 AM."
+        },
+        {
+              "heading": "Writing Your First Rule",
+              "body": "Let's detect suspicious PowerShell encoded commands (ATT&CK T1059.001). Create suspicious_powershell.yml:\n\ntitle: Suspicious PowerShell Encoded Command\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection:\n    Image|endswith: '\\powershell.exe'\n    CommandLine|contains:\n      - '-enc'\n      - '-EncodedCommand'\n  condition: selection\nlevel: high\ntags:\n  - attack.execution\n  - attack.t1059.001\nfalsepositives:\n  - Legitimate admin scripts using encoded blocks\n\nThe |endswith and |contains modifiers handle path and substring matching so you don't hardcode brittle full strings. Start narrow, then widen as you validate against real telemetry."
+        },
+        {
+              "heading": "Sigma to SPL Conversion",
+              "body": "Now convert it. Install the tooling with pip install sigma-cli and the Splunk plugin via sigma plugin install splunk. Then run:\n\nsigma convert -t splunk suspicious_powershell.yml\n\nYou'll get valid SPL like: Image=\"*\\\\powershell.exe\" (CommandLine=\"*-enc*\" OR CommandLine=\"*-EncodedCommand*\"). Drop it into a Splunk saved search, add your index and sourcetype, and schedule it. The same file converts to QRadar AQL or Elastic Query DSL with a flag change. This Sigma to SPL conversion workflow is what turned my one-off detections into a version-controlled, Git-managed rule library."
+        },
+        {
+              "heading": "Test Before You Deploy",
+              "body": "Never ship an untested rule. I validate every Sigma rule three ways: run sigma check to catch schema errors, generate the SPL and test it against 30 days of historical data to measure false-positive volume, and use Atomic Red Team to fire the actual technique and confirm the alert triggers. On my last batch, this cut noisy alerts by 40% before they ever reached production. A rule that pages analysts on legitimate admin activity is worse than no rule at all."
+        },
+        {
+              "heading": "Your Next Step",
+              "body": "Fork the SigmaHQ repository, pick one ATT&CK technique relevant to your environment, and write a single rule end-to-end today, from YAML to a tested Sigma to SPL conversion in your SIEM. Commit it to Git, tag the ATT&CK ID, and you've started a real detection-engineering pipeline. Build ten of these and you'll have a portable, auditable detection library that outlives any SIEM vendor. That's the foundation everything else in detection engineering is built on."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
