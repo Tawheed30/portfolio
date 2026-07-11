@@ -195,10 +195,10 @@ async function main() {
     content: ${JSON.stringify(blogPost.content, null, 6).replace(/^/gm, '  ')}
   }`;
 
-    // Add to posts array
+    // Add to posts array - replace the last closing bracket
     blogContent = blogContent.replace(
-      /\];$/m,
-      `,\n${postObject}\n];`
+      /(\],\n)\];$/m,
+      `$1  ${postObject}\n];`
     );
 
     fs.writeFileSync(blogDataPath, blogContent);
