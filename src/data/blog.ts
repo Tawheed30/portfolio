@@ -175,6 +175,44 @@ export const posts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "building-home-soc-lab-on-a-budget",
+    title: "Building a Home SOC Lab on a Budget in 2025",
+    date: "2026-07-11",
+    excerpt: "A practical guide to building a home SOC lab on a budget so you can practice real detection and triage skills without spending a fortune.",
+    readingTime: "6 min read",
+    tags: ["Home Lab","SOC Analyst","Blue Team","SIEM"],
+    keywords: ["home SOC lab","security lab setup","budget security training","SIEM home lab","Splunk lab","blue team lab"],
+    content:   [
+        {
+              "body": "If you want to break into blue team work, nothing beats hands-on practice — and a home SOC lab is the cheapest way to get it. As a SOC analyst, I can tell you that a budget security lab setup will teach you more about alert triage than any certification slide deck. The good news is that budget security training doesn't require expensive hardware. With a mid-range laptop, some free tools, and a weekend, you can build a home SOC lab that mirrors what analysts actually do: ingesting logs, tuning detections, and mapping activity to MITRE ATT&CK."
+        },
+        {
+              "heading": "Start With the Right Hardware Baseline",
+              "body": "You don't need a server rack. A machine with 16GB of RAM and an SSD is enough to run two or three virtual machines at once, which is plenty for a first lab. If you only have 8GB, you can still run a single SIEM VM and a victim host — just expect it to be slow. VirtualBox and VMware Workstation Player are both free for personal use and handle nested VMs well. Allocate resources conservatively: give your SIEM the most RAM, since log ingestion and search are the heaviest workloads in the whole lab."
+        },
+        {
+              "heading": "Choose a Free SIEM to Anchor the Lab",
+              "body": "The SIEM is the heart of any home SOC lab. Splunk Free lets you ingest up to 500MB per day, which is more than enough for lab traffic and mirrors the search syntax used in many real SOCs. If you'd rather practice on something fully open source, Elastic (ELK) or Wazuh both give you searchable indexes and dashboards at no cost. Wazuh is particularly good on a budget because it bundles agent-based endpoint monitoring, file integrity checks, and pre-built detection rules. Whichever you pick, the goal is the same: get logs flowing in and learn to write queries you'd actually run on shift."
+        },
+        {
+              "heading": "Generate Realistic Attack Telemetry",
+              "body": "A SIEM with no interesting events is boring. Bring in a Windows 10 VM and a Kali Linux VM so you can attack one from the other. Install Sysmon on the Windows host with a solid config like the SwiftOnSecurity template — this dramatically enriches your process, network, and registry logs. Then use Atomic Red Team to run individual MITRE ATT&CK techniques safely, or Caldera to chain them into full adversary emulations. Watching a T1059 PowerShell execution or a credential-dumping attempt light up your dashboards is where the learning clicks."
+        },
+        {
+              "heading": "Practice the Full Triage Workflow",
+              "body": "The tools matter less than the muscle memory. For every technique you run, walk the same loop you'd follow in a production SOC: spot the alert, pivot on the host and user, pull supporting logs, map the behavior to a MITRE ATT&CK tactic, and write a short investigation note documenting what you found and why it's benign or malicious. This is exactly the discipline that separates analysts who just close tickets from ones who understand what they're closing. A little Python goes a long way here too — you can script log parsing or enrich indicators against free threat-intel feeds."
+        },
+        {
+              "heading": "Grow the Lab Only When You Outgrow It",
+              "body": "Resist the urge to build everything at once. Start with one SIEM, one victim, and one attacker box. Once triage feels comfortable, add a pfSense firewall VM for network logs, or Security Onion for packet capture and IDS alerts with Suricata and Zeek. Each addition should answer a question your current lab can't. That keeps costs and complexity down while your skills scale up."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "A home SOC lab is the highest-return investment in budget security training you can make. Pick a free SIEM, add Sysmon and Atomic Red Team, and practice the same triage loop real analysts run every day. Build it small, document your investigations, and grow it deliberately. For more hands-on SOC and detection guides, keep an eye on the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
