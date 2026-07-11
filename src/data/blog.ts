@@ -176,6 +176,44 @@ export const posts: BlogPost[] = [
     ],
   },
   {
+    slug: "threat-intelligence-feeds-free-sources-soc-analysts",
+    title: "Free Threat Intelligence Feeds for SOC Analysts",
+    date: "2026-07-11",
+    excerpt: "The free threat intelligence feeds and OSINT for SOC workflows I use daily to enrich alerts and catch threats faster.",
+    readingTime: "6 min read",
+    tags: ["Threat Intelligence","OSINT","SOC","Blue Team"],
+    keywords: ["threat intelligence feeds","free threat intel","OSINT for SOC","SOC analyst tools","IOC enrichment","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "When I started in the SOC, I assumed useful threat intelligence feeds cost five figures a year. I was wrong. Free threat intel and OSINT for SOC workflows handle most of the enrichment work before you ever need to touch a paid platform. Good threat intelligence feeds turn a raw IP or hash into context in seconds, and knowing where to find quality free threat intel is one of the highest-ROI skills a junior analyst can build. Here are the exact free sources I use to enrich alerts and hunt threats faster."
+        },
+        {
+              "heading": "Start With IOC Enrichment Feeds",
+              "body": "For quick indicator lookups, three free sources cover most cases. AbuseIPDB scores IP reputation and shows recent abuse reports; VirusTotal (free tier) checks hashes, URLs, and domains against 70+ engines; and URLhaus from abuse.ch tracks live malware distribution URLs. Wiring these into a simple Python script using the `requests` library lets you bulk-check a whole batch of IOCs from a Splunk export at once instead of pasting them one by one into a browser."
+        },
+        {
+              "heading": "Pull Structured Feeds With MISP",
+              "body": "MISP is a free, open-source backbone for a threat intel stack. It ingests community feeds, deduplicates IOCs, and exports them in formats Splunk and QRadar can consume directly. The CIRCL OSINT feed and the Feodo Tracker (abuse.ch) botnet C2 list are two free feeds worth syncing into MISP on a schedule. Once they're in, push blocklists into your SIEM correlation searches so known C2 IPs trigger alerts automatically — a low-effort way to catch commodity threats that would otherwise slip past."
+        },
+        {
+              "heading": "Map Everything to MITRE ATT&CK",
+              "body": "Raw IOCs go stale fast, so anchor intel to behavior using MITRE ATT&CK. When a report describes a technique like T1566 (Phishing) or T1059 (Command and Scripting Interpreter), tag your detections to that technique ID. This lets you measure coverage — which ATT&CK techniques relevant to your environment you actually detect, and exactly which gaps to prioritize next. The free ATT&CK Navigator makes this visual and takes about 30 minutes to set up."
+        },
+        {
+              "heading": "Add OSINT for Actor Context",
+              "body": "For the 'who and why' behind an alert, free OSINT for SOC research fills the gap. I follow the CISA advisories and Automated Indicator Sharing (AIS) feed for U.S. government intel, plus vendor blogs from Mandiant, Cisco Talos, and The DFIR Report for detailed attack walkthroughs. Twitter/X and Mastodon infosec communities surface fresh IOCs hours before they hit formal feeds. I save these in a Notion database tagged by threat actor so I can pattern-match new activity against past campaigns in seconds."
+        },
+        {
+              "heading": "Automate the Boring Parts",
+              "body": "The value of free threat intel collapses if enrichment is manual. A lightweight Python playbook that takes an alert's indicators, queries AbuseIPDB, VirusTotal, and URLhaus, and posts a summary comment back into the ticket turns hours of manual lookups into a background task, and means every alert arrives pre-enriched. If you have a SOAR platform, wire these free APIs into your enrichment flows first before paying for premium intel connectors."
+        },
+        {
+              "heading": "Your Next Step",
+              "body": "Pick three sources this week: AbuseIPDB for IP reputation, MISP for structured feeds, and MITRE ATT&CK for behavioral mapping. Spend an afternoon connecting them to your SIEM, and you'll have a working free threat intelligence pipeline that rivals paid tiers for daily triage. Start small, automate one lookup, and expand from there. For more SOC automation scripts and detection walkthroughs, explore the rest of my portfolio."
+        }
+  ]
+  },
+  {
     slug: "edr-vs-network-detection-which-first",
     title: "EDR vs Network Detection: Which to Invest in First",
     date: "2026-07-11",
