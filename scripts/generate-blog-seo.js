@@ -220,6 +220,10 @@ async function main() {
     console.log(`📍 Posted to: src/data/blog.ts`);
     console.log(`🌐 Will appear at: /blog/${blogPost.slug}`);
 
+    if (process.env.GITHUB_OUTPUT) {
+      fs.appendFileSync(process.env.GITHUB_OUTPUT, `title=${blogPost.title}\nslug=${blogPost.slug}\n`);
+    }
+
   } catch (error) {
     console.error('❌ Error generating blog post:', error.message);
     process.exit(1);
