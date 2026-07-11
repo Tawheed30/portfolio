@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Mohammed Tawheed | SOC Analyst & Cybersecurity Analyst",
   description:
-    "Portfolio of Mohammed Tawheed, a Dubai-based SOC Analyst L1 and Cybersecurity Analyst specializing in Splunk, QRadar, Python, and MITRE ATT&CK-mapped detection.",
+    "Portfolio of Mohammed Tawheed, a Dubai-based SOC Analyst and Cybersecurity Analyst specializing in Splunk, QRadar, Python, and MITRE ATT&CK-mapped detection.",
   keywords: [
     "Mohammed Tawheed",
     "SOC Analyst",
