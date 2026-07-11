@@ -192,7 +192,7 @@ async function main() {
     readingTime: "${blogPost.readingTime}",
     tags: ${JSON.stringify(blogPost.tags)},
     keywords: ${JSON.stringify(blogPost.keywords)},
-    content: ${JSON.stringify(blogPost.content, null 6).replace(/^/gm, '  ')}
+    content: ${JSON.stringify(blogPost.content, null, 6).replace(/^/gm, '  ')}
   }`;
 
     // Add to posts array
