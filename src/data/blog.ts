@@ -130,6 +130,51 @@ export const posts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "phishing-email-header-analysis",
+    title: "Phishing Email Header Analysis: What SOC Analysts Actually Need to Know",
+    date: "2026-07-11",
+    excerpt:
+      "Email headers feel intimidating at first, but they're your fastest way to confirm or dismiss a phishing alert. Here's what to look for without getting lost in the noise.",
+    readingTime: "5 min read",
+    tags: ["Phishing", "Email Security", "Investigation"],
+    keywords: [
+      "phishing email header analysis",
+      "email header investigation SOC",
+      "how to analyze phishing emails",
+      "email authentication SPF DKIM DMARC",
+      "phishing detection techniques",
+      "SOC phishing investigation",
+    ],
+    content: [
+      {
+        body: "Most of the phishing emails I investigate start with analysts asking me to 'just check if it's real' — and the fastest answer usually lives in the email headers, not the body or the links. Headers are messy and overwhelming at first, but they contain the proof you need to make a confident triage decision.",
+      },
+      {
+        heading: "Start with authentication headers",
+        body: "SPF, DKIM, and DMARC results tell you immediately if the sender's domain authenticated the email. A message claiming to be from your CEO but with 'SPF: fail' or 'DMARC: fail' is usually spoofed — full stop. I check the Authentication-Results header first; if it shows failures, the email is almost certainly phishing and I close the ticket. If it passes, I dig deeper, because a legitimate domain authenticating a phishing email means someone compromised an account or the domain itself.",
+      },
+      {
+        heading: "Trace the actual path, not the display name",
+        body: "The 'From:' header is trivial to forge in email clients. The 'Received:' headers show the actual path the email took — start at the bottom and read up to see every MTA (mail transfer agent) that touched it. If the last Received header came from your company's mail server, that's one thing. If it bounced around several external servers first, that's a red flag even if SPF/DKIM passed.",
+      },
+      {
+        heading: "Check Return-Path and Reply-To separately",
+        body: "A common phishing trick: legitimate domain in the From field, but Return-Path or Reply-To pointing to attacker infrastructure. Users reply 'yes' thinking they're responding to their boss, but the response goes to phishing.attacker.com. I verify all three addresses point to the expected domain before I trust the sender.",
+      },
+      {
+        heading: "Decode and read the URL in the email headers",
+        body: "HTML phishing emails often hide the real URL in the message body encoding. Before I click anything, I check the X-Originating-IP header for the user's source IP — if it's a VPN IP from the office, the user probably didn't send malicious email themselves. Then I extract the link destinations from the email source and check them against VirusTotal or your URL sandbox before any user interactions.",
+      },
+      {
+        heading: "Document once, escalate faster",
+        body: "I copy the Authentication-Results header, Return-Path, and Received chain into my case notes, along with a one-line verdict: 'Spoofed — SPF/DKIM/DMARC all fail' or 'Legitimate domain, suspicious URL — escalated to analyst' or 'User account compromised — T1566/T1598 phishing'. Whoever picks up the escalation has proof in 30 seconds, not an open question.",
+      },
+      {
+        body: "Email headers are intimidating the first dozen times you read them, but they're the fastest way to separate real phishing from false positives. Spend 10 minutes learning the core headers — Received, From, Return-Path, Reply-To, and Authentication-Results — and you'll cut your phishing triage time by half.",
+      },
+    ],
+  },
 ];
 
 export function getPostBySlug(slug: string) {
