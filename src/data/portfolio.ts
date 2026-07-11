@@ -1,3 +1,5 @@
+export const siteUrl = "https://mohammedtawheed.dev";
+
 export const profile = {
   name: "Mohammed Tawheed",
   title: "SOC Analyst",

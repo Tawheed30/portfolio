@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { siteUrl } from "@/data/portfolio";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Mohammed Tawheed | SOC Analyst & Cybersecurity Analyst",
   description:
     "Portfolio of Mohammed Tawheed, a Dubai-based SOC Analyst and Cybersecurity Analyst specializing in Splunk, QRadar, Python, and MITRE ATT&CK-mapped detection.",
@@ -28,11 +30,16 @@ export const metadata: Metadata = {
     "QRadar",
     "MITRE ATT&CK",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Mohammed Tawheed | SOC Analyst & Cybersecurity Analyst",
     description:
       "SIEM monitoring, alert triage, and incident response. Splunk • QRadar • Python • MITRE ATT&CK",
     type: "website",
+    url: siteUrl,
+    siteName: "Mohammed Tawheed",
   },
 };
 

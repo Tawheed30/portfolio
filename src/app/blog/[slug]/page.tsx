@@ -21,12 +21,16 @@ export async function generateMetadata({
     title: `${post.title} | Mohammed Tawheed`,
     description: post.excerpt,
     keywords: [...post.keywords, ...post.tags],
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
       tags: post.tags,
+      url: `/blog/${post.slug}`,
     },
   };
 }

@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     "incident response",
     "alert triage",
   ],
+  alternates: {
+    canonical: "/blog",
+  },
 };
 
 export default function BlogIndex() {

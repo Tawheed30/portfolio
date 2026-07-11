@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Projects | Mohammed Tawheed",
   description:
     "All of Mohammed Tawheed's cybersecurity and detection engineering projects — featured builds plus every public GitHub repository.",
+  alternates: {
+    canonical: "/projects",
+  },
 };
 
 export default async function ProjectsPage() {
