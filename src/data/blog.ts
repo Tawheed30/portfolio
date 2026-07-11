@@ -189,7 +189,7 @@ export const posts: BlogPost[] = [
         },
         {
               "heading": "Why Sigma Beats Vendor Lock-In",
-              "body": "Before adopting Sigma, my team maintained separate detection logic for Splunk SPL and QRadar AQL. Every new rule meant duplicating work and introducing drift between platforms. Sigma fixed that. A single YAML file feeds sigma-cli, which compiles to 20+ backends. In my last project, migrating 40 legacy Splunk saved searches into Sigma cut our maintenance overhead by roughly 50% and made rule reviews reproducible. It also maps cleanly to MITRE ATT&CK, so every detection ties back to a technique ID for coverage tracking."
+              "body": "Maintaining separate detection logic for Splunk SPL and QRadar AQL means every new rule means duplicating work and introducing drift between platforms. Sigma fixes that. A single YAML file feeds sigma-cli, which compiles to 20+ backends. Migrating legacy vendor-specific saved searches into Sigma cuts maintenance overhead and makes rule reviews reproducible, since reviewers are looking at the same portable YAML instead of platform-specific syntax. It also maps cleanly to MITRE ATT&CK, so every detection ties back to a technique ID for coverage tracking."
         },
         {
               "heading": "Anatomy of a Sigma Rule",
@@ -201,11 +201,11 @@ export const posts: BlogPost[] = [
         },
         {
               "heading": "Sigma to SPL Conversion",
-              "body": "Now convert it. Install the tooling with pip install sigma-cli and the Splunk plugin via sigma plugin install splunk. Then run:\n\nsigma convert -t splunk suspicious_powershell.yml\n\nYou'll get valid SPL like: Image=\"*\\\\powershell.exe\" (CommandLine=\"*-enc*\" OR CommandLine=\"*-EncodedCommand*\"). Drop it into a Splunk saved search, add your index and sourcetype, and schedule it. The same file converts to QRadar AQL or Elastic Query DSL with a flag change. This Sigma to SPL conversion workflow is what turned my one-off detections into a version-controlled, Git-managed rule library."
+              "body": "Now convert it. Install the tooling with pip install sigma-cli and the Splunk plugin via sigma plugin install splunk. Then run:\n\nsigma convert -t splunk suspicious_powershell.yml\n\nYou'll get valid SPL like: Image=\"*\\\\powershell.exe\" (CommandLine=\"*-enc*\" OR CommandLine=\"*-EncodedCommand*\"). Drop it into a Splunk saved search, add your index and sourcetype, and schedule it. The same file converts to QRadar AQL or Elastic Query DSL with a flag change. This Sigma to SPL conversion workflow is what turns one-off detections into a version-controlled, Git-managed rule library."
         },
         {
               "heading": "Test Before You Deploy",
-              "body": "Never ship an untested rule. I validate every Sigma rule three ways: run sigma check to catch schema errors, generate the SPL and test it against 30 days of historical data to measure false-positive volume, and use Atomic Red Team to fire the actual technique and confirm the alert triggers. On my last batch, this cut noisy alerts by 40% before they ever reached production. A rule that pages analysts on legitimate admin activity is worse than no rule at all."
+              "body": "Never ship an untested rule. Validate every Sigma rule three ways: run sigma check to catch schema errors, generate the SPL and test it against historical data to measure false-positive volume, and use Atomic Red Team to fire the actual technique and confirm the alert triggers. That kind of testing catches noisy rules before they ever reach production. A rule that pages analysts on legitimate admin activity is worse than no rule at all."
         },
         {
               "heading": "Your Next Step",
