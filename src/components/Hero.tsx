@@ -28,10 +28,10 @@ export default function Hero() {
           />
           <span className="animate-blink ml-1 inline-block h-[0.85em] w-[3px] translate-y-1 bg-accent align-middle" />
         </h1>
-        <h2 className="mt-4 text-xl font-medium text-muted sm:text-2xl">
+        <h2 className="mt-1 text-xl font-medium text-muted sm:text-2xl">
           {profile.title}
         </h2>
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+        <p className="mt-3 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
           {profile.tagline}
         </p>
         <p className="mt-3 font-mono text-sm text-muted">{profile.location}</p>
