@@ -213,6 +213,82 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "edr-vs-network-detection-which-first",
+    title: "EDR vs Network Detection: Which to Invest in First",
+    date: "2026-07-11",
+    excerpt: "A SOC analyst's practical breakdown of EDR vs network detection so you know where to spend your first security dollar.",
+    readingTime: "6 min read",
+    tags: ["EDR","Network Detection","SOC","Security Strategy"],
+    keywords: ["EDR vs network detection","endpoint detection","network security monitoring","EDR","NDR","SOC tooling"],
+    content:   [
+        {
+              "body": "Every SOC eventually hits the same budget fight: EDR vs network detection. Do you buy endpoint detection first, or invest in network security monitoring? I've worked with detection pipelines that lean on both, and the honest answer is that EDR vs network detection isn't religion — it's sequencing. Endpoint detection gives you process-level truth, while network security monitoring catches what endpoints can't see. In this post I'll walk through which one to deploy first and why the order matters for mean-time-to-detect."
+        },
+        {
+              "heading": "What EDR Actually Buys You",
+              "body": "Endpoint detection and response tools like CrowdStrike Falcon, Microsoft Defender for Endpoint, and SentinelOne see the ground truth: process trees, command-line arguments, DLL loads, and registry changes. When mapping alerts to MITRE ATT&CK, techniques like T1059 (command execution), T1055 (process injection), and T1547 (persistence) are often only reliably observable on the endpoint. EDR also gives you response — the ability to isolate a host in seconds instead of chasing someone to physically pull a cable. For a team dealing with ransomware and phishing payloads, that containment speed alone justifies the spend."
+        },
+        {
+              "heading": "Where Network Detection Wins",
+              "body": "Network security monitoring — Zeek, Suricata, or a commercial NDR like Darktrace or Corelight — catches the things endpoints lie about or miss entirely. Unmanaged IoT devices, printers, contractor laptops, and rogue hardware never get an EDR agent, and that's often a meaningful chunk of the assets on a real network. Network detection also surfaces C2 beaconing, DNS tunneling, and lateral movement patterns even when malware disables the endpoint agent — a compromised device with no EDR footprint will still show up in a Zeek connection log if it's beaconing out."
+        },
+        {
+              "heading": "My Deploy-First Recommendation: EDR",
+              "body": "If I have one budget cycle, I deploy EDR first. Here's the reasoning: the majority of incidents I triage start on an endpoint — a user opened a malicious document or ran a script. EDR gives me both detection and response in one tool, and modern platforms ship with decent out-of-the-box detections so a small team gets value in week one. Standing up network security monitoring properly takes longer — you need taps, span ports, and Zeek/Suricata tuning that can eat 2+ weeks before signal beats noise."
+        },
+        {
+              "heading": "When to Flip the Order",
+              "body": "There are exceptions where I put network detection first. If your environment is dominated by unmanaged devices — OT, healthcare medical devices, or heavy BYOD — you literally cannot install agents on most assets, so EDR coverage stalls at 50-60%. In those cases network security monitoring is your only visibility. I also lean network-first when compliance requires east-west traffic inspection or when you already have Splunk or QRadar ingesting logs and just need a network feed to close the gap."
+        },
+        {
+              "heading": "How I Fuse Both in the SOC",
+              "body": "The real payoff is correlation. Forwarding EDR telemetry and Zeek/Suricata alerts into a shared SIEM like Splunk, then writing enrichment logic that stitches an endpoint process to the network connection it opened, turns single low-fidelity alerts into high-confidence incidents. A beacon from network detection plus a suspicious PowerShell parent from endpoint detection is a story no single tool tells alone."
+        },
+        {
+              "heading": "The Takeaway",
+              "body": "Buy EDR first for most SOCs — you get detection and response in one move and cover where attacks usually start. Add network security monitoring second to catch unmanaged assets and C2 that endpoints miss, then fuse both in your SIEM for correlation. If you're mapping this decision for your own environment, count your unmanaged assets first — that single number decides whether you flip the order."
+        }
+  ]
+  },
+  {
+    slug: "writing-your-first-sigma-rule-detection-engineering",
+    title: "Sigma Rule Tutorial: Your First Detection Engineering Win",
+    date: "2026-07-11",
+    excerpt: "A practical Sigma rule tutorial for detection engineering, covering YAML structure, testing, and Sigma to SPL conversion for Splunk.",
+    readingTime: "6 min read",
+    tags: ["Sigma","Detection Engineering","SIEM","Threat Detection"],
+    keywords: ["Sigma rule tutorial","detection engineering","Sigma to SPL conversion","Sigma rules","Splunk detection","SIEM detection rules"],
+    content:   [
+        {
+              "body": "When I started detection engineering, I wasted hours copy-pasting vendor-specific queries that broke every time we switched SIEMs. Then I found Sigma. This Sigma rule tutorial is the guide I wish I had on day one: it walks through writing your first detection-engineering rule in YAML and doing a clean Sigma to SPL conversion for Splunk. Sigma is the generic, portable signature format for SIEMs, the same way Snort is for IDS. Write one rule once, convert it to Splunk, QRadar, or Elastic, and stop re-authoring the same logic five times."
+        },
+        {
+              "heading": "Why Sigma Beats Vendor Lock-In",
+              "body": "Maintaining separate detection logic for Splunk SPL and QRadar AQL means every new rule means duplicating work and introducing drift between platforms. Sigma fixes that. A single YAML file feeds sigma-cli, which compiles to 20+ backends. Migrating legacy vendor-specific saved searches into Sigma cuts maintenance overhead and makes rule reviews reproducible, since reviewers are looking at the same portable YAML instead of platform-specific syntax. It also maps cleanly to MITRE ATT&CK, so every detection ties back to a technique ID for coverage tracking."
+        },
+        {
+              "heading": "Anatomy of a Sigma Rule",
+              "body": "A Sigma rule is just structured YAML with a handful of required fields: title, logsource, detection, and condition. The logsource tells the converter which data you're targeting (e.g., product: windows, service: security). The detection block holds one or more search identifiers, and the condition combines them with boolean logic. Add level (informational to critical), tags for ATT&CK mapping like attack.t1059.001, and a falsepositives list so analysts triaging the alert know what to expect. Keep titles short and descriptive; they become the alert name your SOC sees at 3 AM."
+        },
+        {
+              "heading": "Writing Your First Rule",
+              "body": "Let's detect suspicious PowerShell encoded commands (ATT&CK T1059.001). Create suspicious_powershell.yml:\n\ntitle: Suspicious PowerShell Encoded Command\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection:\n    Image|endswith: '\\powershell.exe'\n    CommandLine|contains:\n      - '-enc'\n      - '-EncodedCommand'\n  condition: selection\nlevel: high\ntags:\n  - attack.execution\n  - attack.t1059.001\nfalsepositives:\n  - Legitimate admin scripts using encoded blocks\n\nThe |endswith and |contains modifiers handle path and substring matching so you don't hardcode brittle full strings. Start narrow, then widen as you validate against real telemetry."
+        },
+        {
+              "heading": "Sigma to SPL Conversion",
+              "body": "Now convert it. Install the tooling with pip install sigma-cli and the Splunk plugin via sigma plugin install splunk. Then run:\n\nsigma convert -t splunk suspicious_powershell.yml\n\nYou'll get valid SPL like: Image=\"*\\\\powershell.exe\" (CommandLine=\"*-enc*\" OR CommandLine=\"*-EncodedCommand*\"). Drop it into a Splunk saved search, add your index and sourcetype, and schedule it. The same file converts to QRadar AQL or Elastic Query DSL with a flag change. This Sigma to SPL conversion workflow is what turns one-off detections into a version-controlled, Git-managed rule library."
+        },
+        {
+              "heading": "Test Before You Deploy",
+              "body": "Never ship an untested rule. Validate every Sigma rule three ways: run sigma check to catch schema errors, generate the SPL and test it against historical data to measure false-positive volume, and use Atomic Red Team to fire the actual technique and confirm the alert triggers. That kind of testing catches noisy rules before they ever reach production. A rule that pages analysts on legitimate admin activity is worse than no rule at all."
+        },
+        {
+              "heading": "Your Next Step",
+              "body": "Fork the SigmaHQ repository, pick one ATT&CK technique relevant to your environment, and write a single rule end-to-end today, from YAML to a tested Sigma to SPL conversion in your SIEM. Commit it to Git, tag the ATT&CK ID, and you've started a real detection-engineering pipeline. Build ten of these and you'll have a portable, auditable detection library that outlives any SIEM vendor. That's the foundation everything else in detection engineering is built on."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
