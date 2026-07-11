@@ -196,13 +196,20 @@ async function main() {
     content: ${JSON.stringify(blogPost.content, null, 6).replace(/^/gm, '  ')}
   }`;
 
-    // Add to posts array - replace the last closing bracket
-    blogContent = blogContent.replace(
-      /(\],\n)\];$/m,
-      `$1  ${postObject}\n];`
+    // Add to posts array - insert right before the array's closing `];`
+    const updatedContent = blogContent.replace(
+      /\n\];\n/,
+      `\n${postObject},\n];\n`
     );
 
-    fs.writeFileSync(blogDataPath, blogContent);
+    if (updatedContent === blogContent) {
+      throw new Error(
+        'Could not find the posts array closing "];" in src/data/blog.ts — ' +
+        'insertion pattern did not match. Aborting without writing changes.'
+      );
+    }
+
+    fs.writeFileSync(blogDataPath, updatedContent);
 
     console.log(`✅ Blog post generated successfully!\n`);
     console.log(`📰 Title: ${blogPost.title}`);
