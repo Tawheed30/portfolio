@@ -185,15 +185,15 @@ export const posts: BlogPost[] = [
     keywords: ["EDR vs network detection","endpoint detection","network security monitoring","EDR","NDR","SOC tooling"],
     content:   [
         {
-              "body": "Every SOC I've worked with eventually hits the same budget fight: EDR vs network detection. Do you buy endpoint detection first, or invest in network security monitoring? I've built detection pipelines that leaned on both, and the honest answer is that EDR vs network detection isn't religion — it's sequencing. Endpoint detection gives you process-level truth, while network security monitoring catches what endpoints can't see. In this post I'll walk through which one I deploy first, with real numbers, and why that order cut our mean-time-to-detect by roughly 40%."
+              "body": "Every SOC eventually hits the same budget fight: EDR vs network detection. Do you buy endpoint detection first, or invest in network security monitoring? I've worked with detection pipelines that lean on both, and the honest answer is that EDR vs network detection isn't religion — it's sequencing. Endpoint detection gives you process-level truth, while network security monitoring catches what endpoints can't see. In this post I'll walk through which one to deploy first and why the order matters for mean-time-to-detect."
         },
         {
               "heading": "What EDR Actually Buys You",
-              "body": "Endpoint detection and response tools like CrowdStrike Falcon, Microsoft Defender for Endpoint, and SentinelOne see the ground truth: process trees, command-line arguments, DLL loads, and registry changes. When I map alerts to MITRE ATT&CK, roughly 60% of the techniques I care about (T1059 command execution, T1055 process injection, T1547 persistence) are only reliably observable on the endpoint. EDR also gives you response — I can isolate a host in under 30 seconds instead of chasing someone to physically pull a cable. For a team drowning in ransomware and phishing payloads, that containment speed alone justifies the spend."
+              "body": "Endpoint detection and response tools like CrowdStrike Falcon, Microsoft Defender for Endpoint, and SentinelOne see the ground truth: process trees, command-line arguments, DLL loads, and registry changes. When mapping alerts to MITRE ATT&CK, techniques like T1059 (command execution), T1055 (process injection), and T1547 (persistence) are often only reliably observable on the endpoint. EDR also gives you response — the ability to isolate a host in seconds instead of chasing someone to physically pull a cable. For a team dealing with ransomware and phishing payloads, that containment speed alone justifies the spend."
         },
         {
               "heading": "Where Network Detection Wins",
-              "body": "Network security monitoring — Zeek, Suricata, or a commercial NDR like Darktrace or Corelight — catches the things endpoints lie about or miss entirely. Unmanaged IoT devices, printers, contractor laptops, and rogue hardware never get an EDR agent. That's often 20-40% of the assets on a real network. Network detection also surfaces C2 beaconing, DNS tunneling, and lateral movement patterns even when malware disables the endpoint agent. I once caught a compromised camera beaconing over a Zeek connection log with a 60-second interval — nothing on any endpoint would have shown it."
+              "body": "Network security monitoring — Zeek, Suricata, or a commercial NDR like Darktrace or Corelight — catches the things endpoints lie about or miss entirely. Unmanaged IoT devices, printers, contractor laptops, and rogue hardware never get an EDR agent, and that's often a meaningful chunk of the assets on a real network. Network detection also surfaces C2 beaconing, DNS tunneling, and lateral movement patterns even when malware disables the endpoint agent — a compromised device with no EDR footprint will still show up in a Zeek connection log if it's beaconing out."
         },
         {
               "heading": "My Deploy-First Recommendation: EDR",
@@ -205,11 +205,11 @@ export const posts: BlogPost[] = [
         },
         {
               "heading": "How I Fuse Both in the SOC",
-              "body": "The real payoff is correlation. I forward EDR telemetry and Zeek/Suricata alerts into Splunk, then write Python enrichment scripts that stitch an endpoint process to the network connection it opened. That fusion turned single low-fidelity alerts into high-confidence incidents and cut our false positives by around 35%. A beacon from network detection plus a suspicious PowerShell parent from endpoint detection is a story no single tool tells alone."
+              "body": "The real payoff is correlation. Forwarding EDR telemetry and Zeek/Suricata alerts into a shared SIEM like Splunk, then writing enrichment logic that stitches an endpoint process to the network connection it opened, turns single low-fidelity alerts into high-confidence incidents. A beacon from network detection plus a suspicious PowerShell parent from endpoint detection is a story no single tool tells alone."
         },
         {
               "heading": "The Takeaway",
-              "body": "Buy EDR first for most SOCs — you get detection and response in one move and cover where attacks usually start. Add network security monitoring second to catch unmanaged assets and C2 that endpoints miss, then fuse both in your SIEM for correlation. If you're mapping this decision for your own environment, count your unmanaged assets first — that single number decides whether you flip the order. Want the Splunk correlation queries I use to stitch endpoint and network alerts? Explore more of my SOC playbooks on the portfolio."
+              "body": "Buy EDR first for most SOCs — you get detection and response in one move and cover where attacks usually start. Add network security monitoring second to catch unmanaged assets and C2 that endpoints miss, then fuse both in your SIEM for correlation. If you're mapping this decision for your own environment, count your unmanaged assets first — that single number decides whether you flip the order."
         }
   ]
   },
