@@ -2,7 +2,7 @@ export const profile = {
   name: "Mohammed Tawheed",
   title: "SOC Analyst",
   tagline:
-    "SIEM monitoring, alert triage, and incident response. Splunk • QRadar • Python • MITRE ATT&CK",
+    "SIEM Monitoring • Alert Triage • Incident Response • Splunk • QRadar • Python • MITRE ATT&CK",
   location: "Dubai, UAE",
   phone: "+91-9980412233",
   email: "mohammedtawheed9317@outlook.com",
