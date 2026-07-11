@@ -7,6 +7,7 @@ import Projects from "@/components/Projects";
 import GithubRepos from "@/components/GithubRepos";
 import Skills from "@/components/Skills";
 import Education from "@/components/Education";
+import TweetsSection from "@/components/TweetsSection";
 import BlogPreview from "@/components/BlogPreview";
 import Contact from "@/components/Contact";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <GithubRepos />
       <Skills />
       <Education />
+      <TweetsSection />
       <BlogPreview />
       <Contact />
     </>

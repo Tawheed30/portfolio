@@ -11,7 +11,7 @@ export default function BlogPreview() {
     <section id="blog" className="scroll-mt-24 px-6 py-5">
       <div className="mx-auto max-w-5xl">
         <Reveal>
-          <SectionHeading index="09" title="Writing" />
+          <SectionHeading index="10" title="Writing" />
         </Reveal>
         <div className="grid gap-4 sm:grid-cols-3">
           {latest.map((post, i) => (
