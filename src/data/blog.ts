@@ -185,19 +185,19 @@ export const posts: BlogPost[] = [
     keywords: ["threat intelligence feeds","free threat intel","OSINT for SOC","SOC analyst tools","IOC enrichment","MITRE ATT&CK"],
     content:   [
         {
-              "body": "When I started in the SOC, I assumed useful threat intelligence feeds cost five figures a year. I was wrong. Free threat intel and OSINT for SOC workflows now do 80% of the enrichment I need before I ever touch a paid platform. Good threat intelligence feeds turn a raw IP or hash into context in seconds, and knowing where to find quality free threat intel is one of the highest-ROI skills a junior analyst can build. Here are the exact free sources I use to enrich alerts, hunt threats, and cut investigation time by 40%."
+              "body": "When I started in the SOC, I assumed useful threat intelligence feeds cost five figures a year. I was wrong. Free threat intel and OSINT for SOC workflows handle most of the enrichment work before you ever need to touch a paid platform. Good threat intelligence feeds turn a raw IP or hash into context in seconds, and knowing where to find quality free threat intel is one of the highest-ROI skills a junior analyst can build. Here are the exact free sources I use to enrich alerts and hunt threats faster."
         },
         {
               "heading": "Start With IOC Enrichment Feeds",
-              "body": "For quick indicator lookups, three free sources cover most cases. AbuseIPDB scores IP reputation and shows recent abuse reports; VirusTotal (free tier) checks hashes, URLs, and domains against 70+ engines; and URLhaus from abuse.ch tracks live malware distribution URLs. I wire these into a simple Python script using the `requests` library so I can bulk-check 50+ IOCs from a Splunk export in under a minute instead of pasting them one by one into a browser."
+              "body": "For quick indicator lookups, three free sources cover most cases. AbuseIPDB scores IP reputation and shows recent abuse reports; VirusTotal (free tier) checks hashes, URLs, and domains against 70+ engines; and URLhaus from abuse.ch tracks live malware distribution URLs. Wiring these into a simple Python script using the `requests` library lets you bulk-check a whole batch of IOCs from a Splunk export at once instead of pasting them one by one into a browser."
         },
         {
               "heading": "Pull Structured Feeds With MISP",
-              "body": "MISP is the free, open-source backbone of my threat intel stack. It ingests community feeds, deduplicates IOCs, and exports them in formats Splunk and QRadar can consume directly. The CIRCL OSINT feed and the Feodo Tracker (abuse.ch) botnet C2 list are two free feeds I sync into MISP daily. Once they're in, I push blocklists into my SIEM correlation searches so known C2 IPs trigger alerts automatically. This alone catches 5-10 low-effort commodity threats a month that would otherwise slip past."
+              "body": "MISP is a free, open-source backbone for a threat intel stack. It ingests community feeds, deduplicates IOCs, and exports them in formats Splunk and QRadar can consume directly. The CIRCL OSINT feed and the Feodo Tracker (abuse.ch) botnet C2 list are two free feeds worth syncing into MISP on a schedule. Once they're in, push blocklists into your SIEM correlation searches so known C2 IPs trigger alerts automatically — a low-effort way to catch commodity threats that would otherwise slip past."
         },
         {
               "heading": "Map Everything to MITRE ATT&CK",
-              "body": "Raw IOCs go stale fast, so I anchor intel to behavior using MITRE ATT&CK. When a report describes a technique like T1566 (Phishing) or T1059 (Command and Scripting Interpreter), I tag my detections to that technique ID. This lets me measure coverage: I can tell my lead we detect 60% of ATT&CK techniques relevant to our environment, and exactly which gaps to prioritize. The free ATT&CK Navigator makes this visual and takes about 30 minutes to set up."
+              "body": "Raw IOCs go stale fast, so anchor intel to behavior using MITRE ATT&CK. When a report describes a technique like T1566 (Phishing) or T1059 (Command and Scripting Interpreter), tag your detections to that technique ID. This lets you measure coverage — which ATT&CK techniques relevant to your environment you actually detect, and exactly which gaps to prioritize next. The free ATT&CK Navigator makes this visual and takes about 30 minutes to set up."
         },
         {
               "heading": "Add OSINT for Actor Context",
@@ -205,7 +205,7 @@ export const posts: BlogPost[] = [
         },
         {
               "heading": "Automate the Boring Parts",
-              "body": "The value of free threat intel collapses if enrichment is manual. I built a lightweight Python playbook that takes an alert's indicators, queries AbuseIPDB, VirusTotal, and URLhaus, and posts a summary comment back into the ticket. That saves me 2+ hours a week and means every alert arrives pre-enriched. If you have a SOAR platform, wire these free APIs into your enrichment flows first before paying for premium intel connectors."
+              "body": "The value of free threat intel collapses if enrichment is manual. A lightweight Python playbook that takes an alert's indicators, queries AbuseIPDB, VirusTotal, and URLhaus, and posts a summary comment back into the ticket turns hours of manual lookups into a background task, and means every alert arrives pre-enriched. If you have a SOAR platform, wire these free APIs into your enrichment flows first before paying for premium intel connectors."
         },
         {
               "heading": "Your Next Step",
