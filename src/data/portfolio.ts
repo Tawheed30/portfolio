@@ -12,8 +12,11 @@ export const profile = {
 export const socials = [
   { label: "GitHub", href: "https://github.com/Tawheed30", icon: "github" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/mohammedtawheed/", icon: "linkedin" },
+  { label: "Twitter", href: "https://x.com/_notmohammed_", icon: "twitter" },
   { label: "Email", href: `mailto:${profile.email}`, icon: "mail" },
 ] as const;
+
+export const twitterHandle = "_notmohammed_";
 
 export const navLinks = [
   { label: "About", href: "/#about" },
