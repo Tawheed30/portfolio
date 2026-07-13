@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "l1-to-l2-soc-analyst-skills-that-matter",
+    title: "L1 to L2 SOC Analyst Skills: What Actually Matters",
+    date: "2026-07-13",
+    excerpt: "A practical look at the L2 skills, threat hunting, and incident response skills that actually move your SOC analyst career forward.",
+    readingTime: "6 min read",
+    tags: ["SOC","Career Growth","Threat Hunting","Incident Response"],
+    keywords: ["SOC analyst career","L2 skills","threat hunting","incident response skills","SIEM","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "If you're an L1 analyst wondering how to move up, the honest truth is that the L1 to L2 jump is less about certifications and more about how you think. As an L1 SOC analyst myself, I spend my days triaging Splunk and QRadar alerts, and I've paid close attention to what separates people who advance in their SOC analyst career from those who stay stuck. The short version: L2 skills come down to deeper investigation, real threat hunting instinct, and stronger incident response skills. This post breaks down what actually matters for that transition — no fluff, no gatekeeping."
+        },
+        {
+              "heading": "Stop Closing Alerts, Start Asking Why",
+              "body": "The single biggest mindset shift from L1 to L2 is curiosity. At L1, the pressure is to clear the queue: is this alert a true positive or false positive, escalate or close. L2 analysts ask the next question — why did this fire, what happened before it, and what would the attacker do next? When you triage a malicious URL or phishing alert, don't stop at 'blocked.' Pivot on the sender, the sending infrastructure, and any other users who received similar mail. That pivoting habit is the foundation of every advanced SOC analyst career."
+        },
+        {
+              "heading": "Master Your SIEM Query Language",
+              "body": "You cannot investigate what you cannot query. Comfortable, fluent use of SPL in Splunk or AQL in QRadar is non-negotiable for L2 skills. Learn to correlate across data sources — firewall, EDR, IDS/IPS, and endpoint logs — in a single search rather than jumping between dashboards. Practice writing queries that join authentication events with process execution, or that surface rare parent-child process relationships. The goal is to build searches that answer investigative questions quickly, not just to read the alerts someone else's rule generated."
+        },
+        {
+              "heading": "Build Real Threat Hunting Habits",
+              "body": "Threat hunting is where L2 gets interesting. It's proactive: instead of waiting for a rule to fire, you hypothesize about attacker behavior and go look for it. A good starting point is hunting against MITRE ATT&CK techniques your organization is likely exposed to — for example, searching for suspicious PowerShell encoded commands (T1059.001), LSASS access patterns, or unusual scheduled tasks. You don't need a fancy platform to begin. Frame a hypothesis, query your existing logs, and document what 'normal' looks like so anomalies stand out. Threat hunting is a skill you can practice at L1 to build toward L2."
+        },
+        {
+              "heading": "Sharpen Your Incident Response Skills",
+              "body": "Strong incident response skills are what earns trust from senior analysts. That means clean, structured documentation — timeline of events, indicators, affected assets, and MITRE ATT&CK mapping so anyone can follow your reasoning. It also means understanding containment options and knowing when and how to escalate per your SOC workflow. L2 analysts are expected to own an investigation from initial alert through to a defensible conclusion, not just hand off a ticket. Practice writing your investigation notes as if an incident responder will read them under pressure, because eventually they will."
+        },
+        {
+              "heading": "Learn Just Enough Python to Save Time",
+              "body": "You don't need to be a developer, but a little Python goes a long way. Automating repetitive lookups — parsing logs, enriching IPs and hashes against threat intel, or reformatting data for a report — frees you to focus on analysis. Libraries like requests for API calls and pandas for wrangling log data cover most of what an analyst needs. This kind of light automation is a common differentiator in a SOC analyst career because it shows you can reduce noise and scale your own effort."
+        },
+        {
+              "heading": "Your Takeaway",
+              "body": "You don't reach L2 by waiting to be promoted. Pick one L1 alert type this week and investigate it three levels deeper than required. Write one clean, ATT&CK-mapped report. Run one small threat hunt. Do that consistently and the L2 skills follow. If you want more practical SOC breakdowns like this, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
