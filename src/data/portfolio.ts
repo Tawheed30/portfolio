@@ -31,7 +31,7 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    "I'm a SOC Analyst with 1.5+ years of hands-on experience (plus a 1-year cybersecurity internship) in SOC operations, SIEM monitoring, alert triage, threat detection, and incident response.",
+    "I'm a SOC Analyst with 2+ years of hands on experience in SOC operations, SIEM monitoring, alert triage, threat detection, and incident response.",
     "I analyze events across Splunk, QRadar, firewalls, EDR, IDS/IPS, Windows Event Logs, and network traffic — skilled in IOC analysis, MITRE ATT&CK mapping, threat intelligence checks, and evidence documentation.",
     "I also build Python-based detection automation for Blue Team workflows, including SOAR and detection projects that speed up IOC lookups and evidence documentation.",
     "Certified EC-Council CSA (Certified SOC Analyst), CEH (Certified Ethical Hacker), and Splunk Core Certified User.",
