@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "l1-to-l2-soc-analyst-skills-what-matters",
+    title: "L1 to L2 SOC Analyst Skills: What Actually Matters",
+    date: "2026-07-17",
+    excerpt: "The real L2 skills that move your SOC analyst career forward — from threat hunting to incident response skills that separate triage from investigation.",
+    readingTime: "6 min read",
+    tags: ["SOC","career","threat hunting","incident response"],
+    keywords: ["SOC analyst career","L2 skills","threat hunting","incident response skills","SOC analyst L1 to L2","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "If you're an L1 analyst wondering how to level up your SOC analyst career, this is the honest breakdown I wish I'd had earlier. The jump from L1 to L2 isn't about memorizing more tools — it's about a shift in how you think. The L2 skills that actually matter are threat hunting, deeper investigation, and incident response skills that let you take an alert and own it end to end. I'm an L1 SOC analyst myself, so this is written from where I stand: what I've seen separate strong L2 candidates from analysts who stay stuck closing tickets."
+        },
+        {
+              "heading": "Stop Closing Alerts, Start Investigating Them",
+              "body": "L1 work is mostly triage: an alert fires in Splunk or QRadar, you validate it, map it to MITRE ATT&CK, document evidence, and escalate or close per workflow. That's valuable, but L2 expectations are different. L2 analysts don't just answer 'is this real?' — they answer 'what else happened around it?' That means pivoting from a single phishing URL to the sender, the mailbox rules, the endpoint that clicked, and the lateral movement that may follow. The mindset shift is treating every true positive as the start of an investigation, not the end of a ticket."
+        },
+        {
+              "heading": "Learn to Query Like You Mean It",
+              "body": "Fast, precise queries are the backbone of L2 work. Get genuinely comfortable with SPL in Splunk or AQL in QRadar — not just running saved searches but writing your own. Learn to correlate across data sources: firewall logs, EDR telemetry, IDS/IPS events, and authentication logs. The goal is being able to reconstruct a timeline without asking someone else to pull it for you. If you can take a suspicious process execution and trace it back through parent processes, network connections, and user context, you're doing L2-level analysis."
+        },
+        {
+              "heading": "Build Real Threat Hunting Habits",
+              "body": "Threat hunting is where L1 and L2 clearly diverge. Hunting is proactive: instead of waiting for an alert, you start with a hypothesis grounded in MITRE ATT&CK techniques and go looking. For example, hunt for signs of T1059 (command and scripting interpreter) by reviewing unusual PowerShell or command-line activity across endpoints. Start small — pick one technique your environment is exposed to, build a query, and see what normal looks like before you can spot abnormal. You don't need a dedicated hunt team to practice this; you need curiosity and a baseline of your own environment."
+        },
+        {
+              "heading": "Develop Incident Response Skills That Scale",
+              "body": "Solid incident response skills mean knowing the phases — identification, containment, eradication, recovery — and where an L2 fits in each. In practice, that's scoping the blast radius, recommending containment actions (isolating a host via EDR, disabling an account), and writing documentation clear enough that an IR lead or L3 can act without a meeting. Precise, well-structured evidence documentation is genuinely underrated and it's something L1 work already trains you in. Sharpen it."
+        },
+        {
+              "heading": "Add Just Enough Scripting",
+              "body": "You don't need to be a developer, but basic Python pays off fast. Automating repetitive enrichment — hashing files, querying VirusTotal or an internal threat intel source, parsing logs — frees you to think instead of copy-paste. Even simple scripts to extract IOCs from an email or normalize log fields will typically reduce noise in your workflow and speed up investigations. Start with the boring task you do every day and automate that one first."
+        },
+        {
+              "heading": "The Takeaway",
+              "body": "The path from L1 to L2 in your SOC analyst career isn't a certification checklist — it's ownership. Investigate instead of triage, write your own queries, practice threat hunting one technique at a time, and treat incident response skills and documentation as core craft. Pick one of these this month and go deep. If you want more practical SOC breakdowns like this, check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
