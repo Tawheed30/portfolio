@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "incident-response-first-30-minutes-checklist",
+    title: "Incident Response: First 30 Minutes Checklist",
+    date: "2026-07-20",
+    excerpt: "A practical incident response checklist covering the first 30 minutes of a cybersecurity incident, from triage to containment.",
+    readingTime: "5 min read",
+    tags: ["incident response","SOC","blue team","MITRE ATT&CK"],
+    keywords: ["incident response","incident management","cybersecurity incident checklist","SOC analyst","alert triage","containment"],
+    content:   [
+        {
+              "body": "The first 30 minutes of any incident response effort set the tone for everything that follows. As a SOC analyst, I've learned that good incident management isn't about panic or heroics — it's about following a disciplined cybersecurity incident checklist so nothing gets missed under pressure. When an alert fires in Splunk or QRadar, the clock starts, and how you spend those early minutes decides whether you contain a threat quickly or let it spread. This post walks through a practical incident response checklist you can actually use during that critical window."
+        },
+        {
+              "heading": "Confirm It's Real Before You Sound the Alarm",
+              "body": "Not every alert is an incident. The first task is triage: is this a true positive or noise? Pull the raw event in Splunk or QRadar and validate the detection logic behind it. Check the source, destination, user account, and asset criticality. Correlate against recent alerts to see if this is part of a pattern. Analysts who skip validation end up escalating false positives, which erodes trust and buries real incidents. Spend two or three minutes confirming the signal is genuine before you commit the team's time to a full investigation."
+        },
+        {
+              "heading": "Capture the Scope Fast",
+              "body": "Once you confirm something is real, determine the blast radius. Which host, user, or segment is involved? Is it one endpoint or several? Query your EDR and firewall logs to identify any lateral movement or outbound connections to suspicious domains. Note the initial detection time and any earlier related events — attackers rarely start at the alert you saw first. Documenting scope early gives incident responders the context they need and prevents the classic mistake of remediating one machine while the threat quietly lives on three others."
+        },
+        {
+              "heading": "Map to MITRE ATT&CK",
+              "body": "Mapping observed behavior to MITRE ATT&CK is one of the fastest ways to understand what you're dealing with. If you see suspicious PowerShell execution, tag it under Execution (T1059). Credential dumping? Point to Credential Access. This framing helps you anticipate the attacker's next move and communicate clearly with escalation tiers. It also structures your notes so the L2/L3 team or IR lead can pick up the thread without re-investigating from scratch. ATT&CK turns scattered observations into a coherent narrative during a high-stress incident."
+        },
+        {
+              "heading": "Contain Without Destroying Evidence",
+              "body": "Containment is where speed and caution collide. You want to stop the bleeding — isolate the host through your EDR, disable a compromised account, or block a malicious IP at the firewall — but you don't want to wipe evidence you'll need later. Avoid rebooting or reimaging until forensic data is captured. Preserve volatile artifacts like running processes and network connections where possible. Follow your organization's containment authority: as an L1, this usually means executing approved actions and escalating decisions that fall outside your remit."
+        },
+        {
+              "heading": "Document Everything As You Go",
+              "body": "Every action, timestamp, and observation belongs in the ticket. Good documentation is the backbone of incident management — it supports handoffs, post-incident review, and any legal or compliance follow-up. Record what you saw, what you did, and why. Attach queries, screenshots, and indicators of compromise. A short Python script using libraries like requests or a simple CSV export can help you collect and format IOCs quickly for enrichment against threat intel sources. Clear notes now save hours of confusion later."
+        },
+        {
+              "heading": "The 30-Minute Takeaway",
+              "body": "In the first 30 minutes, validate the alert, scope the impact, map to MITRE ATT&CK, contain carefully, and document relentlessly. A repeatable cybersecurity incident checklist beats improvisation every time, especially under pressure. Print this out, adapt it to your SOC workflow, and run through it the next time an alert fires. For more practical SOC and incident response walkthroughs, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
