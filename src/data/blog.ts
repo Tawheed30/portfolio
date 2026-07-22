@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-07-22",
+    excerpt: "Practical Python SOC automation scripts that cut repetitive triage work and let analysts focus on real investigations.",
+    readingTime: "5 min read",
+    tags: ["Python","SOC","Automation","Blue Team"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","phishing analysis","threat intelligence enrichment"],
+    content:   [
+        {
+              "body": "If you work an L1 queue, you already know the pain: the same lookups, the same copy-paste, the same tab-switching a hundred times a shift. Python SOC automation is the fastest way out of that loop. As a SOC analyst, I've found that a handful of small security automation scripts remove more friction than any expensive tool upgrade. This post is about practical Python cybersecurity wins you can build in an afternoon — not a grand SOAR rollout. The goal is simple: automate the boring, repeatable parts of triage so your brain is free for the alerts that actually matter."
+        },
+        {
+              "heading": "Start With IOC Enrichment",
+              "body": "The single highest-value Python SOC automation task is enrichment. Instead of manually pasting IPs, domains, and hashes into VirusTotal, AbuseIPDB, and URLhaus one by one, write a script using the `requests` library that hits their APIs and returns a consolidated verdict. Feed it a list of indicators and let it print reputation scores, categories, and last-seen dates. Most of these services offer free API tiers that are plenty for L1 volume. This single script typically saves several minutes per alert, and those minutes add up fast across a shift."
+        },
+        {
+              "heading": "Automate Phishing Header Parsing",
+              "body": "Phishing triage eats a lot of L1 time. Python's built-in `email` module parses raw `.eml` or `.msg` files and extracts sender, Reply-To, Received chains, SPF/DKIM/DMARC results, and embedded URLs. Combine it with `re` to pull out links and `urllib.parse` to defang and normalize them, then pipe those URLs straight into your enrichment script. You end up with a clean summary of who sent it, whether authentication passed, and which URLs to detonate — instead of squinting at raw headers in Notepad."
+        },
+        {
+              "heading": "Query Splunk and QRadar From a Script",
+              "body": "Both platforms expose APIs. Splunk has a REST API (and the `splunk-sdk` Python library), and QRadar has the Ariel and REST APIs. You can script recurring searches — say, all activity from a suspicious IP across the last 24 hours — and dump results to CSV for your case notes. This is great for the same repetitive pivots you run during every investigation. Keep credentials in environment variables or a secrets manager, never hardcoded, and start read-only so you're only pulling data, not changing configs."
+        },
+        {
+              "heading": "Map Alerts to MITRE ATT&CK Automatically",
+              "body": "Documenting technique mappings by hand is tedious. The MITRE ATT&CK data is available as STIX, and the `mitreattack-python` library lets you look up techniques, tactics, and descriptions programmatically. A small helper script can take a technique ID like T1566 and return the name, tactic, and mitigation notes to drop into your ticket. It won't do the analysis for you, but it standardizes your documentation and speeds up the write-up every analyst has to produce."
+        },
+        {
+              "heading": "Keep Scripts Safe and Maintainable",
+              "body": "A few rules I stick to with any security automation scripts: use virtual environments (`venv`), pin dependencies in `requirements.txt`, log actions to a file, and add error handling so a failed API call doesn't crash the whole run. Store secrets outside the code. Keep everything read-only until a senior analyst reviews it. Automation should never replace your judgment — it should hand you cleaner inputs to judge faster."
+        },
+        {
+              "heading": "Your First Weekend Project",
+              "body": "Pick one workflow you repeat daily and script only that. Enrichment is the classic first project because the payoff is immediate and the risk is low. Once it works, chain it to your phishing parser, then your SIEM queries. That's how Python cybersecurity skills compound — small, tested wins that stack. If you want to see more hands-on SOC tooling breakdowns, check out the rest of my portfolio for walkthroughs and code."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
