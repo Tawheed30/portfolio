@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "threat-intelligence-for-soc-analysts-free-sources",
+    title: "Threat Intelligence for SOC Analysts: Free Sources",
+    date: "2026-07-27",
+    excerpt: "A practical guide to free threat intel and OSINT for SOC analysts, covering the best threat intelligence feeds you can start using today.",
+    readingTime: "6 min read",
+    tags: ["threat intelligence","SOC","OSINT","blue team"],
+    keywords: ["threat intelligence feeds","free threat intel","OSINT for SOC","SOC analyst","IOC enrichment","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "When you triage alerts all day, threat intelligence feeds are the difference between a wild guess and a confident verdict. The good news for junior analysts: you don't need an expensive platform to get started. There is a huge amount of free threat intel and quality OSINT for SOC work available if you know where to look. In this post I'll walk through the free threat intelligence feeds I actually reach for when investigating phishing, malicious URLs, and suspicious IPs — and how to wire them into your daily workflow without drowning in noise."
+        },
+        {
+              "heading": "Why Free Threat Intel Is Enough to Start",
+              "body": "As a SOC L1, most of my day is confirming whether an indicator is malicious and mapping the activity to MITRE ATT&CK. That work rarely needs premium subscriptions. Free threat intelligence feeds cover the majority of routine enrichment: is this hash known-bad, is this domain newly registered, has this IP shown up in abuse reports? Paid feeds add speed, curation, and coverage of targeted threats, but they don't change the fundamentals. Learning to enrich indicators with free OSINT for SOC investigations builds the exact reasoning skills you'll rely on regardless of tooling."
+        },
+        {
+              "heading": "The Free Feeds I Rely On",
+              "body": "For file and URL analysis, VirusTotal (free tier) and URLhaus from abuse.ch are my first stops. abuse.ch is a goldmine overall — MalwareBazaar for samples, ThreatFox for IOCs, and Feodo Tracker for botnet C2 IPs, all downloadable. For IP reputation I use AbuseIPDB and GreyNoise (which is great for separating internet background scanning from targeted activity). AlienVault OTX gives you community pulses you can pivot through, and the Emerging Threats open ruleset feeds Suricata/Snort detections. For phishing specifically, PhishTank and OpenPhish help confirm reported URLs. Every one of these has a free tier that's genuinely useful."
+        },
+        {
+              "heading": "Enrich Automatically With Python",
+              "body": "Manually pasting indicators into five websites doesn't scale. A small Python script that queries these APIs turns 15 minutes of clicking into seconds. The `requests` library handles most of the free APIs, and OTX has an official `OTXv2` SDK. I'll typically write a function that takes an IOC, hits VirusTotal, AbuseIPDB, and ThreatFox, and returns a compact summary I can drop into a ticket. Just respect the rate limits on free tiers and cache results so you're not re-querying the same domain 50 times a shift. Even a rough script beats tab-switching."
+        },
+        {
+              "heading": "Feed It Into Splunk or QRadar",
+              "body": "Threat intel is most powerful inside your SIEM. In Splunk you can maintain lookup tables of known-bad indicators and match them against proxy, DNS, and firewall logs; the Threat Intelligence framework in Splunk Enterprise Security automates a lot of this. QRadar supports reference sets and threat feed integrations for the same purpose. Start small: pull a curated list from ThreatFox or Feodo Tracker, load it as a lookup, and correlate against your egress logs. This is exactly the kind of enrichment that helps you go from 'alert fired' to 'here's the ATT&CK technique and here's the evidence.'"
+        },
+        {
+              "heading": "Avoid Alert Fatigue From Feeds",
+              "body": "More feeds is not better. Blindly ingesting large IOC lists commonly floods the SIEM with low-confidence matches and buries real signal. Prioritize feeds with confidence scoring and short-lived, high-fidelity indicators (C2 IPs, active phishing URLs) over massive static blocklists. Always keep context: an indicator flagged months ago may be sinkholed or reassigned. Tune ruthlessly and document why you trust each source."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "You can build a solid enrichment pipeline entirely on free threat intel. Pick three or four feeds — VirusTotal, abuse.ch, AbuseIPDB, and OTX are a strong starter set — automate lookups with Python, and pipe curated indicators into Splunk or QRadar. Master that free stack first; the paid tools make far more sense once you understand the fundamentals. Want more SOC-analyst walkthroughs like this? Check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
