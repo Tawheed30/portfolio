@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-07-29",
+    excerpt: "Practical Python SOC automation scripts that cut repetitive triage work and free up time for real investigation.",
+    readingTime: "5 min read",
+    tags: ["Python","SOC","Automation","Blue Team"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","alert triage automation","Splunk API Python"],
+    content:   [
+        {
+              "body": "If you work an alert queue, Python SOC automation is the fastest way to reclaim time that repetitive triage eats every shift. As an L1 analyst, most of my day is triaging Splunk and QRadar alerts, checking URLs, and documenting evidence — and a lot of that involves the same manual steps over and over. Learning a handful of security automation scripts changed how I approach the queue. You don't need to be a developer to benefit from Python cybersecurity tooling; you need small, reliable scripts that remove copy-paste work. This post covers the quick wins I'd recommend to any analyst starting out."
+        },
+        {
+              "heading": "Start With IOC Enrichment",
+              "body": "The most obvious first script is IOC enrichment. When you get an IP, domain, or file hash in an alert, you typically end up pasting it into VirusTotal, AbuseIPDB, and maybe a WHOIS lookup by hand. A small Python script using the `requests` library can hit those APIs and return a consolidated verdict. VirusTotal and AbuseIPDB both offer free-tier API keys, and their JSON responses are easy to parse. Even a 40-line script that takes a hash and prints the detection ratio plus first-seen date saves you several tab-switches per alert. Multiply that across a shift and the value is obvious."
+        },
+        {
+              "heading": "Pull Alerts Straight From Splunk",
+              "body": "Splunk exposes a REST API, and the `splunk-sdk` Python package lets you run saved searches programmatically. Instead of manually exporting results, you can script a search, get the events back as JSON, and feed them into your enrichment logic. QRadar has an Ariel API that works similarly through `requests`. The point isn't to replace the console — it's to script the boring parts, like grabbing all events tied to an offense and dumping the relevant fields into a clean summary you can paste into your case notes."
+        },
+        {
+              "heading": "Automate Phishing URL Checks",
+              "body": "Phishing and malicious URL investigation is a big chunk of L1 work. A Python script can defang and validate URLs, run them through URLhaus or VirusTotal, and flag suspicious patterns like recently registered domains or known redirect chains. Libraries like `tldextract` help you break down domains cleanly, and `python-whois` gives you registration dates. Never detonate anything live from your own machine — use these scripts for passive lookups and reputation checks, and send anything that needs execution to a proper sandbox."
+        },
+        {
+              "heading": "Map Findings to MITRE ATT&CK",
+              "body": "Part of solid documentation is tying alerts to MITRE ATT&CK techniques. The `mitreattack-python` library and the public STIX data let you build a small lookup that matches keywords or technique IDs to tactic names and descriptions. It won't replace analyst judgment, but it standardizes how you reference techniques in reports and keeps your language consistent when you escalate. Consistency here matters more than cleverness — reviewers should read your notes and immediately understand the attack path."
+        },
+        {
+              "heading": "Keep Scripts Small and Safe",
+              "body": "A few practical rules. Store API keys in environment variables or a config file that's outside version control, never hardcoded. Add basic error handling so a rate-limited API doesn't crash your whole workflow. Log what your script does so your actions stay auditable. And get sign-off before running anything against production systems or automating actions like blocking — read-only enrichment is low risk, but automated response needs process behind it."
+        },
+        {
+              "heading": "Your Actionable Takeaway",
+              "body": "Pick one repetitive task from your queue this week — IOC enrichment is a great start — and write a 30-line Python script to handle it. Use `requests`, a free API key, and clean output you can paste into your notes. That single win builds the habit, and the habit is what makes Python SOC automation pay off long term. Want more analyst-focused walkthroughs and scripts? Check out the rest of my portfolio for hands-on blue team content."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
