@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-07-31",
+    excerpt: "Practical Python SOC automation scripts that cut manual triage time and let analysts focus on real threats.",
+    readingTime: "5 min read",
+    tags: ["Python","SOC","Automation","Threat Detection"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","phishing triage automation","MITRE ATT&CK mapping"],
+    content:   [
+        {
+              "body": "If you spend your shift copy-pasting IOCs between tabs, Python SOC automation is the fastest way to buy back your time. As an L1 analyst triaging Splunk and QRadar alerts every day, I've found that a handful of small security automation scripts remove the most repetitive parts of the job. This post is about Python cybersecurity done at the analyst level — not massive SOAR platforms, just practical scripts you can run locally to enrich alerts, check reputation, and speed up phishing investigations. No CS degree required, just a working knowledge of Python and the willingness to automate the boring stuff."
+        },
+        {
+              "heading": "Start With IOC Enrichment",
+              "body": "The single best entry point for Python SOC automation is IOC enrichment. When an alert fires with an IP, domain, or file hash, you normally pivot through multiple lookup tools by hand. A short script using the `requests` library can query VirusTotal, AbuseIPDB, or urlscan.io APIs and return a clean summary in seconds. Feed it a list of indicators, print reputation scores and last-seen dates, and you've removed a dozen manual clicks per investigation. Store your API keys in environment variables, respect rate limits, and cache results so you're not re-querying the same indicator all shift."
+        },
+        {
+              "heading": "Parse Phishing Emails Faster",
+              "body": "Phishing triage is one of the most common tickets in any SOC queue. Python's built-in `email` module parses raw `.eml` or `.msg` headers so you can extract sender, Reply-To, SPF/DKIM/DMARC results, and any URLs in the body without eyeballing the source. Combine it with `re` to pull out links and `tldextract` to isolate domains, then pass those domains straight into your enrichment script. This turns a multi-step manual review into a single command that outputs everything you need to decide whether to escalate."
+        },
+        {
+              "heading": "Talk to Splunk and QRadar via API",
+              "body": "Both Splunk and QRadar expose REST APIs, and Python is the easiest way to use them. With the `splunk-sdk` or a plain `requests` call to the Splunk search endpoint, you can run a saved search and dump results to CSV for reporting. QRadar's Ariel API works the same way for pulling offense details. The point isn't to replace the console — it's to script the repetitive queries you run every day, like checking whether a suspicious IP appeared anywhere else in the last 24 hours."
+        },
+        {
+              "heading": "Map Alerts to MITRE ATT&CK",
+              "body": "Documenting the ATT&CK technique behind an alert is expected in most SOC workflows, and it's easy to standardize with Python. Pull the ATT&CK dataset using the `mitreattack-python` library, then build a small lookup that matches keywords or rule names in your alerts to likely technique IDs. It won't replace analyst judgment, but it gives you a consistent starting point and keeps your case notes tidy and searchable."
+        },
+        {
+              "heading": "Keep Scripts Safe and Maintainable",
+              "body": "A few habits keep these tools trustworthy. Never hardcode credentials — use `.env` files with `python-dotenv`. Handle API errors gracefully so a failed lookup doesn't crash your whole run. Log what the script does so you have an audit trail. And keep each script focused on one job; small, composable tools are far easier to trust in a security context than one giant program."
+        },
+        {
+              "heading": "Your Next Step",
+              "body": "Pick the one task you repeat most this week — probably IOC enrichment or phishing header parsing — and script just that. Python SOC automation compounds: each small win frees time for real analysis. Start with a single security automation script, get it working reliably, then expand. For more Python cybersecurity walkthroughs and analyst-focused projects, check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
