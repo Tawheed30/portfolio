@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "l1-to-l2-soc-analyst-skills-that-matter",
+    title: "L1 to L2 SOC Analyst Skills: What Actually Matters",
+    date: "2026-08-05",
+    excerpt: "The real L2 skills that move your SOC analyst career forward: threat hunting, incident response, and analytical depth over tool count.",
+    readingTime: "5 min read",
+    tags: ["SOC","Career","Threat Hunting","Incident Response"],
+    keywords: ["SOC analyst career","L2 skills","threat hunting","incident response skills","SOC analyst progression","SIEM investigation"],
+    content:   [
+        {
+              "body": "If you're an L1 wondering how to level up your SOC analyst career, you've probably noticed something: the jump to L2 isn't about learning ten more tools. It's about depth. The L2 skills that actually matter are threat hunting, stronger incident response skills, and the ability to reason about an alert instead of just closing it. As an L1 SOC analyst triaging Splunk and QRadar alerts every day, I've come to see that moving up your SOC analyst career is less about volume and more about how deeply you investigate. Here's what actually separates L1 work from the L2 skills teams look for."
+        },
+        {
+              "heading": "Stop Closing Alerts, Start Asking Questions",
+              "body": "As an L1, the temptation is to work the queue: alert in, verdict out, move on. L2 work starts when you ask why an alert fired and what the surrounding context looks like. When a phishing URL or suspicious login comes through, don't stop at 'malicious' or 'benign.' Pull the parent process, check the user's normal baseline, correlate against firewall and EDR logs. In Splunk, that means pivoting from a single event into a broader search across sourcetypes. This investigative habit is the foundation of every other L2 skill — hunting and response both grow out of it."
+        },
+        {
+              "heading": "Learn to Query, Not Just Read Dashboards",
+              "body": "Dashboards are for L1 triage. L2 analysts write their own searches. Get comfortable with SPL in Splunk and AQL in QRadar so you can build detections and hunts on demand instead of waiting for a canned panel. Practice stats, transaction, and tstats in Splunk to summarize noisy data into something you can act on. Even basic Python helps — parsing logs, enriching indicators against a threat intel feed, or automating repetitive lookups. You don't need to be a developer. You need to be able to answer a question the dashboard can't."
+        },
+        {
+              "heading": "Threat Hunting Is a Hypothesis, Not a Search Bar",
+              "body": "Threat hunting is the L2 skill everyone lists and few explain well. A hunt is a hypothesis you test against your data: 'If an attacker used this technique, what evidence would exist in my logs?' Anchor your hypotheses to MITRE ATT&CK. Pick a technique like T1059 (command and scripting interpreter) or T1566 (phishing), map it to the data sources you have, and go look for it. Most hunts find nothing malicious — that's fine. The value is understanding your environment's blind spots and turning good hunts into new detections."
+        },
+        {
+              "heading": "Sharpen Real Incident Response Skills",
+              "body": "Incident response skills at L2 mean owning the timeline. When you escalate, you should be able to answer: what happened first, what did the attacker touch, what's the blast radius, and what do we contain? Practice building a clean chronological timeline from EDR, IDS/IPS, and endpoint logs. Document evidence so the next analyst — or an L3 — doesn't have to redo your work. Clear, defensible documentation mapped to ATT&CK tactics is what makes an escalation useful instead of noise."
+        },
+        {
+              "heading": "The Soft Skill Nobody Mentions: Writing",
+              "body": "The gap between a strong L1 and a real L2 is often communication. Your investigation is only as good as your writeup. Explain what you found, why it matters, and what should happen next — in plain language a manager or IR lead can act on fast. This is the least glamorous L2 skill and one of the most career-defining."
+        },
+        {
+              "heading": "Your Next Move",
+              "body": "You don't advance your SOC analyst career by collecting tool logos. Pick one ATT&CK technique this week, write a Splunk or QRadar query to hunt it, and document what you find. Repeat until investigation and threat hunting feel like reflexes. That's how L1 work quietly becomes L2 work. For more hands-on SOC breakdowns and detection walkthroughs, keep an eye on the rest of the portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
