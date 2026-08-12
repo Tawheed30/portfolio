@@ -327,6 +327,48 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "phishing-investigation-workflow-step-by-step",
+    title: "Phishing Investigation Workflow: Step-by-Step Guide",
+    date: "2026-08-12",
+    excerpt: "A practical, step-by-step phishing investigation workflow every SOC analyst can use to speed up phishing detection and incident response.",
+    readingTime: "6 min read",
+    tags: ["phishing","SOC","incident response","email security"],
+    keywords: ["phishing investigation","email security","phishing detection","incident response","SOC analyst","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "Phishing investigation is one of the most common tasks that lands in a SOC analyst's queue, and having a repeatable phishing investigation workflow is what separates fast, confident triage from guesswork. As a SOC L1 who investigates reported phishing and malicious URLs daily, I've learned that solid email security and consistent phishing detection come down to following the same disciplined steps every time. This guide walks through a practical incident response workflow for phishing so you can triage faster, document better, and escalate with evidence that actually holds up."
+        },
+        {
+              "heading": "Step 1: Preserve the Original Email",
+              "body": "Before you touch anything, preserve the reported message with full headers intact. Ask the user to forward the phishing email as an attachment (.eml or .msg) rather than inline, which strips the original headers you need. In many environments the phishing report button in Outlook or a mailbox like abuse@ automatically preserves the raw source. Never click links from your normal workstation — use an isolated analysis VM or a sandbox. Preserving the original artifact first keeps your investigation clean and reproducible."
+        },
+        {
+              "heading": "Step 2: Analyze the Email Headers",
+              "body": "Headers tell you where the message really came from. Check the Return-Path, Reply-To, and the Received chain to trace the sending path. Validate SPF, DKIM, and DMARC results in the Authentication-Results header — a fail or softfail is a strong phishing detection signal, though passing auth doesn't clear a lookalike domain. Watch for display-name spoofing where the From name says a trusted brand but the actual address is unrelated. Tools like MXToolbox or a quick Python script with the email library make parsing headers repeatable."
+        },
+        {
+              "heading": "Step 3: Investigate URLs and Sender Reputation",
+              "body": "Extract every URL and defang it (hxxp://) before sharing in tickets. Detonate suspicious links in a sandbox such as Any.Run or urlscan.io to observe redirects and credential-harvesting pages without exposing yourself. Check the sender domain and any linked domains against VirusTotal and threat intel sources for reputation and registration age — newly registered domains are a classic phishing indicator. Pay attention to URL shorteners and open redirects, which attackers commonly use to hide the final landing page."
+        },
+        {
+              "heading": "Step 4: Examine Attachments Safely",
+              "body": "If the email carries an attachment, compute its hash and look it up in VirusTotal before anything else. Office documents with macros, HTML smuggling files, and password-protected archives are common delivery methods worth extra scrutiny. Detonate the file in a sandbox to capture process behavior, dropped files, and outbound connections. Map what you observe to MITRE ATT&CK techniques like T1566 (Phishing) and T1204 (User Execution) so your findings align with a framework the rest of the team recognizes."
+        },
+        {
+              "heading": "Step 5: Scope the Impact in Your SIEM",
+              "body": "A single reported email usually isn't the whole picture. Pivot into Splunk or QRadar to search for the sender address, subject line, and any malicious URLs or hashes across mail logs. Identify how many recipients received it, whether anyone clicked, and whether any host reached the malicious domain in proxy or firewall logs. This scoping step turns a single alert into a full incident response picture and tells you how urgent containment needs to be."
+        },
+        {
+              "heading": "Step 6: Contain, Document, and Escalate",
+              "body": "Once scoped, containment typically means blocking the sender and malicious domains, purging the message from mailboxes where your platform allows it, and flagging any users who interacted for credential resets. Document every artifact — headers, hashes, URLs, sandbox results, and the MITRE ATT&CK mapping — in the ticket so your escalation to L2 is evidence-backed and reproducible. Clear documentation is what makes an incident response process auditable and repeatable."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "A strong phishing investigation workflow isn't about clever tricks — it's about following the same preserve, analyze, scope, and contain steps every time so nothing slips. Build a checklist from these steps, keep your defanging and sandbox habits consistent, and let your SIEM do the scoping work. For more practical SOC and phishing detection walkthroughs, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
