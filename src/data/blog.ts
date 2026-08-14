@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "mitre-attack-mapping-detection-engineers",
+    title: "MITRE ATT&CK Detection Mapping for SOC Analysts",
+    date: "2026-08-14",
+    excerpt: "A practical guide to MITRE ATT&CK detection mapping and detection engineering techniques that make your alerts actually useful.",
+    readingTime: "5 min read",
+    tags: ["MITRE ATT&CK","Detection Engineering","SOC","Threat Detection"],
+    keywords: ["MITRE ATT&CK detection","threat detection","detection engineering techniques","MITRE ATT&CK mapping","SOC analyst","Splunk detection"],
+    content:   [
+        {
+              "body": "If you triage alerts all day like I do, you already know that raw detections without context are exhausting. MITRE ATT&CK detection mapping fixes that by giving every alert a common language. Instead of a vague 'suspicious PowerShell' flag, you get a mapped technique, a tactic, and a story you can hand to the next analyst. In this post I'll walk through practical detection engineering techniques for tying your threat detection logic to ATT&CK — the same approach I use daily as a SOC analyst working Splunk and QRadar alerts. Good MITRE ATT&CK detection isn't about covering every technique; it's about mapping the ones that matter to your environment."
+        },
+        {
+              "heading": "Start With Tactics, Not Techniques",
+              "body": "A common mistake is jumping straight to individual technique IDs and trying to 'cover' all of them. That leads to a wall of half-baked detections. Instead, start at the tactic level — Initial Access, Execution, Persistence, Credential Access, Lateral Movement, Exfiltration. Ask which tactics your visibility can actually observe. If you have solid EDR and endpoint logs, Execution (TA0002) and Persistence (TA0003) are realistic. If your firewall and IDS/IPS logs are your main feed, focus on Command and Control and Exfiltration. Mapping to tactics first keeps your detection engineering grounded in what your data can prove."
+        },
+        {
+              "heading": "Map Each Detection to a Single Primary Technique",
+              "body": "For every detection rule, document one primary technique ID and, optionally, a secondary. For example, a rule for encoded PowerShell maps cleanly to T1059.001 (PowerShell) under Execution, and often T1027 (Obfuscated Files or Information). Keep this mapping in the rule metadata — most SIEMs let you tag saved searches or correlation rules. In Splunk I add the technique ID and tactic directly in the search description and any notable event fields so it flows through to the analyst queue. When the alert fires, the triaging analyst instantly sees where it sits on the kill chain."
+        },
+        {
+              "heading": "Use the ATT&CK Navigator for Coverage Gaps",
+              "body": "The MITRE ATT&CK Navigator is free and underused. Export your current detection inventory, assign each rule a technique, and color the heatmap by coverage. This visual makes gaps obvious — you'll usually find Credential Access and Lateral Movement thin, because those need authentication and network telemetry many teams under-log. Layers are just JSON, so you can generate them programmatically. A short Python script that reads your rule catalog and outputs a Navigator layer keeps the map honest instead of a stale spreadsheet nobody trusts."
+        },
+        {
+              "heading": "Write Detections That Survive Real Data",
+              "body": "Mapping is worthless if the underlying logic is noisy. Before I attach a technique to a rule, I test it against real logs to understand false positive volume. A T1053.005 (Scheduled Task) detection that fires on every legit software update isn't threat detection — it's alert fatigue. Tune with baselines: which service accounts normally create tasks, which hosts run scripts. Layering behavioral context typically reduces noise far more than tightening a single field. The technique mapping tells you what the alert means; the tuning decides whether anyone will trust it."
+        },
+        {
+              "heading": "Document Evidence in ATT&CK Terms",
+              "body": "When you escalate, frame the evidence in ATT&CK language. Instead of 'weird process,' write 'T1055 Process Injection observed, followed by T1071 application-layer C2 to an unknown domain.' This maps the incident to tactics an IR team can act on quickly and makes your handoffs consistent. It also builds a feedback loop — recurring techniques in real incidents tell you where to invest next in detection engineering."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "Effective MITRE ATT&CK detection is about deliberate coverage, clean mapping, and tuned logic — not chasing every technique ID. Start with tactics your data supports, tag every rule with a primary technique, visualize gaps in Navigator, and document evidence in ATT&CK terms. Do that consistently and your threat detection becomes a coherent map instead of a pile of alerts. For more practical SOC and detection engineering notes, check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
