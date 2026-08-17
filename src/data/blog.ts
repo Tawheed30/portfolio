@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "mitre-attack-mapping-detection-engineers",
+    title: "MITRE ATT&CK Detection Mapping for SOC Analysts",
+    date: "2026-08-17",
+    excerpt: "A practical guide to MITRE ATT&CK detection mapping and detection engineering techniques you can apply during real alert triage.",
+    readingTime: "5 min read",
+    tags: ["MITRE ATT&CK","Detection Engineering","SOC","Threat Detection"],
+    keywords: ["MITRE ATT&CK detection","threat detection","detection engineering techniques","MITRE ATT&CK mapping","SOC analyst","Splunk detection"],
+    content:   [
+        {
+              "body": "If you triage alerts for a living, MITRE ATT&CK detection mapping is one of the highest-leverage skills you can build. As an L1 SOC analyst, I map alerts to ATT&CK techniques every day, and it consistently turns vague signals into structured threat detection stories. This post covers practical detection engineering techniques for tying your Splunk and QRadar alerts back to the ATT&CK framework — not the theory, but how MITRE ATT&CK detection actually works when you're staring at a queue of alerts and trying to decide what matters."
+        },
+        {
+              "heading": "Understand What ATT&CK Actually Is",
+              "body": "MITRE ATT&CK is a knowledge base of adversary behavior organized into tactics (the 'why', like Initial Access or Persistence) and techniques (the 'how', like T1566 Phishing or T1059 Command and Scripting Interpreter). The value for detection isn't memorizing IDs — it's using a shared vocabulary. When I document a phishing investigation and tag it as T1566.002 (Spearphishing Link), anyone reading the ticket instantly knows the behavior, regardless of which SIEM produced the alert. That common language is what makes ATT&CK worth adopting."
+        },
+        {
+              "heading": "Map Alerts to Behavior, Not Just IOCs",
+              "body": "A common mistake is mapping to indicators instead of behavior. A malicious URL in a phishing email is an IOC, but the technique is the delivery method and any follow-on execution. When I investigate a suspicious link, I ask: what tactic is this? Initial Access via T1566. If the user clicked and something ran, now I'm looking at Execution (T1059) or Defense Evasion. Mapping the behavior chain — not one artifact — is where detection engineering techniques pay off, because behaviors are harder for attackers to change than hashes or domains."
+        },
+        {
+              "heading": "Build Detections With ATT&CK in Mind",
+              "body": "When writing or reviewing a Splunk detection, I keep the target technique in the metadata. In SPL you might hunt for suspicious PowerShell with `index=endpoint process_name=powershell.exe (\"-enc\" OR \"-w hidden\" OR DownloadString)` and tag it T1059.001. In QRadar, custom rules and building blocks can reference the same technique context. Adding the ATT&CK ID as a field in the alert means your MITRE ATT&CK detection coverage becomes queryable — you can literally search which techniques you're detecting and which you're blind to."
+        },
+        {
+              "heading": "Visualize Coverage With the Navigator",
+              "body": "The ATT&CK Navigator is a free tool that lets you build heatmaps of your detection coverage. Export your detection rules and their mapped techniques, then color-code what you can and can't see. This exposes gaps fast — you'll often find heavy coverage on Execution and Command and Control but thin visibility on Discovery or Lateral Movement. You can generate Navigator layers programmatically with Python using simple JSON, which is handy when you want coverage tied directly to your rule inventory instead of a manual spreadsheet."
+        },
+        {
+              "heading": "Use ATT&CK to Prioritize and Escalate",
+              "body": "During triage, technique context helps you prioritize. An alert mapped to Credential Access (T1003 OS Credential Dumping) generally deserves faster escalation than a low-severity Discovery alert. When I escalate, including the ATT&CK tactic and technique in the evidence gives the L2 analyst immediate context about where in the attack lifecycle we are. It also makes post-incident review cleaner, because you can trace the full kill chain by technique rather than by disconnected log events."
+        },
+        {
+              "heading": "Actionable Takeaway",
+              "body": "Start small: pick your ten noisiest alert types, map each to a single ATT&CK technique, and add that ID as a field in your SIEM. Then build a Navigator layer to see your real coverage. That one habit turns MITRE ATT&CK detection from a buzzword into a working framework for threat detection. If you found this useful, explore more detection engineering write-ups on my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
