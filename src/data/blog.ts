@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "threat-intelligence-free-sources-soc-analysts",
+    title: "Threat Intelligence for SOC Analysts: Free Sources",
+    date: "2026-08-31",
+    excerpt: "A practical guide to free threat intel and OSINT for SOC analysts, including the threat intelligence feeds I actually use during alert triage.",
+    readingTime: "6 min read",
+    tags: ["Threat Intelligence","SOC","OSINT","Blue Team"],
+    keywords: ["threat intelligence feeds","free threat intel","OSINT for SOC","SOC analyst tools","IOC enrichment","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "When you're triaging alerts as a SOC analyst, good threat intelligence feeds are the difference between escalating a real incident and closing a false positive with confidence. The best part? You don't need an expensive platform to start. Free threat intel and solid OSINT for SOC work can cover a huge amount of ground. In this post I'll walk through the free threat intelligence feeds and sources I lean on during day-to-day alert investigation, how to enrich indicators, and how to avoid drowning in noise. This is written from a practical L1 perspective — the sources you can actually plug into your workflow today."
+        },
+        {
+              "heading": "Why Free Threat Intel Is Enough to Start",
+              "body": "Threat intelligence isn't only about buying premium feeds. Most of the daily enrichment I do while investigating phishing URLs or suspicious IPs in Splunk and QRadar can be handled with free, community-driven sources. What matters is context: is this domain newly registered, is this hash flagged by multiple engines, has this IP been reported for scanning? Free threat intel answers those questions well. The key is knowing which sources are reliable and how to fit them into your triage routine so they speed you up rather than slow you down with tab overload."
+        },
+        {
+              "heading": "The Free Threat Intelligence Feeds Worth Using",
+              "body": "A few sources consistently earn their place. AbuseIPDB is my go-to for checking whether an IP has a history of abusive behavior. VirusTotal is essential for hashes, URLs, and domains — pay attention to the detection ratio and the community comments, not just the number. URLhaus and PhishTank are great for confirming known malicious and phishing URLs. AlienVault OTX gives you pulses that map indicators to campaigns, and the Feodo Tracker and abuse.ch projects (SSLBL, MalwareBazaar) are excellent for malware and C2 infrastructure. For domains, whois lookups and tools like URLScan.io show you what a page actually does without visiting it. None of these cost anything to get value from."
+        },
+        {
+              "heading": "Adding OSINT for SOC Investigations",
+              "body": "Beyond feeds, OSINT for SOC work fills the gaps that structured indicators miss. Shodan and Censys let you see what services an external IP exposes. Have I Been Pwned helps assess whether a user account may be tied to a known breach. Certificate transparency logs (crt.sh) reveal subdomains and infrastructure tied to a domain. GreyNoise is invaluable for filtering out internet background noise — it tells you whether that scanning IP is just mass-scanning the whole internet or specifically targeting you. Used together, these OSINT sources give an alert real-world context that a raw log line never will."
+        },
+        {
+              "heading": "Enriching and Automating with Python",
+              "body": "Manually pasting indicators into a dozen sites gets old fast. Many of these services expose free-tier APIs, and a small Python script using the requests library can query VirusTotal, AbuseIPDB, and OTX for a batch of IOCs at once. Even a simple script that returns a consolidated verdict for an IP or hash cuts triage time and keeps your enrichment consistent. Just respect rate limits on free tiers and never automate away your own judgment — the tool gathers data, but the analyst still makes the call."
+        },
+        {
+              "heading": "Map Findings Back to MITRE ATT&CK",
+              "body": "Raw indicators are more useful when tied to behavior. When a feed flags a domain as part of a phishing campaign or a hash as a known loader, mapping that back to MITRE ATT&CK techniques helps you understand what stage of an attack you might be looking at and what to check next. This turns isolated IOCs into a story you can document and escalate cleanly. It also strengthens your case notes — reviewers can see not just what you found, but why it matters."
+        },
+        {
+              "heading": "Takeaway: Build a Repeatable Enrichment Habit",
+              "body": "You don't need a budget to do meaningful threat intelligence. Pick three or four reliable free threat intel sources, learn their strengths, and build a repeatable enrichment habit for every alert you touch. Add a bit of Python automation once the manual flow feels natural. Over time, this OSINT-driven approach makes your triage faster and your escalations more credible. Want more practical SOC and blue-team content like this? Explore the rest of my portfolio for hands-on write-ups from real analyst work."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
