@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "incident-response-first-30-minutes-checklist",
+    title: "Incident Response: The First 30 Minutes Checklist",
+    date: "2026-09-02",
+    excerpt: "A practical incident response checklist for the first 30 minutes, built from real SOC triage workflows.",
+    readingTime: "6 min read",
+    tags: ["Incident Response","SOC","Blue Team","MITRE ATT&CK"],
+    keywords: ["incident response","incident management","cybersecurity incident checklist","SOC triage","MITRE ATT&CK","Splunk investigation"],
+    content:   [
+        {
+              "body": "The first 30 minutes of any incident response set the tone for everything that follows. As a SOC analyst who triages Splunk and QRadar alerts daily, I've learned that good incident management isn't about heroics — it's about running the same disciplined cybersecurity incident checklist every single time. When an alert escalates into a real event, the pressure is high and the temptation to jump straight into fixing things is strong. Resist it. A calm, repeatable incident response process beats fast-but-sloppy every time. This checklist covers what I focus on in those critical opening minutes."
+        },
+        {
+              "heading": "Confirm It's Actually an Incident",
+              "body": "Before anything else, validate the alert. Plenty of things that look like incidents are false positives, scheduled scans, or expected admin activity. Pull the raw event in Splunk or QRadar, look at the source and destination, and check whether the behavior matches a known baseline. Ask two quick questions: is this activity unexpected, and does it have security impact? If you can't answer yes to both yet, keep investigating rather than triggering a full response. Documenting why something *is* an incident is just as important as documenting the incident itself."
+        },
+        {
+              "heading": "Start Your Timeline and Case Immediately",
+              "body": "The moment you confirm an incident, open a case and start a timestamped log. Every action, query, and observation goes in with a UTC timestamp. In practice I keep a running note of the alert ID, affected hosts, users, and the queries I ran. This timeline becomes the backbone of your final report and prevents duplicated work when the incident gets handed off. Good incident management lives or dies on documentation — if it isn't written down, it didn't happen as far as the post-incident review is concerned."
+        },
+        {
+              "heading": "Scope the Blast Radius",
+              "body": "Next, figure out how far it reaches. One compromised endpoint is very different from lateral movement across a subnet. Pivot on the indicators you have ��� a suspicious hash, a malicious URL, a source IP — and search across your firewall, EDR, and endpoint logs to find related activity. In Splunk, a broad search on the indicator across all indexes over the last few days often reveals whether this is isolated or spreading. Scoping early stops you from declaring victory after cleaning one machine while the threat sits elsewhere."
+        },
+        {
+              "heading": "Map to MITRE ATT&CK",
+              "body": "As you gather evidence, map observed behavior to MITRE ATT&CK techniques. If you see suspicious PowerShell, that's likely T1059.001; unexpected scheduled tasks point to T1053. This isn't academic — mapping to ATT&CK helps you anticipate the attacker's next move and tells responders what other techniques to hunt for. It also standardizes your language so escalation to L2 or IR teams is instantly understandable. I do this mapping while investigating, not after, because it shapes which logs I check next."
+        },
+        {
+              "heading": "Contain, Then Escalate Per Workflow",
+              "body": "Containment decisions depend on your organization's runbook, but common early moves include isolating an endpoint via EDR, disabling a compromised account, or blocking a malicious domain at the firewall. Only take actions you're authorized to take — an L1 analyst should follow the defined SOC workflow and escalate anything beyond it. When you escalate, hand over a clean summary: what happened, affected assets, indicators, ATT&CK mapping, and actions already taken. That package saves the next responder precious time."
+        },
+        {
+              "heading": "Your 30-Minute Takeaway",
+              "body": "The goal of the first 30 minutes isn't to close the incident — it's to establish control: confirm, document, scope, map, contain, escalate. Build this cybersecurity incident checklist into a runbook and rehearse it so it becomes muscle memory. When a real event hits, you'll move deliberately instead of reactively. Want more practical SOC and incident response walkthroughs? Explore the rest of my portfolio for hands-on blue team content."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
