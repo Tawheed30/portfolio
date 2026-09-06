@@ -6,7 +6,7 @@ export const profile = {
   tagline:
     "SIEM Monitoring • Alert Triage • Incident Response • Splunk • QRadar • Python • MITRE ATT&CK",
   location: "Dubai, UAE",
-  phone: "+91-9980412233",
+  phone: "+971-585157488",
   email: "mohammedtawheed9317@outlook.com",
   resumeUrl: "/resume.pdf",
 };
@@ -48,7 +48,7 @@ export const experience = [
   {
     company: "HashSlash",
     role: "SOC Analyst L1",
-    period: "February 2024 — Present",
+    period: "February 2024 — August 2026",
     highlights: [
       "Triaged 10-20 SIEM alerts/day across Splunk and QRadar, validating events and escalating confirmed incidents per SOC workflows while reducing false positives by 20%.",
       "Maintained SLA adherence above 95% across P1-P3 incidents by monitoring firewall, EDR, IDS/IPS, endpoint, server, authentication, and network traffic logs for suspicious activity and IOCs.",
