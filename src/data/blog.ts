@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "qradar-offense-tuning-reducing-alert-fatigue",
+    title: "QRadar Offense Tuning: Cut Alert Fatigue Fast",
+    date: "2026-09-07",
+    excerpt: "A practical SOC guide to QRadar tuning and offense correlation that helps analysts achieve real alert fatigue reduction.",
+    readingTime: "6 min read",
+    tags: ["QRadar","SIEM","SOC","Alert Tuning"],
+    keywords: ["QRadar tuning","QRadar offense correlation","alert fatigue reduction","SIEM tuning","SOC analyst","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "If you've spent a shift drowning in low-value offenses, you already know why QRadar tuning matters. As an L1 SOC analyst, I've learned that good QRadar offense correlation is the difference between catching real threats and burning out on noise. This post is about practical alert fatigue reduction: how to tune offenses without silencing the alerts that actually matter. The goal of QRadar tuning isn't fewer alerts for their own sake — it's higher-signal offenses that map cleanly to real adversary behavior."
+        },
+        {
+              "heading": "Start By Understanding What Fires",
+              "body": "Before touching a rule, understand which rules generate the most offenses. In QRadar, the Rule Report and the Offenses tab (sorted by rule) tell you where your volume comes from. Typically a handful of rules — expired-certificate warnings, benign scanner traffic, internal vuln scans, DNS to CDN endpoints — produce the majority of noise. Document these against your SOC workflow so tuning decisions are auditable. Never tune blind: pull a week of offense data, group by rule name, and identify the repeat offenders before you change anything."
+        },
+        {
+              "heading": "Use Building Blocks Instead of Rewriting Rules",
+              "body": "One of the cleanest QRadar tuning techniques is Building Blocks (BBs). Instead of editing a shipped rule directly, add trusted hosts, known scanners, or authorized admin accounts to the relevant BB — for example, BB:HostDefinition or a custom BB for approved vulnerability scanners. Rules reference these BBs, so updating one BB quietly reduces false positives across every rule that uses it. This keeps your logic centralized and makes changes easy to review and roll back, which matters when you have to justify tuning to a senior analyst."
+        },
+        {
+              "heading": "Improve Offense Correlation With Better Grouping",
+              "body": "Alert fatigue often comes from offense sprawl — one incident spawning dozens of separate offenses. Improve QRadar offense correlation by setting the right 'Index Offense based on' field. Indexing on source IP, username, or destination groups related events into a single offense with a rising magnitude instead of flooding your queue. Tune the offense retention and dormant offense settings too, so stale offenses close automatically. Correlating on the right field turns twenty low-context alerts into one investigatable timeline."
+        },
+        {
+              "heading": "Tune Thresholds and Time Windows",
+              "body": "Many out-of-the-box rules use aggressive thresholds. A rule that fires on 'X events in Y minutes' will scream during normal batch jobs or backups. Review the counter and time window on your noisiest rules and align them with actual baseline behavior. Whitelisting known automation windows or raising a threshold from 5 to a defensible number based on your traffic is legitimate tuning — as long as you document the rationale. This is where alert fatigue reduction becomes measurable: the same rule now flags the anomaly, not the routine."
+        },
+        {
+              "heading": "Map Tuned Offenses to MITRE ATT&CK",
+              "body": "When you keep a rule, make it worth an analyst's time. Tag your high-value QRadar rules with MITRE ATT&CK techniques so offenses arrive with context — credential access, lateral movement, or command-and-control. This helps triage speed and makes it obvious which offenses deserve escalation. Rules that don't map to a meaningful technique or use case are candidates for tuning or retirement. ATT&CK mapping keeps your ruleset honest about what it's actually detecting."
+        },
+        {
+              "heading": "Takeaway: Tune Continuously, Not Once",
+              "body": "QRadar tuning is a habit, not a one-time project. Review your top-firing rules regularly, lean on Building Blocks, sharpen offense correlation with the right index field, and map what you keep to MITRE ATT&CK. Do that and alert fatigue reduction follows naturally — your queue shrinks and the offenses that remain are worth investigating. For more SOC-focused walkthroughs on Splunk, QRadar, and phishing triage, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
