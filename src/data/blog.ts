@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "reduce-false-positives-in-splunk",
+    title: "How to Reduce False Positives in Splunk (SOC Guide)",
+    date: "2026-09-09",
+    excerpt: "A practical guide to reducing Splunk false positives with smart alert tuning, so your SOC can focus on real threats instead of noise.",
+    readingTime: "5 min read",
+    tags: ["Splunk","SOC","Detection Engineering","Alert Tuning"],
+    keywords: ["Splunk false positives","alert tuning","reduce noise","Splunk optimization","SOC analyst","detection engineering"],
+    content:   [
+        {
+              "body": "If you work an alert queue, you already know that Splunk false positives are the biggest drain on a SOC analyst's day. As an L1 analyst, I spend a lot of time triaging Splunk and QRadar alerts, and the difference between a manageable shift and a miserable one usually comes down to alert tuning. Reducing noise in Splunk isn't about disabling detections — it's about making them precise. In this post I'll walk through practical Splunk optimization techniques to reduce false positives without creating blind spots, based on the tuning work that actually holds up during real investigations."
+        },
+        {
+              "heading": "Understand Why the Alert Fired First",
+              "body": "Before you touch a single search, read the actual events that triggered the alert. Open the underlying SPL, run it over the last 24-48 hours, and look at the results. A large chunk of Splunk false positives come from correlation searches written against a broad `index=*` or a poorly scoped `sourcetype`. If you don't understand the exact condition that fired, any tuning you apply is a guess. Document the pattern: which host, which user, which process, and how often it repeats. That baseline is what turns noise into a tuning decision instead of a hunch."
+        },
+        {
+              "heading": "Tune With Allowlists, Not Deletions",
+              "body": "The safest way to reduce noise is to exclude known-benign behavior explicitly rather than deleting the rule. Use lookup tables for allowlists — for example, a CSV of approved service accounts, scanning hosts, or admin jump boxes — and reference them with `NOT [| inputlookup approved_scanners.csv]` or a `lookup` plus a `where isnull()` filter. This keeps your exceptions version-controlled and reviewable. When a vulnerability scanner or backup job triggers an alert every night, an allowlist lookup removes the noise while leaving the detection live for everything outside that scope."
+        },
+        {
+              "heading": "Add Context Before It Reaches the Queue",
+              "body": "Many false positives aren't wrong detections — they're detections missing context. Enrich searches with fields that help you decide fast: geolocation via `iplocation`, asset criticality from a CMDB lookup, or user role. A failed-login spike from a known VPN concentrator looks very different from the same spike against a domain controller. Enriching at search time means the alert arrives already half-triaged, which typically cuts the back-and-forth that inflates your workload."
+        },
+        {
+              "heading": "Set Thresholds and Time Windows Deliberately",
+              "body": "A common source of Splunk false positives is a threshold that ignores normal variance. If a `stats count by user` rule fires at five events, check whether legitimate activity routinely crosses that. Use `streamstats` or `stats avg stdev` over a longer period to understand what normal looks like, then set thresholds relative to that baseline. Widen or tighten the time window to match the behavior — brute-force attempts cluster in minutes, while data staging may span hours. Aligning the window to the actual technique reduces both false positives and missed detections."
+        },
+        {
+              "heading": "Map, Track, and Review Your Tuning",
+              "body": "Every tuned rule should still map cleanly to a MITRE ATT&CK technique so you know what coverage you're keeping versus trimming. I keep tuning changes documented — what changed, why, and the date — so exclusions get reviewed instead of living forever. Environments drift: an allowlisted host gets decommissioned, a service account gets abused. Scheduled reviews stop yesterday's tuning from becoming tomorrow's blind spot."
+        },
+        {
+              "heading": "The Takeaway",
+              "body": "Reducing Splunk false positives is disciplined detection engineering, not rule-deleting. Read the events, allowlist known-benign behavior with lookups, enrich with context, set baseline-driven thresholds, and review your changes on a schedule. Do this consistently and your alert queue becomes signal instead of noise. For more SOC-focused writeups on Splunk optimization and alert tuning, check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
