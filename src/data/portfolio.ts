@@ -88,11 +88,7 @@ export const certifications = [
     issuer: "EC-Council",
     id: "ECC0562384197",
   },
-  {
-    name: "Splunk Core Certified User",
-    issuer: "Splunk",
-    id: undefined,
-  },
+  
 ] as const;
 
 export const projects = [
