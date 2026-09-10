@@ -88,9 +88,17 @@ export const certifications = [
     issuer: "EC-Council",
     id: "ECC0562384197",
   },
-  
+  {
+    name: "Certified Cloud Security Engineer (CCSE)",
+    issuer: "EC-Council",
+    id: "ECC1275908436",
+  },
+  {
+    name: "Certified Threat Intelligence Analyst (CTIA)",
+    issuer: "EC-Council",
+    id: "ECC3476985012",
+  },
 ] as const;
-
 export const projects = [
   {
     title: "SOC Log-Based Threat Detection System",
