@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "building-home-soc-lab-500-budget",
+    title: "Building a Home SOC Lab on a $500 Budget",
+    date: "2026-09-11",
+    excerpt: "A practical guide to building a home SOC lab for hands-on learning without breaking your budget on security training.",
+    readingTime: "6 min read",
+    tags: ["SOC","Home Lab","Blue Team","Career"],
+    keywords: ["home SOC lab","security lab setup","budget security training","hands-on learning","SOC analyst","Splunk lab"],
+    content:   [
+        {
+              "body": "If you want to break into blue team work, nothing beats a home SOC lab. When I started as a SOC analyst, the fastest way to get comfortable with Splunk, alert triage, and MITRE ATT&CK mapping was building a security lab setup I could break and rebuild at will. The good news: budget security training is very achievable, and you can stand up a functional home SOC lab for around $500. This post walks through the hands-on learning setup I'd recommend to anyone starting out, using real tools you'll actually see on the job."
+        },
+        {
+              "heading": "Start With the Hardware",
+              "body": "You don't need a rack. A used mini PC or refurbished desktop with a 6-core CPU and 32GB of RAM will run several VMs comfortably, and you can find one in the $350-$450 range. RAM matters most here because SIEMs and endpoint agents are memory-hungry. If you already own a decent machine, spend nothing and put the whole budget toward a second cheap box or more RAM. Add a 1TB SSD if your storage is tight, since log data grows fast. The goal is enough headroom to run a Windows victim, a Linux box, and a SIEM at the same time."
+        },
+        {
+              "heading": "Build the Virtual Network",
+              "body": "Use free virtualization: VirtualBox, VMware Workstation Player, or Proxmox if you want a proper hypervisor. Create an isolated internal network so malware samples and attack traffic never touch your home LAN. A minimal topology I'd suggest: a Windows 10/11 VM as the endpoint, an Ubuntu Server VM for logs and tools, and a Kali Linux VM as your attacker. Windows evaluation ISOs are free from Microsoft, and everything else is open source. This mirrors the source-and-sensor split you deal with in a real SOC."
+        },
+        {
+              "heading": "Deploy Your SIEM and Telemetry",
+              "body": "This is the core of any home SOC lab. Splunk Free gives you 500MB/day ingestion, which is plenty for lab traffic and lets you practice searches you'd run daily on the job. If you prefer open source, the Elastic Stack (Elasticsearch, Kibana, Logstash) with the Wazuh manager on top gives you SIEM plus EDR-style detections at zero cost. For telemetry, install Sysmon on the Windows box with a solid config like SwiftOnSecurity's, and forward logs with Winlogbeat or the Splunk Universal Forwarder. Sysmon is what turns raw Windows events into the process, network, and file data you actually hunt through."
+        },
+        {
+              "heading": "Generate Attacks to Investigate",
+              "body": "A lab is useless without activity to triage. Use Atomic Red Team to run individual ATT&CK techniques on the Windows host, then hunt for the artifacts they leave behind. Caldera can chain adversary emulation into full scenarios. For phishing and malicious URL practice, spin up sample analysis in a contained VM and study the indicators. Every time you run a technique, map what you see back to MITRE ATT&CK and write a short detection note. That documentation habit is exactly what SOC workflow expects when you escalate an alert."
+        },
+        {
+              "heading": "Add Free Automation and Skills",
+              "body": "Python ties everything together. Write small scripts to parse logs, enrich IOCs against free sources, or automate a repetitive search. You don't need a paid SOAR to learn the concepts. Layer in free training like TryHackMe's blue team paths and the official Splunk fundamentals courses to reinforce what your lab teaches you. This combination of hands-on learning and structured study is how most budget security training actually pays off."
+        },
+        {
+              "heading": "Your Next Step",
+              "body": "Pick one component and start today: install VirtualBox, drop in a Windows VM and Sysmon, and point it at Splunk Free. Run a single Atomic Red Team test and find it in your logs. That first end-to-end detection is worth more than any certification cram. Build iteratively, document as you go, and your home SOC lab will keep paying dividends throughout your career."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
