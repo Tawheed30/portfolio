@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "qradar-offense-tuning-reducing-alert-fatigue",
+    title: "QRadar Tuning: Cut Offense Noise & Alert Fatigue",
+    date: "2026-09-14",
+    excerpt: "A practical guide to QRadar tuning and offense correlation that helps SOC analysts achieve real alert fatigue reduction.",
+    readingTime: "5 min read",
+    tags: ["QRadar","SIEM","SOC","Detection Engineering"],
+    keywords: ["QRadar tuning","QRadar offense correlation","alert fatigue reduction","SIEM tuning","SOC analyst","QRadar building blocks"],
+    content:   [
+        {
+              "body": "If your QRadar console lights up with hundreds of offenses a day, you already know the pain of alert fatigue. Good QRadar tuning is the difference between a SOC that investigates real threats and one that drowns in noise. As an L1 SOC analyst who triages QRadar offenses daily, I've learned that QRadar offense correlation and disciplined tuning are the two levers that actually deliver alert fatigue reduction. This post walks through the practical QRadar tuning steps I rely on to keep the offense queue meaningful instead of overwhelming."
+        },
+        {
+              "heading": "Start by Understanding How Offenses Form",
+              "body": "Before tuning anything, understand that a QRadar offense is the product of rules, building blocks, and correlation. Rules test events and flows against conditions; building blocks (BB) are reusable logic like BB:HostDefinition or BB:CategoryDefinition that many rules reference. When you tune a building block, you influence every rule that depends on it, so small changes cascade. The offense itself is created and magnitude-scored based on relevance, credibility, and severity. Knowing this chain tells you where to intervene: often the cleanest fix is upstream in a building block, not in the individual rule firing at 3 a.m."
+        },
+        {
+              "heading": "Identify Your Top Noise Producers",
+              "body": "You can't tune what you can't see. I start by pulling the rules responsible for the most offenses over the last 7 to 30 days. In QRadar you can review this under the Offenses tab grouped by rule, or query the Ariel database for CRE (Custom Rule Engine) events. Rank rules by offense count and by how many of those offenses were closed as false positive. The classic culprits are vulnerability scanners, backup jobs, service accounts, and internal admin tooling that behaves like an attacker. That short list is where most alert fatigue reduction happens."
+        },
+        {
+              "heading": "Tune With Reference Sets and Building Blocks",
+              "body": "Instead of disabling a useful rule, narrow its scope. Reference sets are my go-to: create a set for approved scanners, known service accounts, or trusted IP ranges, then add a rule test that excludes source or username values contained in that set. This keeps the detection alive for everyone else while suppressing the known-good noise. For broad exclusions, adjust the relevant building block so the change applies consistently. Document every exclusion you make. In our SOC workflow, an untracked exclusion is a blind spot waiting to be exploited, and reviewers should always be able to see why an offense stopped firing."
+        },
+        {
+              "heading": "Fix Correlation and Offense Grouping",
+              "body": "A lot of perceived alert volume is actually poor QRadar offense correlation. If a rule indexes offenses by source IP when it should index by username, a single incident can explode into dozens of offenses. Review the 'Offense Indexing' field on noisy rules and pick the identifier that best represents the real unit of activity. Adjusting the response limiter and the dispatch settings also prevents duplicate offenses for the same behavior within a time window. Good indexing consolidates related events into one investigable offense, which is one of the fastest wins for alert fatigue reduction."
+        },
+        {
+              "heading": "Map, Measure, and Iterate",
+              "body": "Tuning is not a one-time project. Map your active rules to MITRE ATT&CK so you know what coverage you'd lose before you weaken a detection. After each tuning cycle, re-pull your top offense producers and compare. Teams commonly see the offense queue shrink to a more workable volume once scanners and service accounts are handled, and analysts spend more time on genuine investigations. A little Python against exported offense data helps automate the weekly ranking so you're always working from evidence, not gut feel."
+        },
+        {
+              "heading": "Key Takeaway",
+              "body": "Effective QRadar tuning is about precision, not deletion. Use reference sets and building blocks to suppress known-good activity, fix offense indexing to improve correlation, and review your noisiest rules on a schedule. Do that consistently and alert fatigue reduction follows naturally. For more hands-on SOC and QRadar tuning notes, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
