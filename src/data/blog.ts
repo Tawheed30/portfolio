@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "home-soc-lab-500-budget",
+    title: "Build a Home SOC Lab on a $500 Budget",
+    date: "2026-09-18",
+    excerpt: "A practical guide to building a home SOC lab for hands-on learning without breaking a $500 budget.",
+    readingTime: "6 min read",
+    tags: ["SOC","Home Lab","Blue Team","Detection Engineering"],
+    keywords: ["home SOC lab","security lab setup","budget security training","hands-on learning","SIEM lab","blue team lab"],
+    content:   [
+        {
+              "body": "The fastest way into a SOC role is a home SOC lab where you can break things, generate logs, and hunt attackers on your own hardware. When I moved from an internship into SOC analyst work, the biggest skill gap wasn't theory — it was hands-on learning with real tools. A budget security training setup fixes that. This guide walks through a security lab setup you can build for around $500, or even less if you already own a decent PC. The goal of this home SOC lab is simple: give you the same Splunk searches, alert triage, and MITRE ATT&CK mapping you'd do on the job."
+        },
+        {
+              "heading": "Plan Your Budget Before Buying",
+              "body": "Most of a home SOC lab runs as virtual machines, so RAM matters more than anything. If you're starting from scratch, a used SFF business desktop (Dell OptiPlex or HP EliteDesk) with an i5/i7 and room for 32GB RAM often lands between $250 and $400 on the secondhand market. Add a 1TB SSD (~$60) and a RAM upgrade to 32GB (~$60) and you're at or under $500. If you already have a laptop with 16GB, you can spend $0 and just run fewer VMs at once. The software layer below is entirely free."
+        },
+        {
+              "heading": "Pick Free Virtualization",
+              "body": "Use VirtualBox or VMware Workstation Player (free for personal use) as your hypervisor. Proxmox is a strong free option if you want a dedicated box you can leave running. Set up an isolated internal network so attack traffic never touches your home LAN. A typical lab needs three to four VMs: a SIEM/log collector, a Windows victim endpoint, a Linux box, and an attacker machine. Keep each VM light — 4GB RAM is plenty for most — so 32GB total handles the full setup comfortably."
+        },
+        {
+              "heading": "Install the SIEM Layer",
+              "body": "This is the heart of the home SOC lab. Splunk Free ingests up to 500MB/day, which is more than enough for lab traffic, and it mirrors the searches I run at work daily. If you want to practice QRadar-style workflows, IBM offers a QRadar Community Edition. On the endpoint, install Sysmon with a solid config (SwiftOnSecurity's is a good baseline) and forward those logs into Splunk. Add Wazuh as a free open-source SIEM/EDR alternative if you want more detection coverage without licensing limits."
+        },
+        {
+              "heading": "Generate Attacks and Detections",
+              "body": "A lab with no activity teaches nothing. Use Atomic Red Team to run small, mapped attack techniques and watch how they appear in your logs. Kali Linux as your attacker VM lets you practice credential access, lateral movement, and phishing payload delivery against your Windows victim. For every technique you run, map what you observe back to MITRE ATT&CK — this is exactly the muscle SOC triage requires. Write simple Splunk searches to catch each behavior, then tune them to cut false positives, which is where real detection engineering starts."
+        },
+        {
+              "heading": "Add Automation With Python",
+              "body": "Once you're comfortable, use Python to enrich alerts. Libraries like requests let you query VirusTotal or AbuseIPDB for IP and hash reputation, and pandas helps you parse and correlate exported log data. Even a small script that flags suspicious URLs from your logs reinforces the phishing and malicious-URL investigation skills that make up a big part of SOC L1 work."
+        },
+        {
+              "heading": "Your Next Step",
+              "body": "Start small: one hypervisor, Splunk Free, one Windows VM with Sysmon, and Atomic Red Team. Run a single technique, find it in your logs, and document your evidence like a real ticket. That workflow — detect, investigate, map to ATT&CK, document — is the core of any SOC job. A $500 home SOC lab gives you the hands-on learning that certifications alone can't. For more blue-team walkthroughs and detection notes, check the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
