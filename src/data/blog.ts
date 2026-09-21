@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "incident-response-first-30-minutes-checklist",
+    title: "Incident Response: The First 30 Minutes Checklist",
+    date: "2026-09-21",
+    excerpt: "A practical incident response checklist that walks you through the first 30 minutes of a cybersecurity incident, from triage to containment.",
+    readingTime: "6 min read",
+    tags: ["incident-response","soc","blue-team","mitre-attack"],
+    keywords: ["incident response","incident management","cybersecurity incident checklist","SOC triage","containment","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "The first 30 minutes of an incident response effort usually decide whether an incident stays small or turns into a full-blown breach. As a SOC analyst, I've learned that good incident management isn't about panic-clicking through consoles — it's about running a repeatable cybersecurity incident checklist that keeps you calm and methodical. This post breaks down exactly what I focus on in those opening minutes: validating the alert, scoping the blast radius, and starting containment without destroying evidence. Whether you're an L1 analyst or building your own incident response playbook, these steps will help you move fast without cutting corners."
+        },
+        {
+              "heading": "Validate Before You React",
+              "body": "The most common mistake in incident response is treating every alert as a confirmed compromise. Before you escalate, confirm the alert is real. Pull the raw event in Splunk or QRadar and read the actual log — not just the correlation rule name. Check the source and destination, the process lineage, and whether the behavior matches a known false positive pattern. Ask the basics: Is this a legitimate admin action? A scanner? A misconfigured tool? Roughly a large share of alerts I triage resolve as benign at this stage, so spending two minutes on validation saves the whole team from chasing ghosts."
+        },
+        {
+              "heading": "Establish a Timeline and Scope",
+              "body": "Once you've confirmed something is worth investigating, build a quick timeline. Note the first observed event, the affected host or user, and the direction of the activity. In QRadar or Splunk, pivot on the source IP, hostname, and username to see what else is connected. The goal is scoping: is this one endpoint or ten? One user or an entire OU? Map the observed behavior to MITRE ATT&CK techniques as you go — for example, tagging suspicious PowerShell as T1059.001 or credential access attempts as T1003. This framing makes escalation and handoff far cleaner."
+        },
+        {
+              "heading": "Preserve Evidence Early",
+              "body": "Containment often destroys evidence if you're careless. Before you isolate a host or kill a process, capture what you need. Export the relevant Splunk/QRadar search results, screenshot the EDR process tree, and note volatile details like active network connections and running processes. Record timestamps in UTC and document who did what. In a real incident management process, this evidence chain matters for both the investigation and any post-incident review. I keep a running notes doc from the very first minute so nothing gets reconstructed from memory later."
+        },
+        {
+              "heading": "Start Containment Without Overreacting",
+              "body": "With scope and evidence in hand, move to containment. For a single compromised endpoint, EDR host isolation is usually the fastest option — it cuts network access while keeping the machine online for forensics. For a suspicious account, disabling the session and forcing a password reset limits lateral movement. Block malicious URLs and IPs at the firewall or proxy. The key is proportionality: don't pull the plug on production systems over an unconfirmed alert, but don't sit on genuine credential theft either. When in doubt, contain narrowly and escalate."
+        },
+        {
+              "heading": "Escalate and Communicate Clearly",
+              "body": "Even the best individual triage fails without clean communication. Follow your SOC's escalation workflow and hand off a concise summary: what was seen, affected assets, MITRE techniques observed, actions taken so far, and what you need next. Avoid dumping raw logs on the responder — give them the story. Good incident response is a team relay, and your 30-minute checklist should end with a clear, documented handoff."
+        },
+        {
+              "heading": "Your Takeaway",
+              "body": "Write down these steps as a physical or digital checklist and keep it next to your console: validate, scope, preserve, contain, escalate. A repeatable cybersecurity incident checklist beats improvisation every time, especially under pressure. Refine it after every incident so your first 30 minutes keep getting sharper. Want more SOC and blue-team walkthroughs? Explore the rest of my portfolio for hands-on detection and investigation guides."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
