@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "reduce-false-positives-in-splunk",
+    title: "How to Reduce False Positives in Splunk: Alert Tuning",
+    date: "2026-09-23",
+    excerpt: "A practical guide to cutting Splunk false positives through smart alert tuning, better queries, and noise reduction that keeps your SOC focused.",
+    readingTime: "6 min read",
+    tags: ["Splunk","SIEM","SOC","Detection Engineering"],
+    keywords: ["Splunk false positives","alert tuning","reduce noise","Splunk optimization","SOC analyst","SIEM tuning"],
+    content:   [
+        {
+              "body": "If you've spent any time triaging alerts, you know Splunk false positives are the single biggest drain on a SOC analyst's day. Every noisy alert steals attention from a real threat, and reducing noise is one of the most valuable things you can do for your team. As an L1 analyst, I spend a lot of time on alert tuning and Splunk optimization, and the good news is that most false positives come from a handful of fixable patterns. This post walks through the practical steps I use to reduce noise without silencing the detections that actually matter."
+        },
+        {
+              "heading": "Start by Measuring Your Noisiest Alerts",
+              "body": "You can't tune what you don't measure. Before touching any search, run a report over your notable events to find which correlation searches fire most and how many get dispositioned as benign. A simple query like `index=notable | stats count by search_name | sort - count` gives you the offenders. In my experience, a small number of rules generate the majority of noise, so ranking them tells you exactly where alert tuning will pay off first. Focus your effort on the top of that list rather than trying to fix everything at once."
+        },
+        {
+              "heading": "Tighten the Search, Not Just the Threshold",
+              "body": "The lazy fix is bumping a threshold higher, but that often hides real activity. Better Splunk optimization comes from making the search itself more precise. Add context filters: scope to relevant sourcetypes, exclude known service accounts, and filter out expected internal scanners or vulnerability tools by IP. Use `NOT` clauses sparingly but deliberately. Where possible, correlate two weak signals into one stronger detection instead of alerting on a single noisy field. A well-scoped search reduces false positives while keeping true positives intact."
+        },
+        {
+              "heading": "Use Lookups and Allowlists for Known-Good Behavior",
+              "body": "A lot of Splunk false positives are simply known-good activity that the rule doesn't recognize. CSV lookups are your friend here. Maintain an allowlist of sanctioned admin hosts, automation accounts, and approved software, then reference it in your searches with `| lookup` and filter matches out. Keep these lookups version-controlled and reviewed, because a stale allowlist can accidentally suppress genuine threats. Done right, this is one of the cleanest ways to reduce noise without weakening detection logic."
+        },
+        {
+              "heading": "Map Alerts to MITRE ATT&CK to Judge Value",
+              "body": "When deciding whether to tune or retire an alert, map it to MITRE ATT&CK. Ask what technique it's meant to catch and whether another detection already covers that behavior. If two searches fire on the same activity, you can often consolidate them and cut redundant noise. Framing alert tuning around ATT&CK coverage keeps you from silencing something that's your only visibility into a technique, which is a risk when you tune purely by volume."
+        },
+        {
+              "heading": "Tune Iteratively and Document Everything",
+              "body": "Alert tuning is never one-and-done. Change one thing, observe it over a few days, and confirm the reduction in false positives against real triage outcomes. Document every change: what you edited, why, and the date. This audit trail matters when a detection later misses something and someone asks what changed. Splunk's `sinkhole` for testing and scheduled search previews help you validate before pushing to production. Small, reversible changes beat sweeping rewrites."
+        },
+        {
+              "heading": "Key Takeaway",
+              "body": "Reducing Splunk false positives isn't about muting alerts, it's about making each one earn its place. Measure your noisiest searches, tighten the logic with context and lookups, validate against MITRE ATT&CK coverage, and tune iteratively with documentation. Do this consistently and you'll spend far less time on noise and far more on real investigations. For more SOC and Splunk optimization walkthroughs, check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
