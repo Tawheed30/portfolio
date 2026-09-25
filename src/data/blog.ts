@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "mitre-attack-mapping-detection-engineers",
+    title: "MITRE ATT&CK Detection Mapping for Engineers",
+    date: "2026-09-25",
+    excerpt: "A practical guide to MITRE ATT&CK detection mapping that helps detection engineers build higher-fidelity alerts and reduce noise.",
+    readingTime: "5 min read",
+    tags: ["MITRE ATT&CK","Detection Engineering","SOC","Threat Detection"],
+    keywords: ["MITRE ATT&CK detection","threat detection","detection engineering techniques","MITRE ATT&CK mapping","SOC analyst","Splunk detection rules"],
+    content:   [
+        {
+              "body": "If you write detection rules for a living, MITRE ATT&CK detection mapping is one of the most useful habits you can build. As an SOC analyst, I map alerts to ATT&CK every day, and the pattern is clear: teams that tie threat detection back to tactics and techniques get better coverage visibility and less alert noise. This post covers practical detection engineering techniques for mapping ATT&CK to real detections in Splunk and QRadar — not the theory, but the parts that actually help you tune alerts and communicate coverage."
+        },
+        {
+              "heading": "Start With the Technique, Not the Tool",
+              "body": "A common mistake is starting from a log source and asking 'what can I alert on here?' Flip it. Pick a technique like T1059.001 (PowerShell) or T1003 (OS Credential Dumping) and ask which data source would reveal it. ATT&CK's data source objects — process creation, command line, authentication logs, network traffic — tell you exactly what telemetry a detection needs. This keeps you focused on adversary behavior instead of whatever happens to be easy to query. It also exposes blind spots fast: if a technique maps to command-line arguments and you aren't collecting them, no rule will ever catch it."
+        },
+        {
+              "heading": "Map Every Detection to a Sub-Technique",
+              "body": "Tactic-level mapping (Execution, Persistence, Defense Evasion) is too coarse to be useful. Map to the sub-technique whenever you can. T1547.001 (Registry Run Keys) and T1053.005 (Scheduled Task) both live under Persistence, but they need completely different queries and produce very different false positives. When I document evidence during triage, referencing the specific sub-technique makes escalations cleaner because the next analyst instantly knows the expected behavior and what benign activity looks similar."
+        },
+        {
+              "heading": "Translate ATT&CK Into Detection Logic",
+              "body": "Mapping is only valuable if it turns into a rule. In Splunk, a detection for suspicious PowerShell might filter on process creation events (EventCode 4688 or Sysmon Event ID 1) where the command line contains encoded commands or download cradles. In QRadar, you'd build the equivalent using a rule that correlates process and command-line properties. Keep the technique ID in the rule name or metadata — for example, tag it 'T1059.001 - Encoded PowerShell'. Later, when you audit coverage, you can filter detections by technique instead of guessing what each rule does."
+        },
+        {
+              "heading": "Use the Navigator to See Your Gaps",
+              "body": "The ATT&CK Navigator is free and underused. Export your active detections, assign each a technique ID, and color the matrix by coverage. This gives leadership and detection engineers a shared, honest picture of where the environment is strong and where it's thin. It also stops the trap of stacking ten redundant rules on the same technique while whole tactics like Lateral Movement or Exfiltration sit empty. Prioritize gaps against the threats most relevant to your industry rather than trying to cover the entire matrix at once."
+        },
+        {
+              "heading": "Automate the Boring Parts With Python",
+              "body": "You don't need to maintain mappings by hand. The mitreattack-python library lets you pull the full STIX dataset and cross-reference technique IDs, data sources, and detections programmatically. A short script can flag detections missing a technique tag, or list techniques with zero coverage. This kind of lightweight automation keeps your mapping accurate as ATT&CK gets updated each year, without manual spreadsheet drift."
+        },
+        {
+              "heading": "The Takeaway",
+              "body": "Good MITRE ATT&CK detection mapping isn't about labeling alerts after the fact — it's about designing detections around adversary behavior and being honest about your gaps. Start at the sub-technique level, tie each rule to a data source, tag your detections with technique IDs, and visualize coverage in the Navigator. Do that consistently and your threat detection becomes measurable instead of a pile of disconnected rules. Want more practical detection engineering techniques? Explore the rest of my portfolio for hands-on SOC and detection breakdowns."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
