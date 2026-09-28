@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-09-28",
+    excerpt: "Practical Python SOC automation scripts that cut alert triage time and free up analysts for real investigation work.",
+    readingTime: "6 min read",
+    tags: ["Python","SOC","Automation","Blue Team"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","alert triage automation","phishing investigation Python"],
+    content:   [
+        {
+              "body": "If you spend your shift copy-pasting IPs into VirusTotal and re-typing the same Splunk queries, Python SOC automation is the single highest-leverage skill you can build as an L1 analyst. You don't need to be a software engineer — a handful of small security automation scripts will handle the repetitive parts of triage so you can focus on the actual investigation. In this post I'll walk through practical Python cybersecurity quick wins I lean on during phishing and URL triage, all built from standard libraries and free-tier APIs. No frameworks, no over-engineering — just scripts that save minutes on every alert."
+        },
+        {
+              "heading": "Start With Enrichment, Not Detection",
+              "body": "The fastest ROI in Python SOC automation isn't writing detections — that's what Splunk and QRadar are for. It's enrichment. When a phishing alert lands, you typically need reputation on the sender domain, the URL, and any file hashes. A single script that takes an indicator, hits the VirusTotal and AbuseIPDB APIs with the `requests` library, and prints a clean summary saves you the tab-switching dance. Cache your results in a local SQLite file so you're not burning API quota re-querying the same indicator across a noisy campaign. This is the classic first script every analyst should own."
+        },
+        {
+              "heading": "Parse Phishing Emails Automatically",
+              "body": "Manually reading raw email headers is slow and error-prone. Python's built-in `email` module parses `.eml` and `.msg` (with `extract-msg`) files, letting you pull the Return-Path, Received chain, SPF/DKIM/DMARC results, and any URLs in the body. I use a script that extracts every URL, defangs it, and runs it through the enrichment function above. Combine that with `tldextract` to flag lookalike domains, and you've turned a ten-minute header review into a few seconds. This is one of the most reused security automation scripts on any phishing-heavy queue."
+        },
+        {
+              "heading": "Query Your SIEM From a Script",
+              "body": "Both Splunk and QRadar expose REST APIs. With Splunk's `splunk-sdk` (or plain `requests` against the search endpoint) you can run a saved search — say, 'all logins from this source IP in the last 24 hours' — and get JSON back you can pivot on immediately. For QRadar, the Ariel API does the same for offense and flow data. The point isn't to replace the console; it's to script the five queries you run on every alert so context arrives without manual work. Store your API token in an environment variable, never in the script itself."
+        },
+        {
+              "heading": "Map and Document With ATT&CK",
+              "body": "Documentation is where Python cybersecurity work quietly pays off. A small script can take your enrichment output and drop a pre-formatted case note into your ticketing tool via its API, complete with defanged IOCs and the relevant MITRE ATT&CK technique IDs. The `attackcti` library lets you pull technique names and IDs straight from the ATT&CK dataset, so your notes stay consistent instead of relying on memory. Consistent, machine-generated notes also make escalations to L2 far easier to hand off."
+        },
+        {
+              "heading": "Keep It Safe and Maintainable",
+              "body": "A few rules keep automation from becoming a liability: never hardcode credentials, rate-limit your API calls, and always defang IOCs before printing or logging them so you don't accidentally click a live payload. Use `argparse` so scripts take an indicator as an argument, and keep each script single-purpose. A folder of ten small, readable scripts beats one giant tool nobody trusts. Version them in a private repo and add a short README for the next analyst."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "You don't need a SOAR platform to start automating. Pick the one task you do most — probably indicator enrichment — and write a 30-line Python script for it this week. Then automate email parsing, then SIEM queries. Each script compounds, and Python SOC automation quickly becomes the difference between drowning in alerts and actually investigating them. Want the enrichment script template and more blue-team writeups? Check the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
