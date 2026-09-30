@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "home-soc-lab-500-budget",
+    title: "Build a Home SOC Lab on a $500 Budget",
+    date: "2026-09-30",
+    excerpt: "A practical guide to building a home SOC lab on a $500 budget for hands-on learning and real security lab setup skills.",
+    readingTime: "6 min read",
+    tags: ["home lab","SOC analyst","SIEM","blue team"],
+    keywords: ["home SOC lab","security lab setup","budget security training","hands-on learning","Splunk home lab","blue team lab"],
+    content:   [
+        {
+              "body": "If you want to break into blue team work, nothing beats a home SOC lab. As a SOC analyst, I spend my days triaging Splunk and QRadar alerts, and the fastest way to build those instincts is a security lab setup you control. The good news: you don't need enterprise budgets. A home SOC lab on $500 gives you real, hands-on learning — generating logs, writing detections, and mapping alerts to MITRE ATT&CK. This guide walks through budget security training that mirrors what you actually do in a production SOC, without the cost of vendor licenses or dedicated hardware racks."
+        },
+        {
+              "heading": "Plan Your Hardware Spend",
+              "body": "The single biggest line item is RAM. Running a SIEM plus a couple of endpoints and an attacker box will eat memory fast. A used refurbished workstation or mini PC (think Dell OptiPlex or a used ThinkCentre) with 32GB of RAM and an SSD usually lands around $300-$400 on the secondhand market. If you already have a capable laptop or desktop with 16GB+, spend nothing here and put the money toward more RAM. Everything else in this lab runs on free, open-source software, so hardware is where your budget actually goes."
+        },
+        {
+              "heading": "Pick Your Virtualization Layer",
+              "body": "Use a free hypervisor — VirtualBox or Proxmox VE both cost nothing. Proxmox is closer to what you'll see in real infrastructure and handles snapshots and networking cleanly, which matters when you want to revert an infected VM. Create an isolated internal network so your malicious traffic never touches your home LAN. I'd budget one VM for your SIEM, one Windows endpoint, one Linux endpoint, and a Kali attacker box. Snapshots are your friend: take one before every test so you can roll back and repeat a detection scenario."
+        },
+        {
+              "heading": "Set Up a Free SIEM",
+              "body": "Splunk Free lets you ingest up to 500MB/day, which is plenty for a home SOC lab. It's also the tool I use daily, so the query language (SPL) carries directly into a job. If you'd rather stay fully open source, Elastic Stack (Elasticsearch, Logstash, Kibana) with the free Security features works well too. Install Sysmon on your Windows endpoint and forward those logs — Sysmon gives you process creation, network connections, and file events, which are the backbone of most endpoint detections."
+        },
+        {
+              "heading": "Generate Attacks and Detect Them",
+              "body": "A lab is only useful if you attack it. Atomic Red Team is a free library of tests mapped directly to MITRE ATT&CK techniques, so you can run a single command, watch the telemetry land in your SIEM, and write a detection for it. Pair it with Caldera or manual Kali tooling for broader scenarios. This is the core loop of budget security training: execute a technique, hunt for the evidence, build the alert, then tune out the noise. Document each investigation like a real case — that habit is exactly what hiring managers look for."
+        },
+        {
+              "heading": "Level Up With Python and Free Data",
+              "body": "Once logs are flowing, use Python to parse and enrich them. Libraries like pandas for log analysis and requests for pulling threat intel (VirusTotal or AbuseIPDB free tiers) let you practice the enrichment steps analysts do during phishing and malicious URL triage. Free public datasets like the Boss of the SOC (BOTS) sample data give you realistic events to hunt through when you're not generating your own."
+        },
+        {
+              "heading": "Your Takeaway",
+              "body": "You can build a genuinely useful home SOC lab for around $500 — most of it hardware, the rest free software. Start small: one SIEM, one endpoint with Sysmon, one attacker box, and Atomic Red Team. Run a technique, hunt it, detect it, document it, repeat. That hands-on learning loop builds the muscle memory that alert triage demands. For more SOC walkthroughs and detection notes, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
