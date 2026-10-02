@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "reduce-false-positives-in-splunk",
+    title: "How to Reduce False Positives in Splunk: Alert Tuning",
+    date: "2026-10-02",
+    excerpt: "A practical SOC analyst's guide to reducing Splunk false positives through smart alert tuning and noise reduction.",
+    readingTime: "6 min read",
+    tags: ["Splunk","SOC","Detection Engineering","Alert Tuning"],
+    keywords: ["Splunk false positives","alert tuning","reduce noise","Splunk optimization","SIEM tuning","SOC analyst"],
+    content:   [
+        {
+              "body": "If you've spent any time in a SOC, you know that Splunk false positives are the fastest way to burn out an analyst. As an L1 analyst triaging alerts daily, I can tell you that reducing noise isn't a one-time project — it's ongoing alert tuning. The good news: cutting down Splunk false positives doesn't require exotic tooling. It requires disciplined Splunk optimization, understanding your data, and a feedback loop between the people triaging alerts and the people writing detections. This post walks through the practical techniques I lean on to reduce noise without silencing real threats."
+        },
+        {
+              "heading": "Start With the Noisiest Alerts First",
+              "body": "Before touching any SPL, figure out where the noise actually comes from. Run a search over your notable events or alert index grouped by rule name and count, something like `index=notable | stats count by search_name | sort -count`. You'll almost always find a handful of saved searches generating the bulk of your false positives. Tackle those first — the Pareto principle holds in SOC work. Fixing your top five noisiest rules usually does more for analyst sanity than tuning twenty quiet ones."
+        },
+        {
+              "heading": "Tighten the Search Logic, Not Just Thresholds",
+              "body": "A common mistake is raising a threshold until the alert goes quiet. That hides the problem instead of solving it. Better alert tuning means refining the logic. Add context: filter known service accounts, scheduled scanners, and vulnerability assessment hosts that legitimately trigger behavior. Use `NOT` clauses or lookup-based exclusions rather than hardcoding IPs inline. For example, maintain a CSV lookup of approved admin workstations and reference it so your privileged-logon detection ignores expected activity. This keeps the detection intact for genuine anomalies while trimming predictable noise."
+        },
+        {
+              "heading": "Use Lookups and Allowlists the Right Way",
+              "body": "Lookups are your best friend for Splunk optimization. Build maintained allowlists for business-approved software, known scanner IPs, and service accounts, then join them into your searches with `inputlookup` or `lookup`. The key is governance — an allowlist that nobody reviews becomes a blind spot. Document who owns each entry and why it was added. When you exclude something, note it in the detection's description so the next analyst understands the tuning decision instead of blindly trusting it."
+        },
+        {
+              "heading": "Map Detections to MITRE ATT&CK for Context",
+              "body": "Mapping your alerts to MITRE ATT&CK techniques helps you reason about whether a detection is too broad. If a single rule claims to cover five unrelated techniques, it's probably firing on too much. Narrowing a detection to a specific technique — say, T1059 for command interpreter abuse — lets you tune the SPL around the actual behavior you care about. This focus naturally reduces noise because you're matching intent, not just keywords."
+        },
+        {
+              "heading": "Close the Loop With Analyst Feedback",
+              "body": "The most valuable tuning signal is how analysts dispose of alerts. If a notable event is closed as a false positive over and over, that's data. Review disposition trends weekly and feed them back into detection logic. Even a simple habit of logging why an alert was benign gives detection engineers the evidence they need to adjust. You can use Python to pull disposition data via the Splunk REST API and spot patterns across time if you want to automate this review."
+        },
+        {
+              "heading": "Takeaway: Tuning Is a Habit, Not a Project",
+              "body": "Reducing Splunk false positives is continuous work. Prioritize your noisiest rules, refine logic instead of just raising thresholds, govern your allowlists, map detections to MITRE ATT&CK, and let analyst feedback drive changes. Teams that treat alert tuning as a routine typically see cleaner queues and faster triage. Start with your top five noisiest searches this week — that single habit will do more for your SOC than any new tool. Want more practical SOC and Splunk optimization notes? Explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
