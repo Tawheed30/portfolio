@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "phishing-investigation-workflow-step-by-step",
+    title: "Phishing Investigation Workflow: Step-by-Step Guide",
+    date: "2026-10-05",
+    excerpt: "A practical phishing investigation workflow SOC analysts can follow for faster phishing detection and incident response.",
+    readingTime: "6 min read",
+    tags: ["Phishing","SOC","Incident Response","Email Security"],
+    keywords: ["phishing investigation","email security","phishing detection","incident response","SOC analyst","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "A solid phishing investigation workflow is one of the most valuable things a SOC analyst can master. On a given shift, phishing-related alerts and user-reported emails make up a large share of the queue, so strong email security instincts and a repeatable phishing detection process directly affect how fast you respond. In this post I'll walk through the phishing investigation workflow I use day-to-day as an L1 analyst — the steps that keep incident response consistent, defensible, and fast. The goal isn't to be clever; it's to be methodical so nothing gets missed."
+        },
+        {
+              "heading": "Step 1: Triage and Scope the Report",
+              "body": "Every investigation starts with intake. Whether the alert came from a user report button, a secure email gateway, or a Splunk/QRadar correlation rule, the first job is to understand scope. How many recipients received the message? Is it a single mailbox or a campaign across the org? I grab the original email with full headers — not a forwarded copy that strips metadata. In most mail platforms you want the raw .eml or .msg so the Received chain, SPF/DKIM/DMARC results, and X-headers are intact. Scoping early tells you whether this is a quick closeout or a potential mass-targeting incident."
+        },
+        {
+              "heading": "Step 2: Analyze Headers and Authentication",
+              "body": "Headers are where phishing detection gets concrete. Read the Received chain bottom-up to trace the actual sending path, and check Authentication-Results for SPF, DKIM, and DMARC verdicts. A 'From' display name that doesn't match the envelope sender, a DMARC fail, or a mismatched Return-Path are strong signals. I also look for lookalike domains (homoglyphs, extra hyphens, odd TLDs). Tools like MXToolbox or a quick Python script using the email library can parse headers consistently so you're not eyeballing raw text under time pressure."
+        },
+        {
+              "heading": "Step 3: Detonate URLs and Attachments Safely",
+              "body": "Never click a suspicious link from a production machine. Extract URLs and defang them, then run indicators through reputation sources like VirusTotal, URLScan.io, or your EDR's threat intel integration. For attachments, compute hashes and check them against intel feeds before any sandbox detonation. Watch for URL redirect chains and credential-harvesting pages mimicking Microsoft 365 or other login portals. The intent here is to confirm maliciousness without exposing yourself or the network — a core email security discipline."
+        },
+        {
+              "heading": "Step 4: Hunt for Impact in Your SIEM",
+              "body": "Now pivot from the email to the environment. In Splunk or QRadar, search proxy and firewall logs for anyone who reached the malicious domain, and check email logs for other recipients of the same campaign. Look at endpoint and EDR telemetry for downloads or process execution tied to an attachment. This is the step that turns a single report into real incident response: did anyone click, submit credentials, or run the payload? Your SIEM searches determine the blast radius."
+        },
+        {
+              "heading": "Step 5: Map, Document, and Escalate",
+              "body": "I map observed behavior to MITRE ATT&CK — commonly techniques like Phishing (T1566), and credential access if a harvesting page was involved. Documenting ATT&CK mappings, indicators, and the timeline makes escalation clean and gives responders a clear picture. Record every IOC (sender, domains, URLs, hashes) so detection engineering can tune rules and blocklists. Then escalate per your SOC workflow if there's confirmed impact, and request containment actions like mailbox purge, domain blocking, and password resets for affected users."
+        },
+        {
+              "heading": "Takeaway: Consistency Beats Cleverness",
+              "body": "A repeatable phishing investigation workflow protects you from skipping steps when the queue is deep. Standardize intake, header analysis, safe detonation, SIEM hunting, and ATT&CK-based documentation, and your phishing detection and incident response get noticeably more reliable. Build a checklist, automate the parsing where you can with Python, and keep refining. Want more SOC-focused breakdowns like this? Explore the rest of my portfolio for hands-on detection and investigation walkthroughs."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
