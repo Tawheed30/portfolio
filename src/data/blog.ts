@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "edr-vs-network-detection-which-to-invest-first",
+    title: "EDR vs Network Detection: Which to Invest First",
+    date: "2026-10-07",
+    excerpt: "A SOC analyst's practical breakdown of EDR vs network detection and which security investment pays off first.",
+    readingTime: "5 min read",
+    tags: ["EDR","Network Detection","SOC","Security Monitoring"],
+    keywords: ["EDR vs network detection","endpoint detection","network security monitoring","EDR tools","NDR","SOC detection"],
+    content:   [
+        {
+              "body": "If you only have budget for one, the EDR vs network detection debate is one of the first strategic questions a security team faces. EDR (endpoint detection and response) watches processes, files, and behavior on hosts, while network security monitoring watches traffic flowing between them. Both feed the SOC, both map to MITRE ATT&CK, and both generate alerts I triage every day in Splunk and QRadar. But EDR vs network detection isn't about which tool is 'better' — it's about which gives you faster, higher-fidelity visibility for the threats you actually face. Here's how I think about endpoint detection versus network security monitoring from a working analyst's seat."
+        },
+        {
+              "heading": "What EDR Actually Gives You",
+              "body": "Endpoint detection sits where attacks execute. When malware drops a payload, spawns a suspicious child process, or injects into memory, EDR tools like CrowdStrike Falcon, Microsoft Defender for Endpoint, or SentinelOne record the full process tree. From a triage standpoint, this is gold: I can see the parent process, command-line arguments, and hashes without pivoting across three systems. EDR also enables response — isolating a host, killing a process, or collecting forensic artifacts. For MITRE ATT&CK techniques like Execution (T1059) or Defense Evasion, endpoint telemetry is often the only place the evidence actually lives."
+        },
+        {
+              "heading": "What Network Detection Covers That EDR Misses",
+              "body": "Network security monitoring sees things endpoints can't. Unmanaged devices, IoT, printers, and BYOD assets rarely have an EDR agent, but they all talk on the wire. Tools like Zeek, Suricata, and commercial NDR platforms catch lateral movement, command-and-control beaconing, and data exfiltration patterns in flow and packet data. When I investigate a malicious URL or suspicious outbound connection, firewall and IDS/IPS logs confirm whether a host actually reached out. Network visibility is also harder for attackers to tamper with — disabling an EDR agent is easier than hiding from a network sensor watching the whole segment."
+        },
+        {
+              "heading": "The Honest Trade-Offs",
+              "body": "EDR gives deep, host-level context but only on agents you've deployed — coverage gaps are the real risk. Network detection gives broad coverage but less context; a beacon alert tells you something is wrong without always telling you which process caused it. EDR tends to produce higher-fidelity alerts out of the box, while network security monitoring typically needs more tuning to reduce noise. Encrypted traffic also limits what packet inspection reveals, pushing more weight back onto the endpoint."
+        },
+        {
+              "heading": "Which to Invest in First",
+              "body": "For most organizations, I'd invest in EDR first. It covers the place where attacks execute, provides immediate response capability, and generally delivers cleaner, more actionable alerts for a small SOC to triage. If your endpoints are mostly managed laptops and servers, endpoint detection buys you the most risk reduction per dollar early on. Invest in network security monitoring next — especially once you have unmanaged devices, flat network segments, or need to catch lateral movement and C2 that never touches an agent."
+        },
+        {
+              "heading": "Why You Eventually Want Both",
+              "body": "In practice, EDR vs network detection is a false binary once you mature. Correlating endpoint and network telemetry in a SIEM like Splunk or QRadar is how you reconstruct a full attack chain across MITRE ATT&CK — from initial execution on the host to beaconing on the wire. A simple Python enrichment script that ties host alerts to network flows can turn two noisy data sources into one coherent timeline. Start with the endpoint, layer in the network, and let the SIEM do the correlation."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "Lead with EDR for depth and response, add network security monitoring for coverage, and correlate both in your SIEM. Prioritize based on your real asset mix, not vendor hype. Want more practical SOC detection breakdowns? Explore the rest of my portfolio for hands-on triage and MITRE ATT&CK walkthroughs."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
