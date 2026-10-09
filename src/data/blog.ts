@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-10-09",
+    excerpt: "Practical Python SOC automation quick wins that cut repetitive triage work and let analysts focus on real investigations.",
+    readingTime: "5 min read",
+    tags: ["Python","SOC","Automation","Blue Team"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","Splunk automation","phishing triage"],
+    content:   [
+        {
+              "body": "If you work a SOC queue, you already know how much time disappears into repetitive copy-paste work. Python SOC automation is the single highest-leverage skill I've picked up as an L1 analyst, because it turns those boring, error-prone tasks into a script you run once. You don't need to be a developer to benefit from security automation scripts. A few dozen lines of Python cybersecurity tooling can enrich an IP, parse a header, or query an API faster than you can switch browser tabs. In this post I'll share the quick wins that actually save time during alert triage."
+        },
+        {
+              "heading": "Start With IOC Enrichment",
+              "body": "The most obvious first win is indicator enrichment. When an alert gives you an IP, domain, or file hash, you usually pivot to VirusTotal, AbuseIPDB, or a WHOIS lookup. Instead of visiting each site manually, use the `requests` library to call their APIs and print a single summary. A short script that takes an IOC as an argument and returns reputation, country, and last-seen data removes a lot of tab-switching. Store your API keys in environment variables, not hardcoded in the script, and respect rate limits. This is the easiest entry point into Python SOC automation because the payoff is immediate."
+        },
+        {
+              "heading": "Parse Phishing Headers Automatically",
+              "body": "Phishing triage is a daily task, and email headers are tedious to read by hand. Python's built-in `email` module parses raw `.eml` files or pasted headers so you can extract the sender, Return-Path, Received chain, SPF/DKIM/DMARC results, and any embedded URLs in seconds. Pair it with `urllib.parse` to defang and sort links, or `tldextract` to flag suspicious domains. These security automation scripts won't make the final verdict for you, but they surface the evidence you need to escalate or close faster and more consistently."
+        },
+        {
+              "heading": "Query Splunk and QRadar via API",
+              "body": "Both Splunk and QRadar expose REST APIs, and that's where Python cybersecurity work gets powerful. With the `splunk-sdk` or plain `requests`, you can fire a saved search, pull results as JSON, and reshape them however you like. For QRadar, the Ariel API lets you run AQL queries programmatically. I use this to pull repetitive lookups, like all logins from a given user over 24 hours, without rebuilding the search by hand each time. Just be careful with credentials and run read-only queries during triage."
+        },
+        {
+              "heading": "Map and Tag With MITRE ATT&CK",
+              "body": "When documenting an alert, mapping behavior to MITRE ATT&CK is part of the workflow. A small helper that takes a technique ID like `T1566` and returns the tactic, name, and description keeps your notes consistent. You can pull this from the public ATT&CK STIX data or a local JSON copy so you aren't hitting the internet every time. It's a tiny script, but it standardizes how your team references techniques in case notes."
+        },
+        {
+              "heading": "Keep Scripts Safe and Shareable",
+              "body": "A few habits make your automation trustworthy. Use `argparse` for clean inputs, log actions instead of printing everything, and wrap API calls in try/except so one failure doesn't crash a batch. Keep secrets in environment variables or a vault, pin your dependencies in `requirements.txt`, and use a virtual environment. Treat these scripts like any other tool: version them in Git so teammates can reuse and review them."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "You don't need a big project to get value from Python SOC automation. Pick one repetitive task from your queue this week, enrichment or header parsing are great starters, and script it end to end. Each small win compounds into hours saved. For more SOC and blue-team walkthroughs, check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
