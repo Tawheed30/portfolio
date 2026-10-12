@@ -327,6 +327,40 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "edr-vs-network-detection-which-first",
+    title: "EDR vs Network Detection: Which to Invest First",
+    date: "2026-10-12",
+    excerpt: "A SOC analyst's practical take on EDR vs network detection and which endpoint detection or network security monitoring layer to prioritize first.",
+    readingTime: "5 min read",
+    tags: ["EDR","Network Detection","SOC","Detection Engineering"],
+    keywords: ["EDR vs network detection","endpoint detection","network security monitoring","EDR","NDR","SOC detection"],
+    content:   [
+        {
+              "body": "The EDR vs network detection debate comes up constantly when teams plan their first serious detection investment. As a SOC analyst who triages alerts from endpoint detection and network security monitoring every day, my honest answer is: it depends on what you can actually see today. Both EDR and network detection give you visibility, but they answer different questions. If you're deciding where limited budget and attention go first, you need to understand what each layer catches, what it misses, and how they feed the alerts that land in your Splunk or QRadar console."
+        },
+        {
+              "heading": "What EDR Actually Gives You",
+              "body": "Endpoint detection and response (EDR) lives on the host, so it sees process execution, command-line arguments, parent-child process trees, registry changes, and file writes. Tools like CrowdStrike Falcon, Microsoft Defender for Endpoint, and SentinelOne map behaviors to MITRE ATT&CK techniques like T1059 (Command and Scripting Interpreter) or T1055 (Process Injection). When I investigate a suspicious alert, the endpoint telemetry is usually where I confirm intent: a phishing attachment is far more convincing as a threat once you see winword.exe spawning powershell.exe with an encoded command. EDR is also where you get response actions — isolating a host or killing a process — which network tools generally can't do."
+        },
+        {
+              "heading": "What Network Detection Covers",
+              "body": "Network security monitoring (NSM) and network detection and response (NDR) watch traffic instead of hosts. Zeek, Suricata, and commercial NDR platforms flag beaconing, unusual DNS, lateral movement, and data exfiltration patterns. The big advantage is coverage: the network sees unmanaged devices, IoT, printers, and anything you can't install an agent on. It's also harder for an attacker to tamper with traffic metadata than to blind an endpoint agent. In a SOC, network alerts are often how you catch command-and-control traffic (ATT&CK TA0011) even when the endpoint looks clean."
+        },
+        {
+              "heading": "The Honest Trade-Offs",
+              "body": "EDR has blind spots: encrypted traffic, devices without agents, and gaps during agent outages. Network detection has its own — it struggles to tell you exactly which process or user caused activity, and TLS encryption limits payload inspection unless you decrypt. Neither replaces the other. In practice, most alerts I work become conclusive only when I correlate both: a network beacon plus the endpoint process that generated it is a far stronger case than either alone, and it's easier to document and escalate."
+        },
+        {
+              "heading": "Which to Invest in First",
+              "body": "If I had to pick one starting point for a typical organization, I'd lean toward EDR. The reason is practical: most initial compromise and execution happens on the endpoint, EDR gives you response capability, and modern tools include built-in detections mapped to MITRE ATT&CK so a small team gets value fast. Network detection is critical, but it often demands more tuning, sensor placement, and traffic engineering before it stops drowning you in noise. Start with endpoint detection, get comfortable triaging that telemetry, then add network security monitoring to cover the agentless gaps."
+        },
+        {
+              "heading": "Actionable Takeaway",
+              "body": "Don't treat EDR vs network detection as either/or — treat it as a sequence. Deploy EDR first to cover execution and enable response, feed that telemetry into Splunk or QRadar, and tune detections against MITRE ATT&CK. Then layer in network security monitoring with Zeek or Suricata for the devices and traffic your agents can't see. The end goal is correlation: when your endpoint and network data tell the same story, your investigations get faster and your escalations get stronger. Want more SOC-focused detection breakdowns? Explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
