@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-10-14",
+    excerpt: "Practical Python SOC automation ideas that save analysts time on triage, enrichment, and phishing investigations.",
+    readingTime: "5 min read",
+    tags: ["Python","SOC","Automation","Blue Team"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","phishing investigation","alert triage automation"],
+    content:   [
+        {
+              "body": "If you spend your shift copy-pasting IPs into reputation sites and reformatting log fields, Python SOC automation is the fastest way to buy back your time. You don't need to be a developer to write useful security automation scripts — as an L1 SOC analyst, I lean on Python cybersecurity tooling for the boring, repetitive parts of triage so I can focus on the actual analysis. This post covers quick wins: small scripts that remove manual steps from phishing investigations, alert enrichment, and log parsing. None of these require framework rewrites, just a few libraries and an afternoon."
+        },
+        {
+              "heading": "Start With IOC Enrichment",
+              "body": "The single highest-value Python SOC automation win is IOC enrichment. When an alert fires in Splunk or QRadar, you usually pull the indicator and check it against VirusTotal, AbuseIPDB, or an internal blocklist. A small script using the `requests` library can query those APIs in one call and return a clean summary. Feed it an IP, hash, or URL and get back reputation score, last-seen data, and detection counts. This typically cuts the tab-switching out of triage and standardizes what evidence you collect, which matters when you're documenting for escalation."
+        },
+        {
+              "heading": "Parse and Normalize Logs With pandas",
+              "body": "Raw log exports are messy. The `pandas` library turns a CSV or JSON dump of firewall, EDR, or proxy logs into something you can filter in a few lines. I use it to group events by source IP, count connection attempts, and spot the one host that's beaconing on an interval. For quick timeline building during an investigation, `pandas` sorting and `groupby` beat scrolling through a SIEM search manually. Pair it with `datetime` handling so timestamps from different sources line up — misaligned time zones cause more confusion than most people admit."
+        },
+        {
+              "heading": "Automate Phishing URL Triage",
+              "body": "Phishing and malicious URLs are bread-and-butter SOC work. A Python cybersecurity script can take a suspicious URL, defang and refang it, extract the domain, resolve it, and pull WHOIS age with `python-whois`. Newly registered domains are a strong signal. You can also submit the URL to a sandbox or URL-scanning API and log the verdict. Keeping humans out of the obvious-malicious and obvious-benign cases lets you spend judgment on the gray-area ones."
+        },
+        {
+              "heading": "Map Findings to MITRE ATT&CK",
+              "body": "Consistent ATT&CK mapping makes your tickets far more useful. You can build a simple lookup — a dictionary or small JSON file — that tags common alert patterns to technique IDs like T1566 (Phishing) or T1071 (Application Layer Protocol). A script that appends the matching technique to your notes keeps terminology consistent across analysts and makes trend reporting easier later. It's a small security automation script that pays off in documentation quality."
+        },
+        {
+              "heading": "Keep Scripts Safe and Shareable",
+              "body": "A few guardrails keep these from becoming liabilities. Never hardcode API keys — use environment variables or a `.env` file with `python-dotenv`. Handle API errors and rate limits so a failed lookup doesn't crash your workflow. Log what the script does so there's an audit trail. And confirm with your team before any script takes an action beyond read-only enrichment; L1 automation should surface evidence, not pull the trigger on containment."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "You don't need a full SOAR platform to benefit from Python SOC automation. Pick one repetitive task — IOC enrichment is the usual starting point — and script it this week with `requests` and `pandas`. Small, reliable security automation scripts compound fast. For more hands-on SOC and Python cybersecurity write-ups, check the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
