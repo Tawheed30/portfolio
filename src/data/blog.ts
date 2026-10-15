@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "building-home-soc-lab-500-budget",
+    title: "Building a Home SOC Lab on a $500 Budget",
+    date: "2026-07-15",
+    excerpt: "A practical, no-fluff guide to building a home SOC lab for hands-on learning without draining your wallet.",
+    readingTime: "6 min read",
+    tags: ["SOC","Home Lab","Blue Team","SIEM"],
+    keywords: ["home SOC lab","security lab setup","budget security training","hands-on learning","Splunk lab","blue team lab"],
+    content:   [
+        {
+              "body": "If you want to break into blue team work, nothing beats a home SOC lab. When I started my cybersecurity journey, hands-on learning with real tools taught me more than any slide deck. The good news: a solid security lab setup no longer requires a rack of servers. You can get serious budget security training done for around $500 — sometimes less if you already own a decent machine. This guide walks through the exact home SOC lab I'd build today, focused on the same alert triage, log analysis, and MITRE ATT&CK mapping I do daily as a SOC analyst."
+        },
+        {
+              "heading": "Plan Your Budget First",
+              "body": "Your biggest cost is RAM. A SOC lab runs multiple VMs simultaneously — a SIEM, a couple of endpoints, and an attacker box — so aim for 32GB. If your current PC has 16GB, a RAM upgrade often runs $60–$120. A used mini-PC or refurbished workstation with 32GB and an SSD typically lands between $250 and $400. Add a cheap 1TB SSD ($60) for VM storage and you're well under $500. Everything else in this stack is free and open source, which is the whole point: the money goes to hardware, not licenses."
+        },
+        {
+              "heading": "Set Up Virtualization",
+              "body": "VirtualBox is free and perfectly capable for a home lab. VMware Workstation Player is also free for personal use if you prefer it. Build an isolated internal network so your attacker VM can't touch your home devices — use a host-only or internal adapter in your hypervisor. I recommend a pfSense or OPNsense firewall VM in the middle so you generate real firewall logs to forward into your SIEM. That mirrors the kind of firewall and IDS/IPS telemetry SOC analysts triage in production."
+        },
+        {
+              "heading": "Choose Your SIEM",
+              "body": "Splunk Free lets you ingest up to 500MB/day, which is more than enough for a lab and gives you experience with the same search language many SOCs use in production. If you'd rather learn the open-source side, the Elastic Stack (Elasticsearch, Kibana, and the Elastic Agent) or Wazuh give you full SIEM and EDR-style visibility for zero dollars. I'd install one primary SIEM rather than spreading yourself thin — learning to write good searches and dashboards in one tool transfers cleanly to QRadar, Sentinel, or whatever your future employer runs."
+        },
+        {
+              "heading": "Add Endpoints and Log Sources",
+              "body": "Spin up a Windows 10 or 11 VM and a Linux VM as your monitored endpoints. On Windows, install Sysmon with a well-known config (the SwiftOnSecurity config is a solid starting point) to get rich process, network, and registry telemetry. Forward those logs to your SIEM. This is where hands-on learning gets real: you finally see what a process-creation event actually looks like before you ever have to triage one on a real alert."
+        },
+        {
+              "heading": "Generate Attacks and Map to MITRE ATT&CK",
+              "body": "For the attacker side, Kali Linux is free and comes loaded with tooling. Atomic Red Team is my favorite way to safely simulate techniques — it runs small, documented tests you can map directly to MITRE ATT&CK tactics and techniques. Run a test, then hunt for the resulting artifacts in your SIEM. Practicing that detect-and-map loop is exactly the workflow I use professionally: an alert fires, you investigate the evidence, and you tie it back to an ATT&CK technique in your notes."
+        },
+        {
+              "heading": "Your Takeaway",
+              "body": "You don't need enterprise budgets for a home SOC lab that builds real skills. Prioritize RAM, pick one free SIEM, feed it Sysmon and firewall logs, then attack it with Atomic Red Team and hunt your own activity. Repeat that loop and document what you find — that documentation habit is a genuine SOC skill. Want to see more blue team walkthroughs and detection notes? Check out the rest of my portfolio for hands-on guides."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
