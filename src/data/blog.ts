@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "l1-to-l2-soc-analyst-skills-what-actually-matters",
+    title: "L1 to L2 SOC Analyst Skills: What Actually Matters",
+    date: "2026-08-21",
+    excerpt: "The real L2 skills that move your SOC analyst career forward: threat hunting, deeper incident response skills, and analysis that goes past the alert queue.",
+    readingTime: "5 min read",
+    tags: ["SOC","career","threat-hunting","incident-response"],
+    keywords: ["SOC analyst career","L2 skills","threat hunting","incident response skills","SOC analyst L1 to L2","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "If you're an L1 chasing the next step in your SOC analyst career, you've probably noticed the jump to L2 isn't about closing more tickets faster. As an L1 at HashSlash, I spend my day triaging Splunk and QRadar alerts, investigating phishing and malicious URLs, and mapping activity to MITRE ATT&CK. The L2 skills that actually matter build on that foundation but shift the mindset: from 'is this alert real?' to 'what is the attacker actually doing, and how far did they get?' Threat hunting and stronger incident response skills are the core of that shift. Here's what I've seen genuinely move the needle."
+        },
+        {
+              "heading": "Stop Trusting the Alert, Start Investigating the Story",
+              "body": "L1 work is alert-driven: something fires, you triage, you escalate or close. L2 work is hypothesis-driven. The difference is asking 'what else happened around this event?' When a phishing alert lands, an L1 confirms the URL is malicious. An L2 pivots — who clicked, did credentials get submitted, was there a follow-on sign-in from a new ASN, did any process spawn from the mail client? In Splunk that means chaining searches across email, proxy, EDR, and authentication logs instead of reading one panel. Learn to build that timeline yourself. This is the single habit that most cleanly separates the two tiers."
+        },
+        {
+              "heading": "Learn Threat Hunting Beyond the Queue",
+              "body": "Threat hunting is proactive: you form a hypothesis based on adversary behavior and go looking, without an alert telling you to. Start small and grounded in MITRE ATT&CK. Pick a technique like T1059 (Command and Scripting Interpreter) or T1071 (Application Layer Protocol) and write a search that surfaces anomalies — encoded PowerShell, unusual parent-child process chains, beacon-like outbound intervals. You won't always find something, and that's fine; the value is knowing your environment's normal so real deviations stand out. Hunting turns you from a reactive responder into someone who understands the environment, which is exactly what L2 roles are hiring for."
+        },
+        {
+              "heading": "Sharpen Your Incident Response Skills",
+              "body": "Incident response skills at L2 mean owning an investigation end to end, not just handing it off. Get comfortable with the phases: identification, scoping, containment, eradication, recovery, and lessons learned. Practically, that's determining blast radius (how many hosts, which accounts), recommending containment (isolate an endpoint in EDR, disable an account), and documenting a clear chain of evidence others can follow. Good documentation is underrated — a tight, reproducible writeup that maps to ATT&CK tactics is what makes your analysis defensible and repeatable. Clarity under pressure matters more than tool trivia."
+        },
+        {
+              "heading": "Get Functional With Python and Query Languages",
+              "body": "You don't need to be a developer, but light scripting removes friction. Python is the practical choice: use requests to enrich indicators against threat intel APIs, pandas to sift large CSV exports, and re for parsing log fields the UI won't cleanly split. Just as important, get fluent in your platform's query language — SPL for Splunk, AQL for QRadar. Being able to write a stats-heavy correlation search instead of clicking through dashboards is a concrete L2 skill that speeds up every investigation you touch."
+        },
+        {
+              "heading": "Understand Attacker Behavior, Not Just Tools",
+              "body": "The most valuable thing you can internalize is how attackers actually operate across the kill chain — initial access, execution, persistence, lateral movement, exfiltration. MITRE ATT&CK is the shared language for this, so use it as a study map, not just a tagging exercise. When you can predict the likely next step of an intrusion, you triage faster and hunt smarter. This behavioral fluency is what makes senior analysts trust your escalations."
+        },
+        {
+              "heading": "Actionable Takeaway",
+              "body": "You don't level up by memorizing every tool. You level up by owning investigations end to end, hunting against real ATT&CK techniques, and writing analysis others can act on. Pick one technique this week, write a hunt query in Splunk or QRadar, and document what normal looks like. Do that consistently and the L2 title tends to follow the skill. For more SOC workflow breakdowns and hands-on notes, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
