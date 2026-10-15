@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "qradar-offense-tuning-reducing-alert-fatigue",
+    title: "QRadar Tuning: Cut Offense Noise and Alert Fatigue",
+    date: "2026-08-24",
+    excerpt: "A practical guide to QRadar tuning and offense correlation that reduces alert fatigue without hiding real threats.",
+    readingTime: "6 min read",
+    tags: ["QRadar","SIEM","SOC","Detection Engineering"],
+    keywords: ["QRadar tuning","QRadar offense correlation","alert fatigue reduction","QRadar SIEM","SOC analyst","offense tuning"],
+    content:   [
+        {
+              "body": "If you work a SOC console for more than a week, you learn that QRadar tuning is the difference between a manageable queue and total burnout. Poor QRadar offense correlation floods analysts with duplicate, low-value offenses, and alert fatigue reduction becomes the single highest-leverage thing you can do. As an L1 analyst triaging alerts every shift, I can tell you that most 'QRadar problems' are actually tuning problems. The good news: solid offense tuning is methodical, repeatable, and doesn't require ripping out your rule set. This post walks through the practical QRadar tuning steps I lean on to reduce noise while keeping real detections intact."
+        },
+        {
+              "heading": "Start With Your Noisiest Offenses",
+              "body": "Before touching a single rule, get data on what's actually generating volume. In QRadar, use the Offenses tab and sort by offense count, then pull the top rules driving those offenses. You can also run an AQL search against the events feeding them. The Pareto principle holds here: a small handful of rules usually generate the majority of your low-value offenses. Common culprits are broad authentication rules, vulnerability scanner traffic misread as attacks, and internal admin tools tripping suspicious-activity logic. Rank offenses by frequency and by how often analysts close them as false positives. That ranked list is your tuning backlog, and it keeps you working on impact instead of guessing."
+        },
+        {
+              "heading": "Fix the Data Before the Rules",
+              "body": "A lot of noisy offenses trace back to bad log source configuration, not bad rules. Check that DSMs are parsing events correctly and that fields like username, source IP, and event category are mapped properly. Unparsed or misparsed events cause rules to fire on the wrong context. Building and maintaining reference sets is one of the highest-value moves for alert fatigue reduction: keep sets for scanner IPs, known admin accounts, service accounts, and approved jump hosts, then reference them in rule tests. Fixing parsing and reference data often quiets an offense category without you weakening the detection at all."
+        },
+        {
+              "heading": "Tune Rules With Building Blocks, Not Deletion",
+              "body": "The instinct to disable a noisy rule is understandable and usually wrong. Instead, refine QRadar offense correlation using building blocks (BBs). Add exclusion tests for known-good behavior, require additional conditions before an offense triggers, and use 'and NOT' logic against your reference sets. For example, a brute-force rule can require multiple failures followed by a success, and exclude vulnerability scanners. You can also raise thresholds and shorten or lengthen the time window so a rule reflects real attack tempo. Document every change with a reason so the next analyst understands why the exclusion exists."
+        },
+        {
+              "heading": "Improve Correlation and Grouping",
+              "body": "Alert fatigue reduction is not only about fewer offenses, it's about better ones. Configure offense indexing and use the 'index offense by' field wisely so related events collapse into a single investigable offense rather than dozens of fragments. Set sensible offense chaining and event-limit values so one incident doesn't spawn a wall of duplicates. When you map surviving rules to MITRE ATT&CK techniques, analysts get context up front and triage faster. Good correlation means the offenses that reach the queue are already halfway toward a decision."
+        },
+        {
+              "heading": "Measure and Iterate",
+              "body": "Treat tuning as an ongoing loop, not a one-time cleanup. Track false-positive close rates per rule and revisit your top offenders on a regular cadence, because environments drift as new log sources and applications come online. Keep a simple tuning log of what changed and why. Where it makes sense, use QRadar's APIs with Python to pull offense stats for reporting, so you're making decisions on evidence rather than gut feel."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "Effective QRadar tuning is disciplined, not dramatic. Start with your noisiest offenses, fix parsing and reference data, refine rules with building blocks instead of deleting them, and tighten offense correlation so analysts see fewer, richer alerts. Do this consistently and alert fatigue reduction follows naturally. For more SOC and detection walkthroughs, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
