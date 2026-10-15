@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "how-to-reduce-false-positives-in-splunk",
+    title: "How to Reduce False Positives in Splunk: A Guide",
+    date: "2026-08-28",
+    excerpt: "A practical, SOC-tested approach to reducing Splunk false positives through smart alert tuning and noise reduction.",
+    readingTime: "5 min read",
+    tags: ["Splunk","SOC","Detection Engineering","Alert Tuning"],
+    keywords: ["Splunk false positives","alert tuning","reduce noise","Splunk optimization","SOC analyst","SIEM tuning"],
+    content:   [
+        {
+              "body": "If you work a SOC queue, you already know the pain: Splunk false positives eat your day alive. As an L1 analyst triaging alerts daily, I've learned that reducing noise isn't about disabling detections — it's about disciplined alert tuning. Splunk optimization done right means your high-fidelity alerts actually get looked at, and your analysts stop suffering from alert fatigue. This post walks through the practical steps I use to reduce false positives in Splunk without losing detection coverage, so your queue reflects real threats instead of the same benign activity over and over."
+        },
+        {
+              "heading": "Start by Measuring Your Noisiest Rules",
+              "body": "Before you tune anything, find out what's actually generating the noise. Run a search over your notable events index (or the index feeding your correlation searches) and aggregate by search name and disposition. Something like `index=notable | stats count by search_name, disposition | sort -count` gives you a ranked list. In most SOCs, a handful of rules produce the majority of false positives. Focus there first. There's no point micro-tuning a rule that fires twice a week when one detection is spamming your queue hundreds of times. Let the data tell you where to spend effort."
+        },
+        {
+              "heading": "Tune With Context, Not Just Thresholds",
+              "body": "The lazy fix is raising a threshold until the noise stops. That often blinds you to real activity. Better alert tuning uses context. Ask what makes the benign hits benign: a known scanner IP, a service account doing scheduled logons, a patch server reaching out to a lot of hosts. Then encode that context. Use lookups (`inputlookup`) for allowlists of expected service accounts or vulnerability scanners, and reference them in your SPL with `NOT [| inputlookup known_scanners.csv]`. Lookups are easier to maintain than hardcoded values buried in a search, and other analysts can update them without rewriting the detection."
+        },
+        {
+              "heading": "Use Lookups and Suppression Windows",
+              "body": "Splunk Enterprise Security supports throttling and suppression on correlation searches — use them. If a detection fires repeatedly on the same host and user within a short period, a suppression window (throttle by `src`, `user`, or `dest`) collapses the duplicates into a single notable. This alone cuts a lot of noise for detections like repeated failed logons. Pair suppression with fields like `earliest`/`latest` scheduling so a search doesn't overlap its own window and double-count events. The goal is one alert per meaningful event, not one alert per raw log line."
+        },
+        {
+              "heading": "Map Detections to MITRE ATT&CK to Judge Value",
+              "body": "When you're deciding whether a noisy rule is worth keeping, map it to MITRE ATT&CK. If a detection covers a technique you have no other coverage for, tuning it carefully matters more than muting it. If three other rules already cover the same technique with higher fidelity, you can safely make the noisy one broader in suppression. Tying detections to ATT&CK also helps you document why a rule exists, which makes tuning decisions defensible during reviews and hand-offs between shifts."
+        },
+        {
+              "heading": "Automate the Boring Parts With Python",
+              "body": "Some enrichment is repetitive: checking a URL or IP against threat intel, decoding a suspicious string, pulling WHOIS data. You can call the Splunk REST API with Python (the `requests` library works fine) to pull notable events, enrich them, and push context back. Automating enrichment doesn't tune the rule, but it lets an analyst dispose of a false positive in seconds instead of pivoting through five tabs. Less time per alert means more time to actually improve detections."
+        },
+        {
+              "heading": "Takeaway: Tune Continuously, Not Once",
+              "body": "Reducing Splunk false positives is ongoing work, not a one-time cleanup. Environments change, new service accounts appear, and detections drift. Review your noisiest rules on a regular cadence, keep your lookups current, and document every tuning decision so the next analyst understands it. Start with your top three noisiest searches this week — that's where Splunk optimization pays off fastest. Want more SOC-focused, hands-on writeups like this? Explore the rest of the portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
