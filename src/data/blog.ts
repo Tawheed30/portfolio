@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "building-home-soc-lab-500-budget",
+    title: "Building a Home SOC Lab on a $500 Budget",
+    date: "2026-09-04",
+    excerpt: "A practical guide to building a home SOC lab for hands-on learning without draining your wallet on a budget security training setup.",
+    readingTime: "6 min read",
+    tags: ["SOC","Home Lab","Blue Team","Training"],
+    keywords: ["home SOC lab","security lab setup","budget security training","hands-on learning","SOC analyst","detection engineering"],
+    content:   [
+        {
+              "body": "When people ask me how to break into blue team work, my answer is always the same: build a home SOC lab. A home SOC lab is the single best way to get hands-on learning that actually maps to what you'll do on the job. You don't need a data center or expensive certs to start — a solid security lab setup and budget security training environment can be assembled for around $500, and often less if you already own a decent machine. As an L1 analyst who spends my days triaging alerts, I can tell you the skills that matter most are the ones you practice, not the ones you read about."
+        },
+        {
+              "heading": "Plan the Hardware First",
+              "body": "The heart of any home SOC lab is a machine that can run several VMs at once. Aim for 32GB of RAM and a modern CPU with virtualization support — a used business-class desktop (Dell OptiPlex or HP EliteDesk) fits comfortably in a $300-$400 window on the secondhand market. Add a cheap SSD if the unit ships with a spinning disk. If you already have 16GB in your laptop, you can start smaller and expand later. Install a Type 2 hypervisor like VirtualBox (free) or VMware Workstation Player to host everything. This is the one place I'd spend the bulk of the budget, because RAM is what lets you run a SIEM, an attacker box, and a couple of victims simultaneously."
+        },
+        {
+              "heading": "Stand Up a SIEM for Free",
+              "body": "You don't need a licensed enterprise SIEM to learn the workflow. Splunk offers a free tier that ingests up to 500MB/day — more than enough for a lab, and it's the same product many SOCs run in production. That familiarity pays off. If you'd rather go fully open source, the Elastic Stack (Elasticsearch, Logstash, Kibana) or Wazuh give you log ingestion, dashboards, and alerting at zero cost. In my day-to-day I work in Splunk and QRadar, so I recommend at least getting comfortable with Splunk's search language (SPL) early — building queries and dashboards in a lab translates directly to real alert triage."
+        },
+        {
+              "heading": "Add Attack and Detection Tooling",
+              "body": "A SIEM with no data is boring. Spin up a Windows 10 evaluation VM (free 90-day license from Microsoft) and a Kali Linux box as your attacker. Install Sysmon on the Windows host with a well-tuned config like SwiftOnSecurity's to generate rich process and network telemetry. Forward those logs into your SIEM. For safe, repeatable attacks, use Atomic Red Team — a free library of tests mapped to MITRE ATT&CK techniques. Running an atomic test and then hunting for it in your own logs is the exact loop that builds detection instincts."
+        },
+        {
+              "heading": "Practice the Full Analyst Loop",
+              "body": "The real value of a home SOC lab is closing the loop: trigger an activity, see the alert fire, investigate the evidence, and map it back to a MITRE ATT&CK tactic and technique. That's the same process I follow when I triage phishing and endpoint alerts at work — collect evidence, correlate across logs, document, and decide whether to escalate. Practice writing short investigation notes for each test. Documentation is an underrated SOC skill, and a lab is a low-stakes place to build the habit."
+        },
+        {
+              "heading": "Where the $500 Goes",
+              "body": "Roughly: $350 for a used 32GB desktop, $50 for an SSD upgrade, and the rest as buffer for a network switch or a second cheap machine. Software — Splunk Free, Wazuh, VirtualBox, Sysmon, Atomic Red Team, Kali, Windows eval — costs nothing. That leaves plenty of room to stay under budget while getting a genuinely useful platform."
+        },
+        {
+              "heading": "Your First Week Plan",
+              "body": "Start today: install your hypervisor, build a Windows VM with Sysmon, ship logs into Splunk Free, then run a single Atomic Red Team test and hunt for it. That one exercise teaches more than a dozen tutorials. Iterate weekly, adding new techniques and detections. A home SOC lab turns passive study into hands-on learning that hiring managers actually notice — and it's the cheapest career investment I can recommend."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
