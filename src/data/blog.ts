@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "incident-response-first-30-minutes-checklist",
+    title: "Incident Response: First 30 Minutes Checklist",
+    date: "2026-08-07",
+    excerpt: "A practical cybersecurity incident checklist that walks SOC analysts through the critical first 30 minutes of incident response and incident management.",
+    readingTime: "6 min read",
+    tags: ["Incident Response","SOC","Blue Team","MITRE ATT&CK"],
+    keywords: ["incident response","incident management","cybersecurity incident checklist","SOC analyst","MITRE ATT&CK","Splunk investigation"],
+    content:   [
+        {
+              "body": "The first 30 minutes of incident response set the tone for everything that follows. As a SOC analyst, I've learned that solid incident management isn't about panic or heroics — it's about having a repeatable cybersecurity incident checklist you can run without thinking too hard under pressure. When an alert fires in Splunk or QRadar and it looks real, those early minutes decide whether you contain the problem or watch it spread. This post breaks down a practical incident response checklist for the first half hour, focused on the triage and evidence work an L1/L2 analyst actually owns before escalation."
+        },
+        {
+              "heading": "Minute 0–5: Confirm It's Real",
+              "body": "Before you touch anything, validate the alert. False positives are the majority of what lands in the queue, so start by asking whether the detection logic actually fired on malicious behavior. Pull the raw event in Splunk or QRadar, check the source, and correlate the timestamp against other logs. Is this a known scanner? A misconfigured tool? A legitimate admin action? If you can't rule it out quickly, treat it as real. The goal here isn't certainty — it's a fast decision on whether to keep going or close it out with a documented reason."
+        },
+        {
+              "heading": "Minute 5–10: Scope the Blast Radius",
+              "body": "Once you believe it's a genuine incident, figure out how far it reaches. Identify the affected host, user account, and IP addresses. Query your EDR and endpoint logs for related process activity, and search firewall and IDS/IPS logs for lateral movement or outbound connections to suspicious destinations. In Splunk, pivot from the initial indicator (a hash, domain, or username) across your indexes to see if it appears elsewhere. Scoping early prevents the classic mistake of containing one machine while the same credentials are being abused on three others."
+        },
+        {
+              "heading": "Minute 10–15: Map to MITRE ATT&CK",
+              "body": "Framing the activity against MITRE ATT&CK turns a messy pile of logs into a story. Identify the technique you're seeing — say, T1566 for phishing, T1059 for command execution, or T1078 for valid accounts — and note what stage the attacker appears to be in. This isn't academic. Mapping helps you predict the next likely move, prioritize which logs to check, and communicate the situation clearly when you escalate. It also makes your documentation far more useful for the responders and analysts who pick up the case after you."
+        },
+        {
+              "heading": "Minute 15–25: Preserve Evidence and Document",
+              "body": "Containment often destroys evidence, so capture what you need first. Export the relevant Splunk or QRadar search results, screenshot alert details, and record indicators of compromise — hashes, URLs, domains, IPs — in your ticket. Note timestamps in UTC and the exact queries you ran so your work is reproducible. Clean documentation is the part of incident response that separates a useful handoff from a confusing one. If you're investigating a phishing case, preserve email headers and the malicious URL before any takedown or mailbox cleanup happens."
+        },
+        {
+              "heading": "Minute 25–30: Escalate or Contain per Workflow",
+              "body": "By now you should know whether this exceeds your authority. Follow your SOC's playbook: if containment (isolating a host via EDR, disabling an account, blocking a domain) is within your role, execute it and log the action. If it needs a senior analyst or incident response lead, escalate with a concise summary — what happened, affected assets, MITRE technique, evidence collected, and your recommendation. A tight handoff saves the next responder from re-doing your triage."
+        },
+        {
+              "heading": "The Takeaway",
+              "body": "The first 30 minutes of incident response reward preparation over improvisation. Build a written cybersecurity incident checklist, rehearse it against low-severity alerts, and keep your Splunk and QRadar queries handy. Good incident management comes from doing the boring steps consistently: validate, scope, map to MITRE ATT&CK, preserve evidence, then contain or escalate. Save a version of this checklist where you can reach it fast — you'll be glad you did when the real alert lands."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
