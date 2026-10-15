@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "l1-to-l2-soc-analyst-skills-what-actually-matters",
+    title: "L1 to L2 SOC Analyst Skills: What Actually Matters",
+    date: "2026-08-26",
+    excerpt: "The real L2 skills that move your SOC analyst career forward — threat hunting, incident response skills, and detection depth, minus the hype.",
+    readingTime: "6 min read",
+    tags: ["SOC","Career","Threat Hunting","Incident Response"],
+    keywords: ["SOC analyst career","L2 skills","threat hunting","incident response skills","MITRE ATT&CK","SIEM investigation"],
+    content:   [
+        {
+              "body": "If you're an L1 analyst wondering how to grow your SOC analyst career, the jump to L2 is less about memorizing tools and more about how you think. As someone working L1 alerts day to day, I've come to see that the L2 skills that actually matter are threat hunting instincts, stronger incident response skills, and the ability to reason about an alert instead of just closing it. This post cuts through the noise on what separates a solid L1 from someone ready for L2 — no certification checklist, just the skills hiring managers and shift leads actually notice."
+        },
+        {
+              "heading": "Stop Closing Alerts, Start Investigating Them",
+              "body": "The biggest L1 habit that holds people back is treating alerts as a queue to clear. At L2, the expectation flips: you're expected to pivot. When a phishing or malicious URL alert fires in Splunk or QRadar, don't just verify and escalate — ask what else that user or host did in the surrounding window. Pull the proxy logs, check EDR process telemetry, look for follow-on beaconing. The muscle you're building is correlation across data sources, which is exactly the reasoning L2 investigations demand. Practice this on every alert you touch now, even when the answer is 'benign.'"
+        },
+        {
+              "heading": "Learn to Speak MITRE ATT&CK Fluently",
+              "body": "Mapping alerts to MITRE ATT&CK is standard L1 work, but at L2 you use ATT&CK as a thinking framework, not a tagging exercise. If you see Initial Access via phishing, you should immediately be reasoning about likely next techniques — Execution, Persistence, Credential Access — and hunting for them proactively. Get comfortable navigating the matrix, understanding sub-techniques, and knowing which data source detects each. This is the backbone of threat hunting: forming a hypothesis anchored to adversary behavior, then searching your telemetry to prove or disprove it."
+        },
+        {
+              "heading": "Build Real Threat Hunting Reps",
+              "body": "Threat hunting is the L2 skill everyone lists and few practice. You don't need a fancy program to start. Take a technique — say, LOLBins abuse or suspicious PowerShell — write a hypothesis, and query your SIEM for it. In Splunk, that means getting genuinely good with SPL: stats, transaction, and building searches that surface anomalies rather than known-bad signatures. The goal isn't a perfect detection; it's the process of hunting without an alert telling you where to look. Even a few structured hunts a month build the pattern-recognition L2 roles rely on."
+        },
+        {
+              "heading": "Sharpen Your Incident Response Skills",
+              "body": "Strong incident response skills at L2 mean owning an investigation end to end: scoping, timeline building, and clear documentation that another analyst can act on. Learn to construct a clean timeline from firewall, EDR, IDS/IPS, and endpoint logs, and to write findings that state what happened, what's confirmed, and what's still unknown. Understanding containment options and the escalation workflow — not just executing them — is what turns you into someone the team trusts under pressure."
+        },
+        {
+              "heading": "Add Light Automation With Python",
+              "body": "You don't need to be a developer, but basic Python goes a long way. Parsing logs, enriching indicators against threat intel, or automating repetitive triage steps with libraries like requests and pandas saves time and signals initiative. Automating the boring parts of L1 work frees you to spend energy on the analysis that actually earns an L2 title."
+        },
+        {
+              "heading": "The Takeaway",
+              "body": "Moving from L1 to L2 isn't about collecting tools — it's about reasoning, hunting, and ownership. Pick one alert type this week, investigate it three layers deeper than required, and map it to MITRE ATT&CK end to end. Do that consistently and the L2 skills compound. Want more practical SOC analyst career notes? Explore the rest of my portfolio for hands-on writeups."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
