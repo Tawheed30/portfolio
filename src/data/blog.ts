@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "threat-intelligence-free-sources-soc-analysts",
+    title: "Threat Intelligence for SOC Analysts: Free Sources",
+    date: "2026-10-16",
+    excerpt: "A practical guide to free threat intel and threat intelligence feeds that help SOC analysts enrich alerts and speed up triage.",
+    readingTime: "6 min read",
+    tags: ["Threat Intelligence","SOC","OSINT","Blue Team"],
+    keywords: ["threat intelligence feeds","free threat intel","OSINT for SOC","SOC analyst","indicators of compromise","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "If you work in a SOC, you already know raw alerts rarely tell the full story. That's where threat intelligence feeds come in. Good free threat intel turns a bare IP or hash into context: is this a known C2 server, a phishing host, or just noise? As an L1 analyst triaging Splunk and QRadar alerts, I lean on OSINT for SOC work constantly to decide what to escalate and what to close. The best part is that a surprising amount of high-quality threat intelligence is free. In this post I'll walk through the free threat intel sources I actually reach for and how to wire them into day-to-day triage."
+        },
+        {
+              "heading": "Why Free Threat Intel Still Matters",
+              "body": "Enterprise TI platforms are great, but not every team has one, and not every alert justifies a paid lookup. Free threat intelligence feeds cover a huge portion of day-to-day enrichment: reputation checks on IPs and domains, malware hash lookups, and phishing URL verdicts. For an L1 investigating a suspicious URL or a firewall hit, that's usually enough to make a confident triage call. The goal isn't to replace a commercial feed — it's to add context fast so you're not escalating blind or sitting on false positives."
+        },
+        {
+              "heading": "IP, Domain, and URL Reputation",
+              "body": "For reputation checks I start with AbuseIPDB and Cisco Talos Intelligence, which give community-driven and vendor context on IPs and domains. VirusTotal is the obvious one for files, URLs, and IPs — the free tier is rate-limited but fine for manual triage. URLhaus (from abuse.ch) is excellent for malicious URL and payload hosting, and it publishes downloadable feeds. When I'm investigating a phishing link, these three together usually confirm whether a host is known-bad or benign enough to close."
+        },
+        {
+              "heading": "Malware and Hash Intelligence",
+              "body": "abuse.ch runs several free resources worth bookmarking: MalwareBazaar for malware samples and hashes, ThreatFox for indicators of compromise, and Feodo Tracker for botnet C2 infrastructure. These are free threat intel feeds you can pull via API and cross-reference against EDR detections. If an endpoint alert fires on a hash, ThreatFox and MalwareBazaar often tell you the malware family and associated TTPs, which makes mapping the activity to MITRE ATT&CK far quicker."
+        },
+        {
+              "heading": "Mapping Intel to MITRE ATT&CK",
+              "body": "Indicators are only half the job — behavior is the other half. The MITRE ATT&CK framework is a free, authoritative source for mapping observed activity to techniques. When ThreatFox or a vendor report names a malware family, I check its known techniques on ATT&CK and look for corroborating signals in Splunk or QRadar. CISA advisories and vendor threat reports (Microsoft, Mandiant, and similar blogs) are also free OSINT for SOC analysts and often include ready-made ATT&CK mappings and detection guidance."
+        },
+        {
+              "heading": "Automating Lookups with Python",
+              "body": "Manual lookups don't scale once alert volume climbs. A small Python script using the requests library to hit the VirusTotal, AbuseIPDB, and ThreatFox APIs can enrich indicators automatically and drop results back into your case notes or a SIEM lookup table. Keep it simple: respect rate limits, cache results, and log sources for your evidence trail. Even a basic enrichment script typically reduces repetitive clicks and keeps your triage documentation consistent."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "You don't need a big budget to do solid threat intelligence as a SOC analyst. Start with AbuseIPDB, Talos, VirusTotal, and the abuse.ch family of feeds, map behavior to MITRE ATT&CK, and automate the repetitive lookups with Python. Build these free threat intel sources into your triage workflow and your escalations will carry real context. Want more hands-on SOC and OSINT walkthroughs? Check out the rest of the posts on my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
