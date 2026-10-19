@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "phishing-investigation-workflow-step-by-step",
+    title: "Phishing Investigation Workflow: Step-by-Step Guide",
+    date: "2026-10-19",
+    excerpt: "A practical phishing investigation workflow for SOC analysts covering email security, phishing detection, and incident response.",
+    readingTime: "6 min read",
+    tags: ["phishing","soc","incident-response","email-security"],
+    keywords: ["phishing investigation","email security","phishing detection","incident response","SOC analyst","MITRE ATT&CK"],
+    content:   [
+        {
+              "body": "Phishing is still one of the most common alerts that hit a SOC queue, and a solid phishing investigation workflow is what separates a fast, confident triage from guesswork. As an L1 analyst, most of my day involves phishing detection and email security triage, so I've learned that having a repeatable incident response process matters more than any single clever trick. This guide walks through the phishing investigation workflow I lean on for email-based alerts: how to collect evidence safely, analyze indicators, and escalate with clean documentation. The goal is consistency — treat every phishing investigation the same way so nothing slips through."
+        },
+        {
+              "heading": "Step 1: Preserve the Email Safely",
+              "body": "Before touching anything, grab the original message in a way that preserves evidence. Pull the full email headers and the raw .eml or .msg file rather than a forwarded copy, which strips header data. In most mail security platforms (Microsoft Defender for Office 365, Proofpoint, Mimecast) you can export the original message. Never click links or open attachments on a production host — use a sandbox or detonation environment. The point here is chain of custody: you want the artifact in its original state so later analysis holds up and so you can re-run checks if the alert reopens."
+        },
+        {
+              "heading": "Step 2: Analyze Headers and Sender Reputation",
+              "body": "Headers tell you most of the story. Check the authentication results — SPF, DKIM, and DMARC pass/fail — and trace the Received chain to find the true originating IP. A display name that says 'IT Support' while the actual sender domain is a lookalike is a classic phishing detection tipoff. I'll run the sending domain and IP against reputation sources and look at domain age; freshly registered domains are a strong signal. Mapping this to MITRE ATT&CK, you're usually looking at Phishing (T1566), often the spearphishing link (T1566.002) or attachment (T1566.001) sub-techniques."
+        },
+        {
+              "heading": "Step 3: Inspect URLs and Attachments",
+              "body": "For links, defang the URL first, then expand any shorteners and resolve redirect chains before submitting to a sandbox or URL analysis service. Watch for lookalike domains, credential-harvesting landing pages, and HTML attachments that render a fake login form locally. For attachments, grab the file hash and check it against threat intelligence before detonation. Office documents with macros, ISO/IMG containers, and script files (.js, .vbs, .lnk) are high-priority. Record every indicator — hashes, domains, IPs, URLs — because these become the IOCs you'll pivot on in the next step."
+        },
+        {
+              "heading": "Step 4: Scope the Impact in Your SIEM",
+              "body": "Now pivot in Splunk or QRadar to answer the question that actually matters: did anyone click, and was anyone else targeted? Search mail logs for the sender and subject to find all recipients, then query proxy, firewall, and EDR logs for connections to the malicious domain or IP. If a user hit the link, look for follow-on activity — credential use from unusual locations, new mailbox rules, or process execution tied to the attachment. Scoping turns a single alert into real incident response: you're measuring blast radius, not just confirming one bad email."
+        },
+        {
+              "heading": "Step 5: Contain, Document, and Escalate",
+              "body": "Based on scope, recommend containment: block the sender domain and IOCs at the gateway, quarantine or purge the message from other mailboxes, and flag affected users for password resets and session revocation if clicks occurred. Document everything — headers, IOCs, sandbox verdicts, affected users, and the MITRE ATT&CK mapping — in a clear case note so the next analyst or the escalation tier has full context. Clean documentation is the part people skip, and it's exactly what makes an escalation defensible."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "A repeatable phishing investigation workflow beats improvisation every time. Preserve the artifact, analyze headers and indicators, scope impact in your SIEM, then contain and document. Save your common Splunk and QRadar searches as a reusable playbook so every phishing detection follows the same path. Want more SOC-focused email security and incident response walkthroughs? Explore the rest of the portfolio for hands-on guides."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
