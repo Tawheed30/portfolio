@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "mitre-attack-mapping-detection-engineers",
+    title: "MITRE ATT&CK Detection: A Practical Mapping Guide",
+    date: "2026-10-23",
+    excerpt: "A hands-on guide to MITRE ATT&CK detection mapping and the detection engineering techniques that turn raw alerts into context.",
+    readingTime: "5 min read",
+    tags: ["MITRE ATT&CK","Detection Engineering","SOC","Threat Detection"],
+    keywords: ["MITRE ATT&CK detection","threat detection","detection engineering techniques","MITRE ATT&CK mapping","SOC analyst","Splunk detection"],
+    content:   [
+        {
+              "body": "If you work in a SOC, you've probably noticed that MITRE ATT&CK detection is everywhere — in alert names, dashboards, and vendor marketing. But mapping alerts to ATT&CK isn't just a compliance checkbox. Done right, it turns noisy signals into structured threat detection, and it's one of the most useful detection engineering techniques you can practice early in your career. As a SOC analyst, I map alerts to ATT&CK every day during triage, and the goal is always the same: understand what an adversary is actually trying to do, not just what a tool flagged."
+        },
+        {
+              "heading": "Why Map Detections to ATT&CK at All",
+              "body": "ATT&CK gives you a shared language for adversary behavior. Instead of describing an alert as 'suspicious PowerShell,' you can say it maps to T1059.001 (Command and Scripting Interpreter: PowerShell). That precision matters when you escalate: the analyst above you instantly knows the technique, the likely tactic (Execution), and what to look for next. Mapping also exposes coverage gaps. When you line your detections up against the matrix, blind spots in tactics like Persistence or Defense Evasion become obvious, which helps prioritize what to build next."
+        },
+        {
+              "heading": "Start With the Tactic, Then the Technique",
+              "body": "A common mistake is jumping straight to a sub-technique ID. Work top-down instead. Ask what the adversary's objective is — Initial Access, Lateral Movement, Exfiltration — then narrow to the technique and sub-technique. During phishing investigations, for example, I'll anchor on Initial Access (T1566, Phishing) and then follow the behavior into Execution or Credential Access if the user interacted with the payload. Tagging the tactic first keeps your mapping honest and prevents forcing an alert into an ID that doesn't quite fit."
+        },
+        {
+              "heading": "Encode ATT&CK Into Your Detection Logic",
+              "body": "The strongest approach is to bake technique IDs into the detection itself. In Splunk, add technique and tactic fields to your correlation search output so every alert arrives pre-tagged. In QRadar, use custom properties or rule naming conventions that carry the ATT&CK ID. That way, triage doesn't rely on an analyst remembering the mapping under pressure — the context travels with the alert. When you review your firewall, EDR, and endpoint log sources, note which techniques each source can realistically observe; log telemetry, not wishful thinking, decides what you can detect."
+        },
+        {
+              "heading": "Validate With the ATT&CK Navigator",
+              "body": "The MITRE ATT&CK Navigator is free and underused. Export your current detections, score each technique by coverage, and generate a heatmap of your matrix. This turns a vague feeling of 'we have good coverage' into a visual you can share. You can also layer threat intel on top — highlight techniques used by groups relevant to your industry, then compare against your detection layer. Where high-priority adversary techniques meet weak coverage, you've found your next detection engineering backlog item."
+        },
+        {
+              "heading": "Keep Mappings Accurate Over Time",
+              "body": "ATT&CK evolves, techniques get deprecated or split, and your telemetry changes as tooling gets swapped. Treat mappings as living metadata, not a one-time label. A simple Python script using the mitreattack-python library can pull the current framework and flag any technique IDs in your detections that no longer exist. Reviewing these periodically prevents your heatmap from slowly drifting into fiction."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "Good MITRE ATT&CK detection work isn't about tagging alerts for show — it's about structuring threat detection so context is built in and coverage gaps are visible. Start by mapping tactics before techniques, encode IDs directly into your Splunk or QRadar logic, and validate with the Navigator. These detection engineering techniques scale from a single analyst's triage habits up to a full detection program. For more SOC and detection engineering walkthroughs, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
