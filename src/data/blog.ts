@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: 5 Quick Wins for Analysts",
+    date: "2026-11-02",
+    excerpt: "Practical Python SOC automation scripts that cut alert triage time and let analysts focus on real threats.",
+    readingTime: "6 min read",
+    tags: ["Python","SOC","Automation","Threat Detection"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst scripting","alert triage automation","Python for security"],
+    content:   [
+        {
+              "body": "If you work a SOC queue, you already know most of the job is repetitive: pulling IP reputation, decoding URLs, reformatting logs, copying indicators into tickets. Python SOC automation is the fastest way to claw back time from that grind. As an L1 analyst, I lean on small security automation scripts daily — nothing fancy, just Python cybersecurity glue that turns five manual lookups into one command. You don't need to be a developer to benefit from Python SOC automation; you need a handful of scripts that handle the boring parts so you can spend attention on the alerts that actually matter."
+        },
+        {
+              "heading": "Start With IP and Domain Enrichment",
+              "body": "The highest-value first script is enrichment. When a Splunk or QRadar alert fires, you typically check an IP or domain against reputation sources anyway. A small Python script using the `requests` library can query the VirusTotal or AbuseIPDB API, pull the detection ratio, country, and last-seen data, and print a clean summary. Store your API key in an environment variable, not in the script. This single pattern removes a lot of tab-switching during triage, and it standardizes what enrichment data lands in your case notes so another analyst can follow your reasoning."
+        },
+        {
+              "heading": "Automate Phishing URL Defanging and Decoding",
+              "body": "Investigating phishing is bread-and-butter SOC work, and the links are often URL-encoded, base64-wrapped, or hidden behind redirects. Python handles all of this cleanly. Use `urllib.parse.unquote` to decode percent-encoding, the `base64` module to unwrap encoded payloads, and `requests` with `allow_redirects=False` to trace redirect chains safely without detonating anything. Add a quick defang helper that swaps `http` for `hxxp` and `.` for `[.]` before you paste indicators into a ticket. These are tiny functions, but together they make phishing triage faster and far less error-prone."
+        },
+        {
+              "heading": "Parse and Normalize Logs With pandas",
+              "body": "When you export raw logs from an EDR or firewall for deeper analysis, `pandas` is your friend. Load a CSV or JSON export into a DataFrame, filter by source IP or event ID, and group by user or host to spot outliers quickly. For example, counting failed logons per account surfaces potential brute-force activity in seconds. You can also use `pandas` to dedupe noisy alerts before you escalate. This keeps you from eyeballing thousands of rows and helps you build a cleaner evidence trail."
+        },
+        {
+              "heading": "Map Findings to MITRE ATT&CK Programmatically",
+              "body": "Documentation improves when you tie alerts to MITRE ATT&CK techniques consistently. The `mitreattack-python` library lets you pull technique details from the ATT&CK STIX data, so a script can take a technique ID like T1566 and return the name, tactic, and description to drop into your report. This small step keeps language consistent across tickets and makes handoffs to L2 cleaner — reviewers see the same technique framing every time rather than free-form notes."
+        },
+        {
+              "heading": "Keep Scripts Safe and Maintainable",
+              "body": "A few ground rules keep security automation scripts from becoming a liability. Never hardcode credentials — use environment variables or a secrets manager. Add basic error handling so a failed API call doesn't crash your triage mid-investigation. Use virtual environments so dependencies stay predictable, and pin your package versions. Keep scripts in a shared repo with short READMEs so the whole team benefits instead of everyone rebuilding the same tool. Treat your automation like production code, because in a SOC it effectively is."
+        },
+        {
+              "heading": "Your Takeaway",
+              "body": "You don't need a SOAR platform to start. Pick the one task you repeat most this week — IP enrichment or URL decoding is a great candidate — and write a 20-line Python script to handle it. That first quick win builds momentum for your Python cybersecurity toolkit, and each script compounds the time you save. For more hands-on SOC automation walkthroughs and detection notes, explore the rest of the portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
