@@ -11,8 +11,7 @@ export default function Contact() {
           <SectionHeading index="11" title="Contact" />
           <div className="max-w-xl">
             <p className="leading-relaxed text-muted">
-              Open to SOC Analyst, Cybersecurity Analyst, and SIEM Analyst
-              roles. Feel free to reach out — I usually reply within a day.
+              Open to Red Team Analyst, Penetration Tester, and Security Researcher roles. Feel free to reach out — I usually reply within a day.
             </p>
             <a
               href={`mailto:${profile.email}`}
