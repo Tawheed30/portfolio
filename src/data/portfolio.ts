@@ -2,11 +2,11 @@ export const siteUrl = "https://mohammedtawheed.dev";
 
 export const profile = {
   name: "Mohammed Tawheed",
-  title: "SOC Analyst",
+  title: "Red Team Analyst | Penetration Tester | CEH",
   tagline:
-    "SIEM Monitoring • Alert Triage • Incident Response • Splunk • QRadar • Python • MITRE ATT&CK",
-  location: "Dubai, UAE",
-  phone: "+971-585157488",
+    "Penetration Testing • Red Team Assessments • Vulnerability Validation • Nessus • Wireshark • Python",
+  location: "Bangalore, India",
+  phone: "+91-9980412233",
   email: "mohammedtawheed9317@outlook.com",
   resumeUrl: "/resume.pdf",
 };
@@ -31,41 +31,47 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    "I'm a SOC Analyst with 2+ years of hands on experience in SOC operations, SIEM monitoring, alert triage, threat detection, and incident response.",
-    "I analyze events across Splunk, QRadar, firewalls, EDR, IDS/IPS, Windows Event Logs, and network traffic — skilled in IOC analysis, MITRE ATT&CK mapping, threat intelligence checks, and evidence documentation.",
-    "I also build Python-based detection automation for Blue Team workflows, including SOAR and detection projects that speed up IOC lookups and evidence documentation.",
-    "Certified EC-Council CSA (Certified SOC Analyst), CEH (Certified Ethical Hacker), CCSE (Certified Cloud Security Engineer), and CTIA (Certified Threat Intelligence Analyst).",
+    "Junior Red Team Analyst and Penetration Tester with 2+ years of cybersecurity experience, including 1 year of hands-on penetration testing across web applications, networks, and infrastructure environments.",
+    "I conduct authorized penetration tests and red team assessments, performing reconnaissance, attack-surface mapping, vulnerability validation, and exploit testing. Skilled in identifying security weaknesses, mapping findings to MITRE ATT&CK, and preparing clear remediation reports.",
+    "My previous SOC experience with Splunk, QRadar, log analysis, and network monitoring provides a strong understanding of both attacker and defender perspectives, enabling effective red team operations.",
+    "Certified EC-Council CEH (Certified Ethical Hacker), CSA (Certified SOC Analyst), CCSE (Certified Cloud Security Engineer), and CTIA (Certified Threat Intelligence Analyst).",
   ],
 };
 
 export const achievements = [
-  "Reduced false-positive escalations by 20% through improved alert triage and validation across Splunk and QRadar, while consistently handling 20-30 alerts/day.",
-  "Maintained SLA adherence above 95% across P1-P3 incidents, ensuring timely escalation and response in a live SOC environment.",
-  "Cut average phishing investigation time by ~20% by applying Python-based automation to accelerate IOC lookups and evidence documentation.",
+  "Executed 20+ penetration testing assessments across web, network, and infrastructure targets.",
+  "Discovered and validated 50+ security findings, including multiple High and Critical vulnerabilities.",
+  "Reduced false positives through effective vulnerability validation and exploit testing.",
+  "Supported investigation of 30+ security incidents and alerts using enterprise SIEM platforms.",
 ];
 
 export const experience = [
   {
     company: "HashSlash",
-    role: "SOC Analyst L1",
+    role: "Red Team Analyst",
     period: "February 2024 — August 2026",
     highlights: [
-      "Triaged 10-20 SIEM alerts/day across Splunk and QRadar, validating events and escalating confirmed incidents per SOC workflows while reducing false positives by 20%.",
-      "Maintained SLA adherence above 95% across P1-P3 incidents by monitoring firewall, EDR, IDS/IPS, endpoint, server, authentication, and network traffic logs for suspicious activity and IOCs.",
-      "Investigated 5-10 phishing and malicious URL cases/month plus brute-force and suspicious login alerts, documenting evidence, severity, impact, and recommended response actions.",
-      "Mapped 10+ MITRE ATT&CK techniques across investigations and built Python-based automation for Blue Team workflows, cutting average phishing investigation time by ~30%.",
+      "Conducted authorised penetration tests and red team assessments across network, infrastructure and web application targets within agreed scope and rules of engagement.",
+      "Performed reconnaissance, asset discovery, service enumeration and attack-surface mapping to identify exposed services and likely entry points.",
+      "Validated exploitable weaknesses and separated actionable issues from false positives to demonstrate real security impact.",
+      "Built and analyzed attack paths from initial access toward target objectives and mapped adversary behaviour to MITRE ATT&CK.",
+      "Used Nessus for supporting vulnerability scanning and Wireshark for traffic analysis; reviewed service configurations and controls for misconfigurations.",
+      "Produced evidence-backed reports covering scope, methodology, proof of concept, severity, business impact and prioritised remediation.",
+      "Briefed technical stakeholders, supported remediation prioritisation and retested fixes to confirm closure.",
     ],
-    tech: ["Splunk", "QRadar", "MITRE ATT&CK", "Incident Response"],
+    tech: ["Penetration Testing", "Nessus", "Wireshark", "MITRE ATT&CK", "Red Team"],
   },
   {
     company: "AndyInfosec",
     role: "Cybersecurity Intern",
     period: "January 2023 — January 2024",
     highlights: [
-      "Supported SIEM monitoring, alert validation, incident response, phishing analysis, and vulnerability assessment using standard security tools.",
-      "Performed threat analysis on 10+ cases/month using authentication logs, firewall events, and packet captures; prepared incident notes and security reports with senior analysts.",
+      "Monitored and validated SIEM alerts using Splunk, IBM QRadar and Security Onion, following standard SOC procedures.",
+      "Investigated phishing emails and malicious URLs; supported incident response and vulnerability assessment activities.",
+      "Analyzed authentication logs, firewall events and packet captures to detect suspicious activity and support threat investigations.",
+      "Prepared investigation notes and security reports with senior analysts.",
     ],
-    tech: ["Splunk", "QRadar", "Vulnerability Assessment"],
+    tech: ["Splunk", "QRadar", "Security Onion", "Incident Response"],
   },
 ] as const;
 
@@ -79,14 +85,14 @@ export const education = [
 
 export const certifications = [
   {
-    name: "Certified SOC Analyst (CSA)",
-    issuer: "EC-Council",
-    id: "ECC8120457369",
-  },
-  {
     name: "Certified Ethical Hacker (CEH)",
     issuer: "EC-Council",
     id: "ECC0562384197",
+  },
+  {
+    name: "Certified SOC Analyst (CSA)",
+    issuer: "EC-Council",
+    id: "ECC8120457369",
   },
   {
     name: "Certified Cloud Security Engineer (CCSE)",
@@ -99,6 +105,7 @@ export const certifications = [
     id: "ECC3476985012",
   },
 ] as const;
+
 export const projects = [
   {
     title: "SOC Log-Based Threat Detection System",
@@ -183,58 +190,56 @@ export const projects = [
 
 export const skills = [
   {
-    category: "SOC & SIEM",
+    category: "Red Team & Penetration Testing",
+    items: [
+      "Penetration Testing",
+      "Red Team Assessments",
+      "Vulnerability Validation",
+      "Exploit Testing",
+      "Attack-Surface Mapping",
+      "Reconnaissance",
+      "Service Enumeration",
+      "Proof of Concept Development",
+      "Remediation Verification",
+    ],
+  },
+  {
+    category: "Security Tools & Scanning",
+    items: [
+      "Nessus",
+      "Wireshark",
+      "Burp Suite",
+      "Metasploit",
+      "Network Reconnaissance",
+      "Port Scanning",
+      "Web Application Testing",
+      "Infrastructure Assessment",
+    ],
+  },
+  {
+    category: "Blue Team & SIEM",
     items: [
       "Splunk",
       "QRadar",
       "Security Onion",
       "SOC Operations",
-      "Cyber Defense Center Support",
       "SIEM Monitoring",
       "Alert Triage",
       "Incident Response",
-      "Security Monitoring",
-      "Security Reporting",
+      "Log Analysis",
     ],
   },
   {
-    category: "Detection & Log Analysis",
+    category: "Detection & Analysis",
     items: [
       "Windows Event Logs",
       "Firewall Logs",
       "EDR Alerts",
       "IDS/IPS Alerts",
-      "Authentication Logs",
       "Packet Analysis",
       "IOC Analysis",
       "Threat Detection",
-      "Basic Threat Hunting",
-    ],
-  },
-  {
-    category: "Security Investigations",
-    items: [
-      "Phishing Investigation",
-      "Malicious URL Analysis",
-      "Incident Handling",
-      "Severity Classification",
-      "Evidence Documentation",
-      "Escalation",
-      "Basic Digital Forensics",
-    ],
-  },
-  {
-    category: "Network & Vulnerability Security",
-    items: [
-      "Wireshark",
-      "Nessus",
-      "TCP/IP",
-      "DNS",
-      "VPN",
-      "Firewalls",
-      "IDS/IPS",
-      "Vulnerability Assessment",
-      "Risk Assessment",
+      "MITRE ATT&CK Mapping",
     ],
   },
   {
