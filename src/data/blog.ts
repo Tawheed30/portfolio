@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "qradar-offense-tuning-reducing-alert-fatigue",
+    title: "QRadar Tuning: Cut Alert Fatigue With Smart Offenses",
+    date: "2026-11-04",
+    excerpt: "Practical QRadar tuning techniques to reduce alert fatigue through better offense correlation and rule hygiene.",
+    readingTime: "6 min read",
+    tags: ["QRadar","SIEM","SOC","Alert Tuning"],
+    keywords: ["QRadar tuning","QRadar offense correlation","alert fatigue reduction","QRadar rules","SOC alert triage","SIEM tuning"],
+    content:   [
+        {
+              "body": "If you work a SOC shift, you already know the enemy isn't just attackers — it's noise. QRadar tuning is one of the highest-leverage skills an analyst can build, because good QRadar offense correlation is the difference between a focused queue and endless alert fatigue. As an L1 analyst triaging QRadar offenses daily, I've seen how a handful of chatty rules can bury the signals that actually matter. This post walks through practical alert fatigue reduction techniques I apply when tuning QRadar, from building rules to suppressing predictable false positives, so your offenses stay meaningful and actionable."
+        },
+        {
+              "heading": "Start By Measuring Your Noisiest Offenses",
+              "body": "Before tuning anything, find out what's actually flooding your queue. QRadar's Rule Report (under Reports) and the Offenses tab sorted by count expose which rules generate the most offenses. Pull the offenses created over the last 7–30 days and group by rule name. You'll typically find a small set of rules responsible for the bulk of your volume. Those are your tuning targets. Don't guess — tune based on data. A rule firing hundreds of times a day that almost always resolves as benign is your clearest alert fatigue reduction opportunity."
+        },
+        {
+              "heading": "Tune Rule Logic, Not Just Thresholds",
+              "body": "The lazy fix is bumping a threshold. The better fix is improving QRadar offense correlation. Use building blocks (BB:) to encode known-good behavior: internal scanners, vulnerability assessment hosts, backup servers, and service accounts that legitimately generate volume. Reference those building blocks in your rule's 'and NOT when' conditions so expected activity never creates an offense in the first place. This keeps the rule sensitive to real deviations while silencing predictable noise. Tuning logic instead of thresholds preserves detection coverage — a threshold bump can quietly blind you to a slow, low-volume attack."
+        },
+        {
+              "heading": "Use Reference Sets and Allowlists Wisely",
+              "body": "Reference sets are a clean way to manage exceptions without editing rule logic every week. Maintain reference sets for approved admin workstations, known jump hosts, and sanctioned external IPs. Rules can then test membership dynamically. The caution: an allowlist is also an attacker's dream if it's too broad. Keep entries scoped, documented, and reviewed. When I add something to an allowlist during triage, I note why and when — because a reference set nobody audits becomes a blind spot. Pair this with expiration times on reference set entries where temporary exceptions are needed."
+        },
+        {
+              "heading": "Correlate Across Events to Raise Fidelity",
+              "body": "Single-event rules are noisy by nature. Higher-fidelity offenses come from sequence and context. Build rules that require multiple conditions — for example, a suspicious authentication followed by anomalous data access within a time window. QRadar's event and flow correlation, combined with MITRE ATT&CK mapping on the rule, helps you reason about whether an offense represents a real technique chain or an isolated blip. Mapping offenses to ATT&CK also makes escalation documentation faster, since the technique context travels with the alert."
+        },
+        {
+              "heading": "Review Tuning on a Cadence",
+              "body": "Tuning isn't a one-time project. Environments change: new apps deploy, log sources get onboarded, user behavior shifts. Set a recurring review — monthly works well — to re-pull your noisiest offenses and validate that previous tuning still holds. Document every change with a reason so the next analyst (or future you) understands why a condition exists. Treating tuning as living maintenance is what keeps alert fatigue reduction durable instead of temporary."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "Effective QRadar tuning is about precision, not suppression. Measure your noisiest rules, improve offense correlation with building blocks and reference sets, raise fidelity through multi-condition logic, and review on a cadence. Done right, your queue surfaces the offenses worth investigating and spares your analysts from drowning. For more SOC and SIEM tuning walkthroughs, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
