@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "incident-response-first-30-minutes-checklist",
+    title: "Incident Response: The First 30 Minutes Checklist",
+    date: "2026-11-06",
+    excerpt: "A practical incident response checklist for the critical first 30 minutes of any cybersecurity incident, built from SOC triage experience.",
+    readingTime: "5 min read",
+    tags: ["Incident Response","SOC","Blue Team","SIEM"],
+    keywords: ["incident response","incident management","cybersecurity incident checklist","SOC triage","MITRE ATT&CK","Splunk investigation"],
+    content:   [
+        {
+              "body": "The first 30 minutes of incident response decide how painful the next 30 hours will be. As a SOC analyst, I've learned that strong incident management isn't about heroics — it's about having a repeatable cybersecurity incident checklist you run before adrenaline takes over. When an alert escalates into a real incident, the goal in those early minutes is simple: confirm, scope, contain, and document. This post walks through the incident response steps I lean on during triage, with real tools and no fluff, so you can move fast without skipping the evidence that matters later."
+        },
+        {
+              "heading": "Minute 0-5: Confirm It's Real",
+              "body": "Before you declare an incident, validate the alert. In Splunk or QRadar, pull the raw log that triggered the detection and read it — not the summary, the actual event. Check whether the detection logic fits the behavior or whether it's a known false positive (a scanner, a patch job, an admin script). Note the alert's severity, the detection rule name, and the timestamp in UTC. If it survives this sanity check, treat it as an incident and start a timeline immediately. A confirmed true positive with a documented first-seen time is far more useful than a vague 'something's wrong.'"
+        },
+        {
+              "heading": "Minute 5-15: Scope the Blast Radius",
+              "body": "Now figure out what's actually affected. Identify the source host, user account, process, and any external IPs or domains involved. Pivot in your SIEM: search the suspicious IP or hash across all logs to see if other endpoints touched it. Check EDR for process lineage — parent process, command line, and child processes tell you whether this is a one-off or lateral movement. Map what you're seeing to MITRE ATT&CK techniques as you go; even a rough mapping (e.g., T1059 for command execution) helps communicate severity to whoever you escalate to and guides what to look for next."
+        },
+        {
+              "heading": "Minute 15-20: Contain Without Destroying Evidence",
+              "body": "Containment should be deliberate, not panicked. For endpoint-level threats, EDR network isolation keeps a host online for investigation while cutting its ability to spread. Disable or force-reset compromised accounts. Block malicious IPs and domains at the firewall or proxy. Resist the urge to immediately reimage a machine — you may need memory and disk artifacts. The rule I follow: contain the spread first, preserve the evidence second, remediate third. Every containment action you take goes straight into your timeline with a timestamp and your initials."
+        },
+        {
+              "heading": "Minute 20-30: Document and Escalate",
+              "body": "Documentation isn't paperwork — it's the backbone of incident management. Capture indicators of compromise (IOCs): IPs, domains, file hashes, affected hostnames and users. Record what you've confirmed, what you've contained, and what's still unknown. Follow your SOC's escalation workflow: a clear handoff with context beats a frantic one with none. A short, structured note — 'Confirmed phishing-driven credential theft on HOST-X at 14:02 UTC, account isolated, IOCs attached, mapped to T1566' — gives L2/IR teams everything they need to continue without re-doing your work."
+        },
+        {
+              "heading": "Build the Checklist Before You Need It",
+              "body": "The best time to write your cybersecurity incident checklist is before an incident, not during one. Keep a template that covers confirm, scope, contain, document, and escalate, with the exact Splunk or QRadar searches you reuse most. Store common IOC-lookup queries and your ATT&CK mapping references somewhere you can reach in seconds. When the pressure hits, you'll execute instead of improvise."
+        },
+        {
+              "heading": "Takeaway",
+              "body": "Good incident response in the first 30 minutes comes down to discipline: confirm the alert, scope the impact, contain carefully, and document everything with timestamps. Turn these incident response steps into a written checklist, rehearse it, and refine it after each case. If you want more practical SOC and blue-team breakdowns like this, explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
