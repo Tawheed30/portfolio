@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "incident-response-first-30-minutes-checklist",
+    title: "Incident Response: The First 30 Minutes Checklist",
+    date: "2026-11-09",
+    excerpt: "A practical incident response checklist for the first 30 minutes of a cybersecurity incident, built from real SOC workflows.",
+    readingTime: "5 min read",
+    tags: ["incident response","SOC","blue team","SIEM"],
+    keywords: ["incident response","incident management","cybersecurity incident checklist","SOC analyst","MITRE ATT&CK","triage"],
+    content:   [
+        {
+              "body": "The first 30 minutes of any incident response effort usually decide how painful the rest of the day will be. As a SOC analyst, I've learned that strong incident management isn't about heroics — it's about having a cybersecurity incident checklist you can run calmly while alerts pile up in Splunk or QRadar. Good incident response at this stage is methodical, not frantic. This post walks through the checklist I actually lean on when an alert escalates past routine triage and starts to look like a real incident."
+        },
+        {
+              "heading": "Confirm It's Real Before You Panic",
+              "body": "The first job is validation. Plenty of 'incidents' turn out to be misconfigured scanners, pentests, or a noisy detection rule. Pull the raw event in your SIEM, check the source and destination, and confirm the alert actually fired on real malicious behavior. In Splunk, pivot from the notable event to the underlying logs; in QRadar, open the offense and review the contributing events. If the activity is genuine, note the detection timestamp — that becomes your anchor for the whole timeline."
+        },
+        {
+              "heading": "Capture Scope: What, Where, Who",
+              "body": "Before containment, quickly scope what you're dealing with. Which host, user account, or IP is involved? Is it one endpoint or several? Look at EDR telemetry for process trees and parent-child relationships, and check firewall and IDS/IPS logs for related connections. A simple set of questions — what asset, what account, what data, and what's the blast radius — keeps you from tunnel-visioning on a single alert while a wider compromise spreads elsewhere."
+        },
+        {
+              "heading": "Map the Behavior to MITRE ATT&CK",
+              "body": "Mapping observed activity to MITRE ATT&CK early does two things: it structures your investigation and it helps you anticipate the attacker's next move. If you see credential dumping (T1003) or suspicious PowerShell (T1059.001), you already have hypotheses about what to hunt for next. I document the techniques as I go rather than at the end — it makes handoffs and escalation cleaner, and it keeps your notes useful for whoever picks up the case after you."
+        },
+        {
+              "heading": "Contain Carefully, Document Everything",
+              "body": "Containment in the first 30 minutes is about stopping spread without destroying evidence. Isolating a host via EDR is usually safer than yanking the network cable, because you preserve volatile data. Avoid rebooting or wiping anything prematurely. Throughout, write down every action with timestamps — what you observed, what you did, and why. Clear evidence documentation is the difference between a defensible incident report and a confusing mess. Treat your notes as something a senior analyst or IR lead will read."
+        },
+        {
+              "heading": "Escalate per Your SOC Workflow",
+              "body": "Know when to hand off. Every mature SOC has an escalation path, and the first 30 minutes is when you decide whether this stays L1 or goes to incident responders and management. Don't sit on something above your authority — escalate with a tight summary: affected assets, confirmed malicious indicators, ATT&CK mapping, and actions already taken. A good escalation message lets the next person act immediately instead of re-investigating from scratch."
+        },
+        {
+              "heading": "Your 30-Minute Takeaway",
+              "body": "Build a repeatable incident response checklist you can run under pressure: validate, scope, map to MITRE ATT&CK, contain without destroying evidence, document, and escalate. Practice it on low-severity alerts so the muscle memory is there when something serious lands. The goal of good incident management isn't to solve everything in half an hour — it's to make sure the next 30 minutes are better than they would've been without a plan. Want more hands-on SOC and incident response notes? Explore the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
