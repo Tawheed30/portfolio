@@ -327,6 +327,43 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-11-11",
+    excerpt: "Practical Python SOC automation scripts that help L1 analysts cut repetitive work and triage alerts faster.",
+    readingTime: "6 min read",
+    tags: ["Python","SOC","Automation","Blue Team"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","alert triage automation","threat intelligence enrichment"],
+    content:   [
+        {
+              "body": "If you spend your shift copy-pasting IPs into VirusTotal and reformatting alert data by hand, Python SOC automation is the fastest way to buy back your time. As an L1 analyst, I lean on Python cybersecurity scripts for the boring, repeatable parts of triage so I can focus on the actual investigation. You don't need to be a developer — a handful of small security automation scripts can handle enrichment, parsing, and reporting. In this post I'll share the Python SOC automation quick wins that give the best return for the least effort, using tools you probably already touch like Splunk, QRadar, and MITRE ATT&CK."
+        },
+        {
+              "heading": "Automate Indicator Enrichment",
+              "body": "The highest-value quick win is enriching indicators automatically. Instead of manually checking each suspicious IP, domain, or hash, write a small script using the `requests` library to query VirusTotal, AbuseIPDB, or your threat intel feed's API. Feed it a list of indicators, get back a clean summary of reputation scores, categories, and last-seen dates. This typically removes minutes of tab-switching per alert. Keep API keys in environment variables, add basic rate-limit handling, and cache results so you're not re-querying the same indicator all day. Even a 40-line script here changes how fast you can close phishing and malicious-URL tickets."
+        },
+        {
+              "heading": "Parse and Normalize Logs Faster",
+              "body": "A lot of triage time disappears into reading messy log output. Python's `re`, `json`, and `csv` modules make short work of normalizing data. When I pull raw events from an export or a firewall log, a quick parser can extract just the fields I care about — source, destination, user, action, timestamp — and dump them into a tidy table. For EDR and proxy logs, `pandas` is worth learning: filtering, grouping, and spotting outliers in a DataFrame is far quicker than scrolling. These security automation scripts don't replace Splunk or QRadar searches; they help you post-process results into something you can actually hand off in an escalation."
+        },
+        {
+              "heading": "Map Alerts to MITRE ATT&CK",
+              "body": "Documenting technique IDs is tedious but expected in good SOC workflow. You can build a small lookup that takes observed behavior keywords and suggests candidate MITRE ATT&CK techniques, pulling from the official ATT&CK data. The `mitreattack-python` library lets you query the framework programmatically so your notes stay consistent and reference real technique IDs. This won't decide classification for you, but it standardizes how you tag and write up alerts — which matters when a tier-2 analyst or IR lead reviews your work."
+        },
+        {
+              "heading": "Generate Reports Without the Grind",
+              "body": "End-of-shift and incident summaries are a natural fit for automation. A script using `jinja2` templates can turn your structured findings — indicators, timeline, affected hosts, ATT&CK mappings — into a consistent Markdown or HTML report. Pair it with the enrichment output above and you have a near-complete draft to review and escalate. The goal isn't to remove analyst judgment; it's to stop retyping boilerplate so your evidence documentation is cleaner and faster."
+        },
+        {
+              "heading": "Start Small and Keep It Safe",
+              "body": "Begin with one script that solves a problem you hit every single shift — enrichment is my recommendation. Use a virtual environment, never hardcode credentials, and validate any input you parse. Add logging so you can troubleshoot when an API changes. Over time you'll build a personal toolkit of security automation scripts that make you measurably faster and more consistent."
+        },
+        {
+              "body": "Python SOC automation isn't about replacing analysts — it's about removing friction from the work you already do. Pick one quick win this week, ship a rough version, and iterate. Want more hands-on Python cybersecurity and SOC analysis write-ups? Explore the rest of my portfolio for walkthroughs, scripts, and detection notes."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
