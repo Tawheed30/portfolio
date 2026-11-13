@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "mitre-attack-mapping-detection-engineers",
+    title: "MITRE ATT&CK Detection: A Mapping Guide for SOCs",
+    date: "2026-11-13",
+    excerpt: "A practical guide to MITRE ATT&CK detection and mapping that helps SOC analysts and detection engineers turn alerts into context-rich coverage.",
+    readingTime: "6 min read",
+    tags: ["MITRE ATT&CK","Detection Engineering","SOC","Threat Detection"],
+    keywords: ["MITRE ATT&CK detection","threat detection","detection engineering techniques","MITRE ATT&CK mapping","SOC analyst","Splunk detection"],
+    content:   [
+        {
+              "body": "Mapping alerts to the framework is one of the most underrated skills in a SOC, yet MITRE ATT&CK detection is what separates a noisy alert queue from a coverage-driven one. As an L1 analyst, I lean on MITRE ATT&CK mapping every day to add context to triage, and it quietly improves threat detection across the board. Good detection engineering techniques start with a simple question: what adversary behavior does this alert actually represent? In this post I'll share how I use MITRE ATT&CK detection in practice with tools like Splunk, QRadar, and Python, without pretending it's magic."
+        },
+        {
+              "heading": "Start With Behavior, Not Just Indicators",
+              "body": "Indicators like IPs and hashes burn out fast. ATT&CK pushes you toward tactics and techniques that are harder for an attacker to change. When I investigate a phishing or malicious URL alert, I don't just note the domain — I ask which technique it maps to, such as T1566 (Phishing) or T1204 (User Execution). Thinking in techniques makes your detections more durable, because you're hunting the behavior rather than a single artifact that rotates weekly."
+        },
+        {
+              "heading": "Map Every Detection to a Technique ID",
+              "body": "A practical habit is tagging each detection rule with its ATT&CK technique and sub-technique ID in the rule metadata. In Splunk you can add this as a note or a custom field in the correlation search; in QRadar you can reference it in the rule description. When I document evidence and escalate, including the technique ID (for example T1059.001 for PowerShell) gives the next analyst immediate context and makes handoffs cleaner. It also sets up coverage reporting later."
+        },
+        {
+              "heading": "Build a Coverage Heatmap",
+              "body": "Once your detections carry technique IDs, you can visualize gaps. The ATT&CK Navigator is the free, official way to do this — export a layer file and color techniques by whether you have detection coverage. Teams commonly discover they're heavily weighted toward execution and lateral movement while initial access or defense evasion are thin. You don't need to cover all of ATT&CK; prioritize the techniques relevant to threats targeting your environment and industry."
+        },
+        {
+              "heading": "Automate Mapping With Python",
+              "body": "You don't have to do this by hand. The mitreattack-python library lets you pull the ATT&CK STIX data, look up technique names, and validate IDs programmatically. A small script can read your rule exports, check that every detection has a valid technique tag, and flag the ones that don't. This kind of lightweight automation keeps mapping consistent as your rule set grows and prevents typos like referencing a deprecated technique ID."
+        },
+        {
+              "heading": "Use Mapping to Sharpen Triage",
+              "body": "Mapping isn't only a documentation exercise — it speeds up triage. When an alert fires and I can see it maps to Credential Access, I immediately know what follow-on behavior to look for in EDR and firewall logs. Chaining techniques into a likely attack path helps me decide severity faster and reduces time wasted on alerts that are clearly benign. Mapping typically reduces guesswork and makes escalation decisions more defensible."
+        },
+        {
+              "heading": "Takeaway: Make Mapping a Default Habit",
+              "body": "You don't need an enterprise detection program to benefit from MITRE ATT&CK detection. Start small: tag your next ten detections with technique IDs, drop them into ATT&CK Navigator, and find your biggest coverage gap. Over time these detection engineering techniques compound into better, context-rich threat detection. If you want more practical SOC and detection notes, check out the rest of my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
