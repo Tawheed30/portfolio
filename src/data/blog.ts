@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "mitre-attack-mapping-detection-engineers",
+    title: "MITRE ATT&CK Detection Mapping for SOC Analysts",
+    date: "2026-11-16",
+    excerpt: "A practical guide to MITRE ATT&CK detection mapping that turns raw alerts into structured, defensible threat detection coverage.",
+    readingTime: "5 min read",
+    tags: ["MITRE ATT&CK","Detection Engineering","SOC","Threat Detection"],
+    keywords: ["MITRE ATT&CK detection","threat detection","detection engineering techniques","MITRE ATT&CK mapping","SOC analyst","Splunk detection"],
+    content:   [
+        {
+              "body": "If you triage alerts all day, you already know that MITRE ATT&CK detection is the glue that connects a noisy Splunk or QRadar alert to a real adversary behavior. As a SOC analyst, I map almost every alert I investigate to a tactic and technique, and it has quietly made my threat detection work far more consistent. Good MITRE ATT&CK mapping isn't about memorizing technique IDs — it's about describing what an attacker is actually doing so your detection engineering techniques stay grounded in behavior, not just indicators. This post breaks down how I approach that mapping day to day and how you can apply it to your own detections."
+        },
+        {
+              "heading": "Start With the Behavior, Not the Alert Name",
+              "body": "A vendor alert like \"Suspicious PowerShell Execution\" tells you almost nothing about intent. MITRE ATT&CK forces you to answer a better question: what tactic does this behavior serve? Encoded PowerShell downloading a payload maps cleanly to T1059.001 (Command and Scripting Interpreter: PowerShell) under Execution, often paired with T1105 (Ingress Tool Transfer). When I investigate phishing and malicious URLs, I'm usually looking at Initial Access (T1566) flowing into Execution and Persistence. Describing the chain in ATT&CK terms makes the escalation write-up clearer and helps the next analyst understand the story quickly."
+        },
+        {
+              "heading": "Map Detections to Techniques and Data Sources",
+              "body": "Every ATT&CK technique page lists relevant data sources — process creation, network traffic, authentication logs, command execution. This is gold for detection engineering because it tells you what telemetry you actually need before you write a rule. If you want to detect T1053.005 (Scheduled Task), you need process and scheduled-job logging from your EDR or Windows event logs feeding into Splunk or QRadar. Mapping a detection to both its technique and its required data source exposes blind spots fast: if the data source isn't being ingested, no amount of clever query writing will catch the behavior."
+        },
+        {
+              "heading": "Use the ATT&CK Navigator for Coverage Gaps",
+              "body": "The MITRE ATT&CK Navigator is a free layer-based heatmap you can color by detection coverage. Export your current detections, tag each with its technique, and shade the matrix. The cold, uncovered techniques become your backlog. Teams commonly find they're over-invested in Execution and Command-and-Control detections while Defense Evasion and Discovery stay thin. You don't need enterprise tooling for this — a spreadsheet and the Navigator JSON layer format are enough to make coverage visible and defensible to leadership."
+        },
+        {
+              "heading": "Automate the Tedious Parts With Python",
+              "body": "Mapping dozens of detections by hand gets repetitive, so I lean on Python for the boring parts. The mitreattack-python library lets you pull the ATT&CK STIX data programmatically, so you can validate technique IDs, auto-generate Navigator layers, and cross-check that every detection references a real, non-deprecated technique. A small script that reads your detection metadata and emits a coverage layer keeps your documentation honest and saves you from manually editing JSON. This is a low-effort, high-value habit for anyone doing detection engineering."
+        },
+        {
+              "heading": "Keep Mappings Honest and Reviewed",
+              "body": "A common mistake is slapping a technique ID on a detection just to look like you have coverage. One brittle regex matching a single tool does not mean you \"cover\" a technique with dozens of procedures. Be specific about what your detection actually catches, note the sub-technique when you can, and revisit mappings as ATT&CK releases new versions. Honest mapping builds trust in your coverage numbers — inflated mapping quietly hides risk."
+        },
+        {
+              "heading": "Your Takeaway",
+              "body": "Pick ten of your highest-volume alerts this week and map each to an ATT&CK technique and its required data source. You'll immediately see which detections are behavior-driven, which are just indicator noise, and where your telemetry gaps are. That exercise alone sharpens your threat detection instincts. Want more hands-on SOC and detection engineering walkthroughs? Explore the rest of my portfolio for practical breakdowns."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
