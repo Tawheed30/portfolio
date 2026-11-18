@@ -327,6 +327,44 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "python-soc-automation-quick-wins",
+    title: "Python SOC Automation: Quick Wins for Analysts",
+    date: "2026-11-18",
+    excerpt: "Practical Python SOC automation scripts that save time on triage, enrichment, and reporting without a big engineering project.",
+    readingTime: "5 min read",
+    tags: ["Python","SOC","Automation","Blue Team"],
+    keywords: ["Python SOC automation","security automation scripts","Python cybersecurity","SOC analyst tools","alert triage automation","threat intel enrichment"],
+    content:   [
+        {
+              "body": "If you work a SOC queue, Python SOC automation is the fastest way to buy back time. As an L1 analyst, most of my repetitive work (URL enrichment, hash lookups, log parsing) is exactly the kind of thing security automation scripts handle well. You don't need a SOAR platform or years of dev experience to start — a handful of small Python cybersecurity scripts can quietly remove the boring parts of triage. In this post I'll share practical quick wins I actually use, the libraries behind them, and how to keep them safe and maintainable."
+        },
+        {
+              "heading": "Start With Enrichment, Not Detection",
+              "body": "The highest-value, lowest-risk place to begin Python SOC automation is enrichment. When a Splunk or QRadar alert fires on a suspicious IP, domain, or hash, you usually pivot to the same few sources: VirusTotal, AbuseIPDB, and WHOIS. A short script using the `requests` library can query those APIs and return a clean summary. Instead of opening five browser tabs, you run `python enrich.py 185.x.x.x` and get reputation, ASN, and recent detections in one block. This typically cuts enrichment time to seconds and keeps your investigation notes consistent, which matters when you escalate per SOC workflow."
+        },
+        {
+              "heading": "Parse Logs and Defang URLs Automatically",
+              "body": "Phishing triage involves copying indicators out of emails and headers. Python's `re` module plus small helper libraries make this trivial. Write a function that extracts URLs, IPs, and sender domains from raw text, then defangs them (`hxxp://`, `[.]`) before you document evidence. The `iocextract` library handles a lot of this for you. For header analysis, parsing `Received` lines and SPF/DKIM/DMARC results into a readable table saves repeated manual reading. These are classic security automation scripts: no complex logic, just removing manual copy-paste that introduces errors."
+        },
+        {
+              "heading": "Query Splunk and QRadar From Python",
+              "body": "Both major SIEMs expose APIs. The `splunk-sdk` package lets you run saved searches and pull results into Python, and QRadar has a documented REST API you can hit with `requests`. A common quick win: a script that takes an indicator and runs a canned hunt across your index for recent matches, then outputs count and top hosts. This keeps your hunting repeatable and reduces the chance of a typo in a rushed search. Start read-only — pulling data is safe; pushing changes back into production tooling deserves review."
+        },
+        {
+              "heading": "Map Findings to MITRE ATT&CK",
+              "body": "Part of good documentation is tagging alerts to MITRE ATT&CK techniques. You can load the ATT&CK dataset using the `mitreattack-python` library and build a small lookup that suggests technique IDs based on keywords in an alert (e.g., `mshta`, `rundll32`, `powershell -enc`). It won't replace analyst judgment, but it speeds up consistent tagging in your tickets and helps newer analysts learn the framework."
+        },
+        {
+              "heading": "Keep Your Scripts Safe and Shareable",
+              "body": "A few rules keep Python cybersecurity tooling from becoming a liability: never hardcode API keys (use environment variables or a `.env` with `python-dotenv`), respect API rate limits, and log what the script does. Put everything in a simple Git repo with a README so teammates can reuse it. Write functions, not one giant block, so individual pieces are testable. Treat these as helpers that support your judgment, not black boxes that make decisions for you."
+        },
+        {
+              "heading": "Takeaway: Automate the Boring Parts First",
+              "body": "You don't need to rebuild your SOC to benefit from Python SOC automation. Pick one repetitive task this week — IOC enrichment is my recommendation — and script it with `requests` and a free API. Measure how much manual effort it removes, then expand. Small, reliable security automation scripts compound fast. Want more hands-on blue team write-ups and scripts? Explore the rest of my portfolio for walkthroughs on triage, detection, and ATT&CK mapping."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
