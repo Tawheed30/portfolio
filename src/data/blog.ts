@@ -327,6 +327,48 @@ export const posts: BlogPost[] = [
         }
   ]
   },
+  {
+    slug: "building-home-soc-lab-500-budget",
+    title: "Build a Home SOC Lab on a $500 Budget",
+    date: "2026-11-20",
+    excerpt: "A practical guide to building a home SOC lab for budget security training and real hands-on learning without breaking the bank.",
+    readingTime: "6 min read",
+    tags: ["SOC","Home Lab","Blue Team","Training"],
+    keywords: ["home SOC lab","security lab setup","budget security training","hands-on learning","SIEM lab","Splunk home lab"],
+    content:   [
+        {
+              "body": "If you want to break into SOC work, nothing beats a home SOC lab. I spent a year interning and now triage alerts daily as an L1 analyst, and the single best accelerator for hands-on learning was a security lab setup I could break and rebuild on my own time. The good news: budget security training doesn't require enterprise hardware. You can stand up a functional home SOC lab for under $500 — or less if you already own a decent laptop. This guide walks through the exact components, tools, and data sources I'd use to practice the skills that actually show up in a SOC job."
+        },
+        {
+              "heading": "Plan Your Hardware Budget",
+              "body": "The biggest cost is RAM, because SIEMs and endpoint agents are memory-hungry. Aim for a host with at least 16GB (32GB is ideal) and an SSD. A used business-class desktop (Dell OptiPlex or similar) runs $200–$350 on secondhand markets and handles 3–4 VMs comfortably. If you already have a capable machine, your effective budget drops to near zero — spend it on an extra RAM stick. Everything else in this lab is free and open source, so hardware is where your $500 actually goes."
+        },
+        {
+              "heading": "Pick Your Virtualization Layer",
+              "body": "Use VirtualBox or VMware Workstation Player (both free for personal use) to run everything on one host. Create an isolated internal network so your lab traffic never touches your home LAN or the internet unless you explicitly allow it. A typical home SOC lab topology: one SIEM VM, one or two Windows endpoint VMs, a Linux box, and optionally an attacker VM. Snapshots are your friend — take one before every experiment so you can roll back after you intentionally detonate something."
+        },
+        {
+              "heading": "Stand Up a SIEM",
+              "body": "This is the heart of the lab. Splunk offers a free license capped at 500MB/day of ingest, which is plenty for lab volumes and mirrors the search experience you'll use on the job. If you'd rather go fully open source, the Elastic Stack (Elasticsearch, Logstash, Kibana) with the Elastic Agent is excellent and closer to what many teams run. Either way, the goal is to get logs flowing and practice writing searches, building correlation logic, and triaging. If you can get a QRadar Community Edition instance running, that's worth exposure too since it appears in plenty of SOC environments."
+        },
+        {
+              "heading": "Generate Realistic Telemetry",
+              "body": "A SIEM with no data teaches you nothing. Install Sysmon on your Windows VMs with a solid config (SwiftOnSecurity's template is the standard starting point) to get rich process, network, and registry events. Ship those logs into your SIEM. For attack data, use the Atomic Red Team project to run small, mapped tests, then hunt for them. This is where hands-on learning clicks: you execute a technique, watch the telemetry appear, and build a detection for it."
+        },
+        {
+              "heading": "Map Everything to MITRE ATT&CK",
+              "body": "Every detection you build should tie back to a MITRE ATT&CK technique. This is exactly how real SOC alerts are framed, and practicing it in your lab makes the on-the-job workflow feel familiar. When you detonate an Atomic test for T1059 (Command and Scripting Interpreter), write the search that catches it, document the evidence, and note the ATT&CK ID — the same way you'd record findings in a ticket."
+        },
+        {
+              "heading": "Automate With Python",
+              "body": "Once alerts are flowing, add light automation with Python. Parse logs, enrich IOCs against free sources, or script repetitive searches via the Splunk or Elastic API. You don't need anything fancy — requests, pandas, and the json module go a long way. Scripting even simple enrichment demonstrates the exact mindset SOC teams want."
+        },
+        {
+              "heading": "Your Next Step",
+              "body": "Start small: one SIEM VM, one Windows endpoint with Sysmon, and a handful of Atomic Red Team tests mapped to MITRE ATT&CK. Build one detection a week, document it, and you'll have a portfolio of real work in a couple of months. That budget security training beats any certification cram — and it's how I'd recommend anyone get job-ready. Want to see detection write-ups in action? Explore more walkthroughs on my portfolio."
+        }
+  ]
+  },
 ];
 
 export function getPostBySlug(slug: string) {
